@@ -1,0 +1,55 @@
+{
+  "name": "material-kit",
+  "version": "2.0.6",
+  "description": "Home Service Provider website to find help when doing some day to day jobs.",
+  "main": "index.html",
+  "directories": {
+    "example": "root"
+  },
+  "scripts": {
+    "open-app": "gulp open-app",
+    "start": "npm run open-app",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjain16/HomeServiceProvider"
+  },
+  "keywords": [
+    "material kit",
+    "bootstrap material admin",
+    "bootstrap material kit",
+    "material design admin",
+    "material design",
+    "creative tim",
+    "html kit",
+    "html css kit",
+    "web kit",
+    "freebie",
+    "free bootstrap kit",
+    "css3 kit",
+    "bootstrap admin",
+    "bootstrap kit",
+    "frontend",
+    "responsive bootstrap kit"
+  ],
+  "author": "Tripti Jain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjain16/HomeServiceProvider/issues"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-install": "^1.1.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-open": "^3.0.1"
+  },
+  "homepage": "https://github.com/tjain16/HomeServiceProvider",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.1"
+  }
+}
