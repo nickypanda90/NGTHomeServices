@@ -30,10 +30,66 @@
   <link rel="stylesheet" type="text/css"
     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="../assets/fonts/font/flaticon.css">
+
   <!-- CSS Files -->
   <link href="../assets/css/material-kit.css?v=2.0.6" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <style>
+    /****** Style Star Rating Widget *****/
+    .rating-margin {
+      margin-top: 25px;
+    }
+
+    .rating {
+      border: none;
+      float: left;
+    }
+
+    .rating>input {
+      display: none;
+    }
+
+    .rating>label:before {
+      margin: 5px;
+      font-size: 1.25em;
+      font-family: FontAwesome;
+      display: inline-block;
+      content: "\f005";
+    }
+
+    .rating>.half:before {
+      content: "\f089";
+      position: absolute;
+    }
+
+    .rating>label {
+      color: #ddd;
+      float: right;
+    }
+
+    /***** CSS Magic to Highlight Stars on Hover *****/
+
+    .rating>input:checked~label,
+    /* show gold star when clicked */
+    .rating:not(:checked)>label:hover,
+    /* hover current star */
+    .rating:not(:checked)>label:hover~label {
+      color: #FFD700;
+    }
+
+    /* hover previous stars in list */
+
+    .rating>input:checked+label:hover,
+    /* hover current star when changing rating */
+    .rating>input:checked~label:hover,
+    .rating>label:hover~input:checked~label,
+    /* lighten current selection */
+    .rating>input:checked~label:hover~label {
+      color: #FFED85;
+    }
+  </style>
 </head>
 
 <body class="profile-page sidebar-collapse">
@@ -58,18 +114,19 @@
             </a>
             <div class="dropdown-menu dropdown-with-icons">
               <a href="./service-page.html?serviceType=carpetCleaning" class="dropdown-item">
-                Carpet Cleaning
-              </a>
-              <a href="./service-page.html?serviceType=homeCleaning"
-                class="dropdown-item">
-                Home Cleaning
+                <i class="flaticon-carpet"></i> Carpet Cleaning
+                <div class="ripple-container"></div></a>
+              <a href="./service-page.html?serviceType=homeCleaning" class="dropdown-item">
+                <i class="flaticon-mop"></i>Home Cleaning
+                <div class="ripple-container"></div>
               </a>
               <a href="./service-page.html?serviceType=painting" class="dropdown-item">
-                Painting
+                <i class="material-icons">format_paint</i> Painting
+                <div class="ripple-container"></div>
               </a>
-              <a href="./service-page.html?serviceType=plumbing"
-                class="dropdown-item">
-                Plumbing
+              <a href="./service-page.html?serviceType=plumbing" class="dropdown-item">
+                <i class="flaticon-pipeline"></i>Plumbing
+                <div class="ripple-container"></div>
               </a>
             </div>
           </li>
@@ -79,18 +136,20 @@
             </a>
             <div class="dropdown-menu dropdown-with-icons">
               <a href="./service-page.html?serviceType=gutterCleaning" class="dropdown-item">
-                Gutter Cleaning
+                <i class="flaticon-pipeline-1"></i>Gutter Cleaning
+                <div class="ripple-container"></div>
               </a>
-              <a href="./service-page.html?serviceType=masonry"
-                class="dropdown-item">
+              <a href="./service-page.html?serviceType=masonry" class="dropdown-item">
+                <i class="flaticon-brickwork"></i>
                 Masonry
               </a>
               <a href="./service-page.html?serviceType=roofing" class="dropdown-item">
-                Roofing
+                <i class="flaticon-roof"></i>Roofing
+                <div class="ripple-container"></div>
               </a>
-              <a href="./service-page.html?serviceType=windows"
-                class="dropdown-item">
-                Windows
+              <a href="./service-page.html?serviceType=windows" class="dropdown-item">
+                <i class="flaticon-window"></i>Window Cleaning
+                <div class="ripple-container"></div>
               </a>
             </div>
           </li>
@@ -99,24 +158,26 @@
               <i class="material-icons">more_horiz</i> More
             </a>
             <div class="dropdown-menu dropdown-with-icons">
-              <a href="./service-page.html?serviceType=fencing" class="dropdown-item">
-                Fencing
+              <a href="examples/service-page.html?serviceType=fencing" class="dropdown-item">
+                <i class="flaticon-fence-1"></i>Fencing
+                <div class="ripple-container"></div>
               </a>
-              <a href="./service-page.html?serviceType=handymen"
-                class="dropdown-item">
-                Handymen
+              <a href="examples/service-page.html?serviceType=handymen" class="dropdown-item">
+                <i class="flaticon-construction-and-tools"></i>Handymen
+                <div class="ripple-container"></div>
               </a>
-              <a href="./service-page.html?serviceType=landscaping" class="dropdown-item">
-                Landscaping
+              <a href="examples/service-page.html?serviceType=landscaping" class="dropdown-item">
+                <i class="flaticon-lawn-mower"></i>Landscaping
+                <div class="ripple-container"></div>
               </a>
-              <a href="./service-page.html?serviceType=pestControl"
-                class="dropdown-item">
-                Pest Control
+              <a href="examples/service-page.html?serviceType=pestControl" class="dropdown-item">
+                <i class="flaticon-pest-observation"></i>Pest Control
+                <div class="ripple-container"></div>
               </a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0);">
+            <a class="nav-link" href="./reviews.html">
               <i class="material-icons">rate_review</i> Reviews
             </a>
           </li>
@@ -130,94 +191,85 @@
       </div>
     </div>
   </nav>
-  <div class="page-header header-filter" data-parallax="true"
-    style="background-image: url('../assets/img/city-profile.jpg');"></div>
+  <div class="page-header header-filter " data-parallax="true"
+    style="background-image: url('../assets/img/austin-360.jpg'); background-position: center center;">
+  </div>
   <div class="main main-raised">
-    <div class="profile-content">
-      <div class="container">
+    <div class="container">
+      <div class="section section-contacts">
         <div class="row">
-          <div class="col-md-6 ml-auto mr-auto">
-            <div class="profile">
-              <div class="avatar">
-                <img src="../assets/img/faces/christian.jpg" alt="Circle Image"
-                  class="img-raised rounded-circle img-fluid">
+          <div class="col-md-8 ml-auto mr-auto">
+            <h2 class="text-center title">Write Reviews</h2>
+            <h4 class="text-center description">Please provide your comments and write reviews about service provided.
+            </h4>
+            <form class="contact-form">
+              <div class="row">
+                <div class="col-12">
+                  <select class="categories form-control">
+                    <option value="" selected>Select a Category</option>
+                    <option value="CCleaning">Carpet Cleaning</option>
+                    <option value="fencing">Fencing</option>
+                    <option value="GCleaning">Gutter Cleaning</option>
+                    <option value="handyman">Handymen</option>
+                    <option value="Hcleaning">Home Cleaning</option>
+                    <option value="landscaping">Landscaping</option>
+                    <option value="masonry">Masonry</option>
+                    <option value="Painting">Painting</option>
+                    <option value="pestcontrol">Pest Control</option>
+                    <option value="Plumbing">Plumbing</option>
+                    <option value="roofing">Roofing</option>
+                    <option value="windows">Windows</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <fieldset class="rating rating-margin">
+                    <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5"
+                      title="Awesome - 5 stars"></label>
+                    <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half"
+                      for="star4half" title="Pretty good - 4.5 stars"></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4"
+                      title="Pretty good - 4 stars"></label>
+                    <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half"
+                      for="star3half" title="Meh - 3.5 stars"></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3"
+                      title="Meh - 3 stars"></label>
+                    <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half"
+                      for="star2half" title="Kinda bad - 2.5 stars"></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2"
+                      title="Kinda bad - 2 stars"></label>
+                    <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half"
+                      for="star1half" title="Meh - 1.5 stars"></label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1"
+                      title="Sucks big time - 1 star"></label>
+                    <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf"
+                      title="Sucks big time - 0.5 stars"></label>
+                  </fieldset>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group bmd-form-group">
+                    <label class="bmd-label-floating">Your Name</label>
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group bmd-form-group">
+                    <label class="bmd-label-floating">Your Email</label>
+                    <input type="email" class="form-control">
+                  </div>
+                </div>
               </div>
-              <div class="name">
-                <h3 class="title">Christian Louboutin</h3>
-                <h6>Designer</h6>
-                <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
-                <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
-                <a href="#pablo" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a>
+              <div class="form-group bmd-form-group">
+                <label for="exampleMessage" class="bmd-label-floating">Your Message</label>
+                <textarea type="email" class="form-control" rows="4" id="exampleMessage"></textarea>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="description text-center">
-          <p>An artist of considerable range, Chet Faker &#x2014; the name taken by Melbourne-raised, Brooklyn-based
-            Nick Murphy &#x2014; writes, performs and records all of his own music, giving it a warm, intimate feel with
-            a solid groove structure. </p>
-        </div>
-        <div class="row">
-          <div class="col-md-6 ml-auto mr-auto">
-            <div class="profile-tabs">
-              <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" href="#studio" role="tab" data-toggle="tab">
-                    <i class="material-icons">camera</i> Studio
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#works" role="tab" data-toggle="tab">
-                    <i class="material-icons">palette</i> Work
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#favorite" role="tab" data-toggle="tab">
-                    <i class="material-icons">favorite</i> Favorite
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="tab-content tab-space">
-          <div class="tab-pane active text-center gallery" id="studio">
-            <div class="row">
-              <div class="col-md-3 ml-auto">
-                <img src="../assets/img/examples/studio-1.jpg" class="rounded">
-                <img src="../assets/img/examples/studio-2.jpg" class="rounded">
+              <div class="row">
+                <div class="col-md-4 ml-auto mr-auto text-center">
+                  <button class="btn btn-primary btn-raised">
+                    Submit Review
+                  </button>
+                </div>
               </div>
-              <div class="col-md-3 mr-auto">
-                <img src="../assets/img/examples/studio-5.jpg" class="rounded">
-                <img src="../assets/img/examples/studio-4.jpg" class="rounded">
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane text-center gallery" id="works">
-            <div class="row">
-              <div class="col-md-3 ml-auto">
-                <img src="../assets/img/examples/olu-eletu.jpg" class="rounded">
-                <img src="../assets/img/examples/clem-onojeghuo.jpg" class="rounded">
-                <img src="../assets/img/examples/cynthia-del-rio.jpg" class="rounded">
-              </div>
-              <div class="col-md-3 mr-auto">
-                <img src="../assets/img/examples/mariya-georgieva.jpg" class="rounded">
-                <img src="../assets/img/examples/clem-onojegaw.jpg" class="rounded">
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane text-center gallery" id="favorite">
-            <div class="row">
-              <div class="col-md-3 ml-auto">
-                <img src="../assets/img/examples/mariya-georgieva.jpg" class="rounded">
-                <img src="../assets/img/examples/studio-3.jpg" class="rounded">
-              </div>
-              <div class="col-md-3 mr-auto">
-                <img src="../assets/img/examples/clem-onojeghuo.jpg" class="rounded">
-                <img src="../assets/img/examples/olu-eletu.jpg" class="rounded">
-                <img src="../assets/img/examples/studio-1.jpg" class="rounded">
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -225,30 +277,6 @@
   </div>
   <footer class="footer" data-background-color="black">
     <div class="container">
-      <!-- <nav class="float-left">
-        <ul>
-          <li>
-            <a href="https://www.creative-tim.com">
-              Creative Tim
-            </a>
-          </li>
-          <li>
-            <a href="https://creative-tim.com/presentation">
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="http://blog.creative-tim.com">
-              Blog
-            </a>
-          </li>
-          <li>
-            <a href="https://www.creative-tim.com/license">
-              Licenses
-            </a>
-          </li>
-        </ul>
-      </nav> -->
       <div class="copyright float-right">
         &copy;
         <script>
