@@ -50,6 +50,7 @@
   },
   "homepage": "https://github.com/tjain16/HomeServiceProvider",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.1"
+    "@fortawesome/fontawesome-free": "^5.12.1",
+    "bootstrap-star-rating": "^4.0.6"
   }
 }
