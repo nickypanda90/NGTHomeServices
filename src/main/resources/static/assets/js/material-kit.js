@@ -103,6 +103,7 @@ materialKit = {
 
   initFormExtendedDatetimepickers: function() {
     $('.datetimepicker').datetimepicker({
+      minDate: moment(),
       icons: {
         time: "fa fa-clock-o",
         date: "fa fa-calendar",

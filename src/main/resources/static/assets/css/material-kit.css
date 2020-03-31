@@ -9522,7 +9522,7 @@ fieldset[disabled][disabled] .has-rose .form-control, .has-rose .form-control.di
     .bmd-form-group [class*=' bmd-label'].bmd-label-floating {
       will-change: left, top, contents;
       margin: 0;
-      line-height: 1.4;
+      line-height: 0.3;
       font-weight: 400; }
   .bmd-form-group.is-filled .bmd-label-placeholder {
     display: none; }
@@ -10552,6 +10552,16 @@ h2.title {
   text-transform: uppercase;
   color: #009688;
   font-size: 1.2rem; }
+
+.article-gap-top {
+  margin-top: 1rem; }
+
+.article-gap-bottom {
+  margin-bottom: 1rem; }
+
+.cleaning-article {
+  max-width: 100%;
+  height: auto; }
 
 .nav-tabs {
   border: 0;
