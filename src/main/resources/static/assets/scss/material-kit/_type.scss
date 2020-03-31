@@ -156,9 +156,15 @@ h2.title{
     font-size: 1.2rem;
 }
 
-// .select-category {
-//     padding: 10px 20px;
-// }
-// .categories{
-//     width: 97%;
-// }
+.article-gap-top{
+    margin-top: 1rem;
+}
+
+.article-gap-bottom{
+    margin-bottom: 1rem;
+}
+
+.cleaning-article {
+    max-width: 100%;
+    height: auto;
+}

@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 29/03/2020 07:13
+  	Creation date: 31/03/2020 04:47
   	*/
 
 @font-face {
@@ -26,8 +26,8 @@
 [class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
   font-family: Flaticon;
         font-size: 20px;
-  font-style: normal;
-  margin-right: 5px;
+font-style: normal;
+margin-right: 5px;
 }
 
 .flaticon-mop:before { content: "\f100"; }
@@ -47,3 +47,4 @@
 .flaticon-fence-2:before { content: "\f10e"; }
 .flaticon-plumbing:before { content: "\f10f"; }
 .flaticon-pipeline-1:before { content: "\f110"; }
+.flaticon-paint-roller:before { content: "\f111"; }
