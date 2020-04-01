@@ -156,11 +156,11 @@
             </div>
 
             <div class="form-group bmd-form-group">
-              <label class="bmd-label-floating">Amount</label>
-              <input type="text" class="form-control" readonly value="$400">
+              <label class="label">Amount</label>
+              <input id="serviceAmt" type="text" class="form-control" readonly>
             </div>
 
-            <div class="row">
+            <div class="row article-gap-bottom">
               <div class="col-md-4 ml-auto mr-auto text-center">
                 <button class="btn btn-primary btn-raised" data-toggle="modal" data-target="#booking">
                   Submit Request
@@ -192,9 +192,65 @@
           </button>
         </div>
         <div class="modal-body">
+
+          <div class="form-group bmd-form-group is-filled">
+            <label class="label-control bmd-label-static">Credit Card</label>
+            <input type="text" min-length="16" class="form-control" placeholder="1234567890123456">
+          </div>
+          <div class="form-group bmd-form-group is-filled">
+            <label class="label-control bmd-label-static">Confirm Credit Card</label>
+            <input type="text" min-length="16" class="form-control" placeholder="1234567890123456">
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group bmd-form-group is-filled">
+                <label class="label-control bmd-label-static">Expiry Month</label>
+                <select class="categories form-control">
+                  <option value="" selected>Select a Month</option>
+                  <option value="01">01</option>
+                  <option value="02">02</option>
+                  <option value="03">03</option>
+                  <option value="04">04</option>
+                  <option value="05">05</option>
+                  <option value="06">06</option>
+                  <option value="07">07</option>
+                  <option value="08">08</option>
+                  <option value="09">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group bmd-form-group is-filled">
+                <label class="label-control bmd-label-static">Expiry Year</label>
+                <select class="categories form-control">
+                  <option value="" selected>Select a Year</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+                  <option value="2022">2022</option>
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                  <option value="2029">2029</option>
+                  <option value="2030">2030</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group bmd-form-group is-filled">
+                <label class="label-control bmd-label-static">CVV</label>
+                <input type="text" min-length="3" class="form-control" placeholder="">
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Payment</button>
+          <button type="button" class="btn btn-primary btn-link" data-dismiss="modal">Confirm Booking</button>
           <button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -217,10 +273,42 @@
   <script type="text/javascript">
     $(document).ready(function () {
 
+      function getUrlVars() {
+        var vars = {};
+        let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+          vars[key] = value;
+        });
+        return vars;
+      }
+
       if ($('.datetimepicker').length != 0) {
         //init DateTimePickers
         materialKit.initFormExtendedDatetimepickers();
       }
+      let amountMap = {
+        carpetCleaning: "$300",
+        homeCleaning: "$400",
+        painting: "$600",
+        plumbing: "$250",
+        gutterCleaning: "$300",
+        masonry: "$3000",
+        roofing: "$2500",
+        windows: "$525",
+        fencing: "$900",
+        handymen: "$150",
+        landscaping: "$425",
+        pestControl: "$360"
+      }
+
+      function getAmountValueFromService() {
+        let serviceType = getUrlVars()["serviceType"];
+        console.log(serviceType);
+        console.log(amountMap[serviceType]);
+        return amountMap[serviceType];
+      }
+
+      $('#serviceAmt').val(getAmountValueFromService());
+
     });
   </script>
 </body>
