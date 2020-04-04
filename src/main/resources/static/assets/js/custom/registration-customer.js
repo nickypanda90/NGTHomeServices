@@ -1,20 +1,25 @@
  $(document).ready(function () {
-    function customerRegistration(){
-        var post_url = $(this).attr("action"); //get form action url
-        var request_method = $(this).attr("method"); //get form GET/POST method
-        // var form_data = new FormData(this); //Creates new FormData object
-        var form_data = $("#customer_form").serializeObject();
-        console.log(form_data);
-        debugger;
-        $.ajax({
-          url : post_url,
-          type: request_method,
-          data : form_data,
-          contentType: false,
-          cache: false,
-          processData:false
-          }).done(function(response){ 
-            // window.location.replace("./index.html");
-        });
-    }
+    
 });
+
+function customerRegistration(){
+  let customer_form = $("#customer_form");
+  let post_url = customer_form.attr("action"); //get form action url
+  let request_method = customer_form.attr("method"); //get form GET/POST method
+  console.log(request_method);
+  let form_data = customer_form.serialize();
+  console.log(form_data);
+  $.ajax({
+    url : post_url,
+    type: request_method,
+    data : form_data,
+    crossDomain: true,
+    contentType: "application/json;",
+    dataType: "json",
+    cache: false,
+    processData:false
+    }).done(function(response){ 
+      console.log(response);
+      window.location.replace("./index.html");
+  });
+}
