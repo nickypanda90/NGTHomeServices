@@ -17,7 +17,7 @@ function getFormData($form){
 function customerRegistration(){
   var $form = $("#customer_form");
   var data = getFormData($form);
-  let post_url = customer_form.attr("action"); //get form action url
+  let post_url = $form.attr("action"); //get form action url
   let request_method = $form.attr("method"); //get form GET/POST method
 
   $.ajax({
