@@ -1,7 +1,9 @@
 package com.txstate.edu.homeServices.controller;
 
 
+import com.txstate.edu.homeServices.model.CustomerLogin;
 import com.txstate.edu.homeServices.model.CustomerRegistration;
+import com.txstate.edu.homeServices.repository.AuthenticRepository;
 import com.txstate.edu.homeServices.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +16,9 @@ public class CustomerController {
     @Autowired
     CustomerRepository customerRepository;
 
-//    @GetMapping("/users")
-//    public List<CustomerRegistration> getAllUsers() {
-//        return customerRepository.findAll();
-//    }
+    @Autowired
+    AuthenticRepository authenticRepository;
 
-//    @GetMapping("/users/{id}")
-//    public CustomerRegistration getUserById(@PathVariable(value = "id") Integer userId) {
-//        return customerRepository.findById(userId).orElseThrow(() -> new NullPointerException("test"));
-//    }
 
     @PostMapping("/signup")
     public CustomerRegistration signupCustomer(@Valid @RequestBody CustomerRegistration customerregistration) {
@@ -38,6 +34,27 @@ public class CustomerController {
         }
         return temp;
     }
+
+    @PostMapping("/login")
+    public boolean signupCustomer(@Valid @RequestBody CustomerLogin customerlogin) {
+        if(customerRepository.authenticate(customerlogin.getEmail_id(),customerlogin.getPassword()).size()>0)
+            return true;
+        else
+            return false;
+
+    }
+
+    @PostMapping("/authenticateemailid")
+   public boolean authenticEmailid(@Valid @RequestBody CustomerRegistration customerregistration) {
+            if(authenticRepository.authenticate(customerregistration.getEmail_id()).size()>0)
+
+           return true;
+
+       else
+            return false;
+
+  }
+
 
 
 }
