@@ -19,6 +19,21 @@ public class CustomerRegistration {
     private Integer customer_Id;
 
     private String name;
+    private String address;
+
+    public String getEmail_id() {
+        return email_id;
+    }
+
+    public void setEmail_id(String email_id) {
+        this.email_id = email_id;
+    }
+
+    private String email_id;
+    private String password;
+
+    @Transient
+    private String passwordConfirm;
 
     public String getName() {
         return name;
@@ -36,13 +51,7 @@ public class CustomerRegistration {
         this.address = address;
     }
 
-    public String getEmail_Id() {
-        return email_Id;
-    }
 
-    public void setEmail_Id(String email_Id) {
-        this.email_Id = email_Id;
-    }
 
     public String getPassword() {
         return password;
@@ -67,16 +76,6 @@ public class CustomerRegistration {
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
-
-    private String address;
-    private String email_Id;
-    private String password;
-
-    @Transient
-    private String passwordConfirm;
-
-
-
 
 
 
