@@ -57,7 +57,7 @@ public class CustomerRegistration {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword() {
         this.password = password;
     }
 
