@@ -14,8 +14,8 @@ function submitLoginForm() {
         cache: false,
         processData:false
         }).done(function(response){ 
-          console.log(response);
-          // window.location.replace("../index.html");
+            console.log(response);
+            window.location.replace("../index.html");
       });
 }
 
