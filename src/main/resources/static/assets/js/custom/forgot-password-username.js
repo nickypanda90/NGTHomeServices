@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $('.alert-danger').hide();
+    
 });
 
 
@@ -21,7 +22,9 @@ function goToPassword() {
         }).done(function(response){ 
             console.log(response);
             if(response) {
-                window.location.replace("./forgot-password.html");
+                let redirectUrl = './forgot-password.html' + '?email_id=' + data.email_id;
+                console.log(redirectUrl);
+                window.location.replace(redirectUrl);
             } else {
                 // update error message                
                 $form.find('.alert-danger').show();
