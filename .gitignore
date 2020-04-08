@@ -19,6 +19,10 @@ target/
 *.iml
 *.ipr
 
+### Keys ###
+*_git_id_rsa
+*_git_id_rsa.pub
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
