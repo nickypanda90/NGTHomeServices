@@ -7,7 +7,10 @@ import com.txstate.edu.homeServices.repository.AuthenticRepository;
 import com.txstate.edu.homeServices.repository.CustomerRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -20,12 +23,11 @@ public class CustomerController {
     AuthenticRepository authenticRepository;
 
     @PostMapping("/signup")
-    public CustomerRegistration signupCustomer(@Valid @RequestBody CustomerRegistration customerregistration) {
+    public CustomerRegistration signupCustomer(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
         CustomerRegistration temp = customerregistration;
         try {
-
             temp = customerRepository.save(customerregistration);
-
+           // request.getSession().setAttribute("USER_INFO", temp);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,9 +36,13 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public UserAuthenticationResponse login( @Valid @RequestBody CustomerRegistration customerregistration) {
+    public UserAuthenticationResponse login( @Valid @RequestBody CustomerRegistration customerregistration,HttpServletRequest request) {
         String name;
+
+
         UserAuthenticationResponse user = new UserAuthenticationResponse();
+        request.getSession().setAttribute("USER_INFO", user);
+
         name = customerRepository.findByEmail_idaAndPassword(customerregistration.getEmail_id(), customerregistration.getPassword());
 
         if (name != null) {
@@ -59,17 +65,13 @@ public class CustomerController {
 
     }
 
+    @Transactional
+    @PostMapping("/forgotpass")
+    public  void updatepass(@Valid @RequestBody CustomerRegistration customerregistration) {
 
-//    @PostMapping("/forgotpass")
-//    public  CustomerRegistration updatepass(@Valid @RequestBody CustomerRegistration customerregistration) {
-//        CustomerRegistration pass = customerregistration;
-//
-//       pass=authenticRepository.save(customerregistration.getEmail_id(),customerregistration.getPassword());
-//
-//        return pass;
-//
-//
-//    }
+       authenticRepository.save(customerregistration.getEmail_id(),customerregistration.getPassword());
+    }
+
 
 
 }

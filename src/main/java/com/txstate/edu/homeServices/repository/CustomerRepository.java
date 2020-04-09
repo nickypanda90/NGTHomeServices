@@ -16,6 +16,4 @@ public interface CustomerRepository extends JpaRepository<CustomerRegistration, 
  public String findByEmail_idaAndPassword(String email_id,String password);
 
 
-
-
 }
