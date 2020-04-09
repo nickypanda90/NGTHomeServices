@@ -1,11 +1,11 @@
 package com.txstate.edu.homeServices.controller;
 
-import com.txstate.edu.homeServices.model.Business;
+import com.txstate.edu.homeServices.model.BusinessEntity;
+import com.txstate.edu.homeServices.model.BusinessRegistration;
 import com.txstate.edu.homeServices.service.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +17,13 @@ public class BusinessController {
     private BusinessService service;
 
     @GetMapping
-    public List<Business> getBusinesses() {
+    public List<BusinessEntity> getBusinesses() {
         return service.getAllBusinesses();
+    }
+
+    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public BusinessRegistration registerBusiness(@RequestBody BusinessRegistration registration) {
+        return service.register(registration);
     }
 }
