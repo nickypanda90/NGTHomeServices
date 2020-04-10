@@ -1,10 +1,12 @@
 package com.txstate.edu.homeServices.controller;
 
 
+import com.txstate.edu.homeServices.model.CustomerFeedback;
 import com.txstate.edu.homeServices.model.CustomerRegistration;
 import com.txstate.edu.homeServices.model.UserAuthenticationResponse;
 import com.txstate.edu.homeServices.repository.AuthenticRepository;
 import com.txstate.edu.homeServices.repository.CustomerRepository;
+import com.txstate.edu.homeServices.service.EmailService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import org.springframework.mail.SimpleMailMessage;
 
 @RestController
 @RequestMapping("/customer/api")//After deployment on web take the IP port(e.g Amazon)
@@ -21,6 +24,9 @@ public class CustomerController {
 
     @Autowired
     AuthenticRepository authenticRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/signup")
     public CustomerRegistration signupCustomer(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
@@ -72,6 +78,28 @@ public class CustomerController {
        authenticRepository.save(customerregistration.getEmail_id(),customerregistration.getPassword());
     }
 
+    @PostMapping("/forgotusername")
+    public String forgotusername(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
+
+
+        String name;
+
+
+//please change the port number as per your localhost
+        String appUrl = request.getScheme() + "://" + request.getServerName()+":8080";
+        SimpleMailMessage forgotusername = new SimpleMailMessage();
+        forgotusername.setFrom("support@demo.com");
+        forgotusername.setTo(customerregistration.getEmail_id());
+        forgotusername.setSubject("Username Request");
+        forgotusername.setText("Please click on the link below:\n" + appUrl
+                + "/customer/api/forgotusername");
+
+        name=  customerRepository.findByEmail_id(customerregistration.getEmail_id());
+
+        emailService.sendEmail(forgotusername);
+
+        return name;
+    }
 
 
 }
