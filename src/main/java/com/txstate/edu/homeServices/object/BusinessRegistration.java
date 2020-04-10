@@ -1,4 +1,4 @@
-package com.txstate.edu.homeServices.model;
+package com.txstate.edu.homeServices.object;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
