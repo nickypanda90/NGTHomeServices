@@ -15,5 +15,7 @@ public interface CustomerRepository extends JpaRepository<CustomerRegistration, 
 
  public String findByEmail_idaAndPassword(String email_id,String password);
 
+    @Query("SELECT auth.name FROM CustomerRegistration auth WHERE auth.email_id = :email_id")
+    public String findByEmail_id(String email_id);
 
 }
