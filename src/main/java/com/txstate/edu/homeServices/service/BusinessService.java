@@ -1,7 +1,7 @@
 package com.txstate.edu.homeServices.service;
 
 import com.txstate.edu.homeServices.model.BusinessEntity;
-import com.txstate.edu.homeServices.model.BusinessRegistration;
+import com.txstate.edu.homeServices.object.BusinessRegistration;
 import com.txstate.edu.homeServices.repository.BusinessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
