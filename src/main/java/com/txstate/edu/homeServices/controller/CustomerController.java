@@ -32,7 +32,9 @@ public class CustomerController {
     public CustomerRegistration signupCustomer(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
         CustomerRegistration temp = customerregistration;
         try {
+            customerregistration.setRole_id("customer");
             temp = customerRepository.save(customerregistration);
+
            // request.getSession().setAttribute("USER_INFO", temp);
 
         } catch (Exception e) {
