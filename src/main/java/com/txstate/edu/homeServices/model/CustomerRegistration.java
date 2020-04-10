@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
-@Table(name = "customer_details")
+@Table(name = "User_details")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
@@ -20,6 +20,32 @@ public class CustomerRegistration {
 
     private String name;
     private String address;
+    private String email_id;
+    private String phone_no;
+    private String password;
+    private String role_id;
+    @Transient
+    private String passwordConfirm;
+
+
+
+    public String getPhone_no() {
+        return phone_no;
+    }
+
+    public void setPhone_no(String phone_no) {
+        this.phone_no = phone_no;
+    }
+
+    public String getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(String role_id) {
+        this.role_id = role_id;
+    }
+
+
 
     public String getEmail_id() {
         return email_id;
@@ -29,11 +55,6 @@ public class CustomerRegistration {
         this.email_id = email_id;
     }
 
-    private String email_id;
-    private String password;
-
-    @Transient
-    private String passwordConfirm;
 
     public String getName() {
         return name;
@@ -50,8 +71,6 @@ public class CustomerRegistration {
     public void setAddress(String address) {
         this.address = address;
     }
-
-
 
     public String getPassword() {
         return password;
