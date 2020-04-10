@@ -3,37 +3,45 @@ $(document).ready(function(){
 });
 
 function resetPassword() {
-    var $form = $("#reset-password");
-    let post_url = $form.attr("action");
-    let request_method = $form.attr("method");
-    let data = getFormData($form);
+    if(validatePassword()){
+        $('.alert-danger').hide();
+        var $form = $("#reset-password");
+        let post_url = $form.attr("action");
+        let request_method = $form.attr("method");
+        let data = getFormData($form);
 
-    // append email_id to data before ajax
-    if(getUrlVars()["email_id"]) {
-        data["email_id"] = getUrlVars()["email_id"];
+        // append email_id to data before ajax
+        if(getUrlVars()["email_id"]) {
+            data["email_id"] = getUrlVars()["email_id"];
+        }
+
+        $.ajax({
+            url : post_url,
+            type: request_method,
+            data : JSON.stringify(data),
+            crossDomain: true,
+            contentType: "application/json;",
+            dataType: "json",
+            cache: false,
+            processData:false
+            }).done(function(response){ 
+                console.log(response);
+                // if(response) {
+                //     let redirectUrl = './forgot-password.html' + '?email_id=' + data.email_id;
+                //     console.log(redirectUrl);
+                //     window.location.replace(redirectUrl);
+                // } else {
+                //     // update error message                
+                //     $form.find('.alert-danger').show();
+                // }
+                
+        });
+    } else {
+        // Update and show error message
+        var $form = $("#reset-password");
+        $form.find('#error_msg').html("Password dosen't match");
+        $form.find('.alert-danger').show();
     }
-
-    $.ajax({
-        url : post_url,
-        type: request_method,
-        data : JSON.stringify(data),
-        crossDomain: true,
-        contentType: "application/json;",
-        dataType: "json",
-        cache: false,
-        processData:false
-        }).done(function(response){ 
-            console.log(response);
-            // if(response) {
-            //     let redirectUrl = './forgot-password.html' + '?email_id=' + data.email_id;
-            //     console.log(redirectUrl);
-            //     window.location.replace(redirectUrl);
-            // } else {
-            //     // update error message                
-            //     $form.find('.alert-danger').show();
-            // }
-            
-      });
 }
 
 
@@ -54,5 +62,19 @@ function getUrlVars() {
       vars[key] = value;
     });
     return vars;
-  }
+}
+
+function validatePassword(){
+    let passwords = $("#reset-password").find('input[type="password"]');
+    if(passwords.length === 2){
+        let password = passwords[0].value;
+        let confirm_password = passwords[1].value;
+        if(password === confirm_password){
+            return true;
+        }else {
+            return false;
+        }
+    }
+}
+
 
