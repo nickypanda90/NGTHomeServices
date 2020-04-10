@@ -52,35 +52,6 @@
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
-      <!-- <div class="collapse navbar-collapse">
-         <ul class="navbar-nav ml-auto">
-           <li class="nav-item">
-             <a class="nav-link" href="javascript:void(0)">
-               <i class="material-icons">format_paint</i> Interior
-             </a>
-           </li>
-           <li class="nav-item">
-             <a class="nav-link" href="javascript:void(0)">
-               <i class="fa fa-wrench"></i> Exterior
-             </a>
-           </li>
-           <li class="nav-item">
-             <a class="nav-link" href="javascript:void(0)">
-               <i class="fa fa-usd"></i> Price Guides
-             </a>
-           </li>
-           <li class="nav-item">
-             <a class="nav-link" href="javascript:void(0)">
-               <i class="material-icons">rate_review</i> Reviews
-             </a>
-           </li>
-           <li class="nav-item" id="login">
-             <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="examples/login-page.html" target="_self" data-original-title="Login Or Register">
-               <i class="fa fa-user-circle"></i> Login / Register
-             </a>
-           </li>
-         </ul>
-       </div> -->
     </div>
   </nav>
   <div class="page-header header-filter"
@@ -89,18 +60,26 @@
       <div class="row">
         <div class="col-lg-4 col-md-6 ml-auto mr-auto">
           <div class="card card-login">
-            <form class="form-customer-registration" method="" action="">
+            <form id="contractor-form" class="form-customer-registration" method="post" action="/business/register">
               <div class="card-header card-header-primary text-center">
                 <h4 class="card-title">Contractor Registration</h4>
               </div>
               <div class="card-body">
+                <div class="alert alert-danger">
+                  <div class="container">
+                    <div class="alert-icon">
+                      <i class="material-icons">error_outline</i>
+                    </div>
+                     <p id="error_msg">Password is incorrect.</p>
+                  </div>
+                </div>
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="material-icons">group</i>
                     </span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Name">
+                  <input type="text" name="name" class="form-control" placeholder="Name">
                 </div>
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -108,7 +87,7 @@
                       <i class="material-icons">location_on</i>
                     </span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Address">
+                  <input type="text" name="address" class="form-control" placeholder="Address">
                 </div>
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -116,7 +95,15 @@
                       <i class="material-icons">mail</i>
                     </span>
                   </div>
-                  <input type="email" class="form-control" placeholder="Email...">
+                  <input type="email" name="email_id" class="form-control" placeholder="Email...">
+                </div>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">phone</i>
+                    </span>
+                  </div>
+                  <input type="tel" name="password" autocomplete="off" oninput="process(this)" class="form-control" minlength="10" maxlength="10" placeholder="Phone...">
                 </div>
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -124,7 +111,7 @@
                       <i class="material-icons">lock_outline</i>
                     </span>
                   </div>
-                  <input type="tel" oninput="process(this)" class="form-control" minlength="10" maxlength="10" placeholder="Phone...">
+                  <input type="password" name="password" autocomplete="off" class="form-control" placeholder="Password...">
                 </div>
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -132,19 +119,11 @@
                       <i class="material-icons">lock_outline</i>
                     </span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Password...">
-                </div>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="material-icons">lock_outline</i>
-                    </span>
-                  </div>
-                  <input type="password" class="form-control" placeholder="Confirm Password...">
+                  <input type="password" name="passwordConfirm" class="form-control" placeholder="Confirm Password...">
                 </div>
               </div>
               <div class="container">
-                <select class="categories form-control">
+                <select class="categories form-control" onchange="getCategory()">
                   <option value="" selected >Select a Category</option>
                   <option value="CCleaning">Carpet Cleaning</option>
                   <option value="fencing">Fencing</option>
@@ -169,7 +148,7 @@
                 </label>
               </div>
               <div class="footer text-center">
-                <a href="../index.html?isAuthenticated=true" class="btn btn-primary btn-wd btn-lg">Sign Up</a>
+                <a href="#" onclick="signup()" class="btn btn-primary btn-wd btn-lg">Sign Up</a>
               </div>
             </form>
           </div>
@@ -200,12 +179,7 @@
   <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-kit.js?v=2.0.6" type="text/javascript"></script>
 
-  <script type="text/javascript">
-    function process(input){
-      let value = input.value;
-      let letters = value.replace(/[^0-9]/g, "");
-      input.value = letters;
-    }
+  <script type="text/javascript" src="../assets/js/custom/registration-contractor.js">
   </script>
 </body>
 
