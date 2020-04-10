@@ -11738,7 +11738,7 @@ footer {
 
 .card-login .input-group {
   padding-bottom: 7px;
-  margin: 27px 0 0 0; }
+  margin: 20px 0 0 0; }
 
 .card-login .form {
   min-height: 250px; }
@@ -11747,7 +11747,7 @@ footer {
   min-height: 350px; }
 
 .card-login .form-customer-registration {
-  min-height: 550px; }
+  min-height: 600px; }
 
 .card-login .social-line {
   margin-top: 1rem;
