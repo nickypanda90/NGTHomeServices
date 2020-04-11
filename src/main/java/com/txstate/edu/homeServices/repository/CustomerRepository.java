@@ -1,6 +1,7 @@
 package com.txstate.edu.homeServices.repository;
 import com.txstate.edu.homeServices.model.CustomerRegistration;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,5 +18,12 @@ public interface CustomerRepository extends JpaRepository<CustomerRegistration, 
 
     @Query("SELECT auth.name FROM CustomerRegistration auth WHERE auth.email_id = :email_id")
     public String findByEmail_id(String email_id);
+
+    //    @Transactional
+    @Modifying
+    @Query("update  CustomerRegistration p set p.password = :password WHERE LOWER(p.email_id) = LOWER(:email_id)")
+     void save(String email_id, String password);
+
+    //public String findByReset_token(String reset_token);
 
 }

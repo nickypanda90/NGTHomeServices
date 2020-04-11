@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -24,10 +25,46 @@ public class CustomerRegistration {
     private String phone_no;
     private String password;
     private String role_id;
+    private String reset_token;
     @Transient
     private String passwordConfirm;
 
 
+    private String token;
+
+    private Date token_ts;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Date getToken_ts() {
+        return token_ts;
+    }
+
+    public void setToken_ts(Date token_ts) {
+        this.token_ts = token_ts;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getReset_token() {
+        return reset_token;
+    }
+
+    public void setReset_token(String reset_token) {
+        this.reset_token = reset_token;
+    }
 
     public String getPhone_no() {
         return phone_no;
@@ -44,7 +81,6 @@ public class CustomerRegistration {
     public void setRole_id(String role_id) {
         this.role_id = role_id;
     }
-
 
 
     public String getEmail_id() {
@@ -72,14 +108,6 @@ public class CustomerRegistration {
         this.address = address;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword() {
-        this.password = password;
-    }
-
     public Integer getCustomer_Id() {
         return customer_Id;
     }
@@ -95,7 +123,6 @@ public class CustomerRegistration {
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
-
 
 
 }
