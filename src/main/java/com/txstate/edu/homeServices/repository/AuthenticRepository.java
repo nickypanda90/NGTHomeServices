@@ -15,11 +15,11 @@ public interface AuthenticRepository extends JpaRepository<CustomerRegistration,
     @Query("SELECT auth FROM CustomerRegistration auth WHERE auth.email_id = :email_id")
    List<CustomerRegistration> authenticate(String email_id);
 
+    @Query("SELECT cust FROM CustomerRegistration cust WHERE cust.reset_token = :token")
+    CustomerRegistration getUserByToken(String token);
 
-//    @Transactional
-@Modifying
-    @Query("update  CustomerRegistration p set p.password = :password WHERE LOWER(p.email_id) = LOWER(:email_id)")
-    void save(String email_id,String password);
+
+
 
 
 }
