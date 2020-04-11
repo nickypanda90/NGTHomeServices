@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-
+  $('.alert-danger').hide();
 });
 
 function getFormData($form){
@@ -16,34 +16,36 @@ function getFormData($form){
 
 function customerRegistration(){
   if(validatePassword()){
-    var $form = $("#customer_form");
-    var data = getFormData($form);
-    let post_url = $form.attr("action"); //get form action url
-    let request_method = $form.attr("method"); //get form GET/POST method
+    if(agreeTerms()) {
+      $('.alert-danger').hide();
+      var $form = $("#customer_form");
+      var data = getFormData($form);
+      let post_url = $form.attr("action"); //get form action url
+      let request_method = $form.attr("method"); //get form GET/POST method
 
-    $.ajax({
-      url : post_url,
-      type: request_method,
-      data : JSON.stringify(data),
-      crossDomain: true,
-      contentType: "application/json;",
-      dataType: "json",
-      cache: false,
-      processData:false
-      }).done(function(response){ 
-        console.log(response);
-        window.location.replace("../index.html");
-    });
+      $.ajax({
+        url : post_url,
+        type: request_method,
+        data : JSON.stringify(data),
+        crossDomain: true,
+        contentType: "application/json;",
+        dataType: "json",
+        cache: false,
+        processData:false
+        }).done(function(response){ 
+          console.log(response);
+          window.location.replace("../index.html");
+      });
+    } else {
+      displayErrorMsg("Please Agree to our terms and condtion");
+    }
   } else {
-    // Update and show error message
-    var $form = $("#reset-password");
-    $form.find('#error_msg').html("Password dosen't match");
-    $form.find('.alert-danger').show();
+    displayErrorMsg("Password dosen't match");
   }
 }
 
 function validatePassword(){
-  let passwords = $("#reset-password").find('input[type="password"]');
+  let passwords = $("#customer_form").find('input[type="password"]');
   if(passwords.length === 2){
       let password = passwords[0].value;
       let confirm_password = passwords[1].value;
@@ -53,4 +55,20 @@ function validatePassword(){
           return false;
       }
   }
+}
+
+function agreeTerms() {
+  return $('input[type="checkbox"]').is(':checked');
+}
+
+function displayErrorMsg(msg){
+  var $form = $("#customer_form");
+  $form.find('#error_msg').html(msg);
+  $form.find('.alert-danger').show();
+}
+
+function process(input){
+  let value = input.value;
+  let numbers = value.replace(/[^0-9]/g, "");
+  input.value = numbers;
 }

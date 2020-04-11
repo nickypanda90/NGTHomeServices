@@ -11728,7 +11728,7 @@ footer {
   padding: 0px 30px 0px 10px; }
 
 .card-login .form-check {
-  padding-top: 27px;
+  padding-top: 15px;
   margin-left: 12px;
   margin-top: 0px; }
   .card-login .form-check label {
@@ -11747,7 +11747,7 @@ footer {
   min-height: 350px; }
 
 .card-login .form-customer-registration {
-  min-height: 600px; }
+  min-height: 620px; }
 
 .card-login .social-line {
   margin-top: 1rem;
