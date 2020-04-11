@@ -64,6 +64,14 @@
                 <h4 class="card-title">Customer Registration</h4>
               </div>
               <div class="card-body">
+                <div class="alert alert-danger">
+                  <div class="container">
+                    <div class="alert-icon">
+                      <i class="material-icons">error_outline</i>
+                    </div>
+                     <p id="error_msg">Password is incorrect.</p>
+                  </div>
+                </div>
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
@@ -154,14 +162,6 @@
   <script src="../assets/js/material-kit.js?v=2.0.6" type="text/javascript"></script>
 
   <script src="../assets/js/custom/registration-customer.js" type="text/javascript"></script>
-
-  <script type="text/javascript">
-    function process(input){
-      let value = input.value;
-      let numbers = value.replace(/[^0-9]/g, "");
-      input.value = numbers;
-    }
-  </script>
 </body>
 
 </html>
