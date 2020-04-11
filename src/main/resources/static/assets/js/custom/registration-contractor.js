@@ -33,14 +33,12 @@ function signup() {
                 processData:false
                 }).done(function(response){ 
                     console.log(response);
-                    // if(response) {
-                    //     let redirectUrl = './forgot-password.html' + '?email_id=' + data.email_id;
-                    //     console.log(redirectUrl);
-                    //     window.location.replace(redirectUrl);
-                    // } else {
-                    //     // update error message                
-                    //     $form.find('.alert-danger').show();
-                    // }
+                    if(response["name"] != undefined) {
+                        window.location.replace("../index.html");
+                    } else {
+                        // update error message                
+                        displayErrorMsg('Some error occured while registration');
+                    }
                     
             });
         } else {
@@ -64,6 +62,10 @@ function getFormData($form){
       indexed_array[n['name']] = n['value'];
     });
   
+    
+    if(getSelectedCategory()){
+        indexed_array["category"] =  getSelectedCategory();
+    }
     return indexed_array;
 }
 
@@ -82,4 +84,9 @@ function validatePassword(){
 
 function agreeTerms() {
     return $('input[type="checkbox"]').is(':checked');
-  }
+}
+
+
+function getSelectedCategory(){
+    return $( ".categories option:selected" ).val();
+}

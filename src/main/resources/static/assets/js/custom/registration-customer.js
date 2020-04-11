@@ -34,7 +34,11 @@ function customerRegistration(){
         processData:false
         }).done(function(response){ 
           console.log(response);
-          window.location.replace("../index.html");
+          if(response.customer_Id){
+            window.location.replace("../index.html");
+          } else {
+            displayErrorMsg('Some error occured while registration');
+          }
       });
     } else {
       displayErrorMsg("Please Agree to our terms and condtion");
