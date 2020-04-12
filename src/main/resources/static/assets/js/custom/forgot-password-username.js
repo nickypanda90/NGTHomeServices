@@ -23,7 +23,6 @@ function goToPassword() {
             console.log(response);
             if(response) {
                 let redirectUrl = './forgot-password.html' + '?email_id=' + data.email_id;
-                console.log(redirectUrl);
                 window.location.replace(redirectUrl);
             } else {
                 // update error message                
