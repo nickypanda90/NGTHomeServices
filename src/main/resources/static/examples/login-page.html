@@ -86,20 +86,17 @@ t="bottom" href="examples/login-page.html" target="_self" data-original-title="L
             <form id="login_form" class="form" method="POST" action="/customer/api/login">
               <div class="card-header card-header-primary text-center">
                 <h4 class="card-title">Login</h4>
-                <!-- <div class="social-line">
-                  <a href="#pablo" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-facebook-square"></i>
-                  </a>
-                  <a href="#pablo" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-twitter"></i>
-                  </a>
-                  <a href="#pablo" class="btn btn-just-icon btn-link">
-                    <i class="fa fa-google-plus"></i>
-                  </a>
-                </div> -->
+                
               </div>
-              <!-- <p class="description text-center">Or Be Classical</p> -->
               <div class="card-body">
+                <div class="alert alert-danger">
+                  <div class="container">
+                    <div class="alert-icon">
+                      <i class="material-icons">error_outline</i>
+                    </div>
+                     <p id="error_msg"></p>
+                  </div>
+                </div>
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">

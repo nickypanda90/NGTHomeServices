@@ -1,4 +1,9 @@
+$(document).ready(function(){
+  $('.alert-danger').hide();
+});
+
 function submitLoginForm() {
+    $('.alert-danger').hide();
     var $form = $("#login_form");
     let post_url = $form.attr("action");
     let request_method = $form.attr("method");
@@ -15,8 +20,19 @@ function submitLoginForm() {
         processData:false
         }).done(function(response){ 
             console.log(response);
-            window.location.replace("../index.html");
+            if(response.authenticated) {
+              let redirectUrl = "../index.html?userName=" +response.name;
+              window.location.replace(redirectUrl);
+            }else {
+              displayErrorMsg('Some error occured while login');
+            }
       });
+}
+
+function displayErrorMsg(msg){
+  var $form = $("#login_form");
+  $form.find('#error_msg').html(msg);
+  $form.find('.alert-danger').show();
 }
 
 
