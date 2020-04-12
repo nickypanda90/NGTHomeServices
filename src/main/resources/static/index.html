@@ -422,9 +422,9 @@
     <script src="./assets/js/material-kit.js?v=2.0.6" type="text/javascript"></script>
     <script>
       $(document).ready(function () {
-        var isAuthenticated = getUrlVars()["userName"];
         var $login = $('#login');
         var $user = $("#user");
+        var isAuthenticated = localStorage.getItem('username');
         if (isAuthenticated) {
           // update user name
           $login.hide();
