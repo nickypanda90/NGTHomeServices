@@ -127,6 +127,16 @@
               <i class="material-icons">rate_review</i> Reviews
             </a>
           </li>
+          <li class="dropdown nav-item" id="user">
+            <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="javascript:;">
+              <i class="fa fa-user-circle"></i> <span> User</span>
+            </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="./login-page.html" class="dropdown-item">
+                <i class="fa fa-sign-out"></i> Logout
+                <div class="ripple-container"></div></a>
+            </div>
+          </li>
           <li class="nav-item" id="login">
             <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="./login-page.html"
               target="_self" data-original-title="Login Or Register">
@@ -271,6 +281,22 @@
   <script type="text/javascript">
     $(document).ready(function () {
 
+      var $login = $('#login');
+      var $user = $("#user");
+      // var isAuthenticated = $.cookie('username');
+      var isAuthenticated = localStorage.getItem('username');
+      if (isAuthenticated) {
+        // update user name
+        $login.hide();
+        $user.show();
+        $user.find('span').text(isAuthenticated);
+        $user.find('a').attr("data-original-title", isAuthenticated);
+      } else {
+        // not authenticated
+        $login.show();
+        $("#user").hide();
+      }
+      
       function getUrlVars() {
         var vars = {};
         let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {

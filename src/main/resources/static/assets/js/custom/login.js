@@ -21,9 +21,11 @@ function submitLoginForm() {
         }).done(function(response){ 
             console.log(response);
             if(response.authenticated) {
-              let redirectUrl = "../index.html?userName=" +response.name;
+              localStorage.setItem('username', response.name);
+              let redirectUrl = "../index.html";
               window.location.replace(redirectUrl);
             }else {
+              ocalStorage.clear();
               displayErrorMsg('Some error occured while login');
             }
       });

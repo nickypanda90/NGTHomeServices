@@ -2,6 +2,22 @@ $(document).ready(function(){
     $('.alert-danger').hide();
     $('.alert-success').hide();
     
+    var $login = $('#login');
+    var $user = $("#user");
+    // var isAuthenticated = $.cookie('username');
+    var isAuthenticated = localStorage.getItem('username');
+    if (isAuthenticated) {
+    // update user name
+    $login.hide();
+    $user.show();
+    $user.find('span').text(isAuthenticated);
+    $user.find('a').attr("data-original-title", isAuthenticated);
+    } else {
+    // not authenticated
+    $login.show();
+    $("#user").hide();
+    }
+
 });
 
 function submitReview() {
