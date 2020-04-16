@@ -9,6 +9,9 @@ import com.txstate.edu.homeServices.repository.ServicePaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class OrderService {
 
@@ -21,13 +24,21 @@ public class OrderService {
         ServiceOrderEntity entity = new ServiceOrderEntity();
         entity.setCustomerId(order.getCustomerId());
         entity.setBusinessId(order.getBusinessId());
-        entity.setServiceDateTime(order.getServiceDateTime());
+        entity.setServiceDateTime(parseServiceDateTime(order.getServiceDateTime()));
         entity.setServiceDescription(order.getServiceDescription());
         entity.setServiceCategory(order.getServiceCategory());
 
         ServiceOrderEntity savedEntity = serviceRepo.save(entity);
         order.setServiceId(savedEntity.getServiceId());
         return order;
+    }
+
+    private LocalDateTime parseServiceDateTime(String serviceDateTime) {
+        try {
+            return LocalDateTime.parse(serviceDateTime, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a"));
+        } catch (Exception exe) {
+            return LocalDateTime.parse(serviceDateTime, DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm a"));
+        }
     }
 
     public ServicePayment savePaymentInfo(ServicePayment payment) {
