@@ -92,7 +92,9 @@ function confirmBooking(){
           }).done(function(response){ 
             console.log(response);
             if(response){
-              //window.location.replace("../index.html");
+                $("#billing_form")[0].reset();
+                $("#service_form")[0].reset();
+                $('#booking').modal('hide');
             } else {
                 displayBillingErrorMsg('Some error occured while billing');
             }
@@ -129,6 +131,10 @@ function getFormDataBilling($form){
     }
     if(getExpiryYear()) {
         indexed_array["card_expiry_year"] = getExpiryYear();
+    }
+    var serviceId = $("#serviceId").val();
+    if(serviceId){
+        indexed_array["service_id"] = serviceId;
     }
 
     return indexed_array;
@@ -170,6 +176,7 @@ function submitRequest(){
         console.log(response);
         if(response){
           // open my modal on success
+          $("#serviceId").val(response.service_id);
           $("#booking").modal();
         } else {
             displayErrorMsg('Some error occured while billing');
