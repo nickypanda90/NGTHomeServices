@@ -11,6 +11,7 @@ function getFormData($form){
     indexed_array[n['name']] = n['value'];
   });
 
+
   return indexed_array;
 }
 
