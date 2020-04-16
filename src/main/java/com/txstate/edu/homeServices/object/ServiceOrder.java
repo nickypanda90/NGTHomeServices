@@ -2,8 +2,6 @@ package com.txstate.edu.homeServices.object;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDateTime;
-
 public class ServiceOrder {
 
     @JsonProperty("service_id")
@@ -16,7 +14,7 @@ public class ServiceOrder {
     private Integer businessId;
 
     @JsonProperty("service_date_time")
-    private LocalDateTime serviceDateTime;
+    private String serviceDateTime;
 
     @JsonProperty("service_description")
     private String serviceDescription;
@@ -48,11 +46,11 @@ public class ServiceOrder {
         this.businessId = businessId;
     }
 
-    public LocalDateTime getServiceDateTime() {
+    public String getServiceDateTime() {
         return serviceDateTime;
     }
 
-    public void setServiceDateTime(LocalDateTime serviceDateTime) {
+    public void setServiceDateTime(String serviceDateTime) {
         this.serviceDateTime = serviceDateTime;
     }
 
