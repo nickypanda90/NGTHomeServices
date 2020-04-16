@@ -25,7 +25,7 @@ function submitLoginForm() {
               let redirectUrl = "../index.html";
               window.location.replace(redirectUrl);
             }else {
-              ocalStorage.clear();
+              localStorage.clear();
               displayErrorMsg('Some error occured while login');
             }
       });
