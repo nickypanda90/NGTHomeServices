@@ -62,7 +62,7 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
-          <li class="dropdown nav-item">
+          <li class="dropdown nav-item user">
             <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
               <i class="flaticon-paint-roller"></i> Interior
             </a>
@@ -84,7 +84,7 @@
               </a>
             </div>
           </li>
-          <li class="dropdown nav-item">
+          <li class="dropdown nav-item user">
             <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
               <i class="fa fa-wrench"></i> Exterior
             </a>
@@ -107,7 +107,7 @@
               </a>
             </div>
           </li>
-          <li class="dropdown nav-item">
+          <li class="dropdown nav-item user">
             <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
               <i class="material-icons">more_horiz</i> More
             </a>
@@ -130,7 +130,7 @@
               </a>
             </div>
           </li>
-          <li class="nav-item">
+          <li class="nav-item user">
             <a class="nav-link" href="examples/reviews.html">
               <i class="material-icons">rate_review</i> Reviews
             </a>
@@ -169,7 +169,7 @@
     </div>
   </div>
   <div class="main main-raised">
-    <div class="section section-basic">
+    <div class="section section-basic user">
       <div class="container">
         <div class="search-panel">
           <div class="input-group mb-3">
@@ -182,14 +182,14 @@
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="container user">
       <div class="row">
         <div class="col-md-12 text-center">
           <span class="headline-text">Popular Services</span>
         </div>
       </div>
     </div>
-    <div class="section-2 section-signup">
+    <div class="section-2 section-signup user">
       <div class="container">
         <div class="row justify-content-center">
           <ul class="nav nav-pills nav-pills-icons" role="tablist">
@@ -428,6 +428,7 @@
         if (isAuthenticated) {
           // update user name
           $login.hide();
+          $('.user').show();
           $user.show();
           $user.find('span').text(isAuthenticated);
           $user.find('a').attr("data-original-title", isAuthenticated);
@@ -435,6 +436,8 @@
           // not authenticated
           $login.show();
           $("#user").hide();
+          $('.user').hide();
+
         }
       });
 
