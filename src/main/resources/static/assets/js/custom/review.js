@@ -74,9 +74,13 @@ function displayConfirmationMsg(msg){
     });
 
     if(getSelectedCategory()){
-        indexed_array["review_catg"] =  getSelectedCategory();
+        indexed_array["review_catg"] = getSelectedCategory();
     }
-  
+    
+    var ratings = $("input:checked").val();
+    if(ratings) {
+        indexed_array["rating"] = ratings;
+    }
     return indexed_array;
   }
 
