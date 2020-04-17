@@ -16,16 +16,8 @@ public interface ServiceListRepository extends JpaRepository<ServiceCategory, In
 
 
 
-    @Query("SELECT p FROM ServiceCategory p WHERE p.Service_Type LIKE %:Service_Type%")
+    @Query("SELECT p FROM ServiceCategory p WHERE p.Service_Type LIKE :Service_Type%")
     List<ServiceCategory> display(@Param("Service_Type") String Service_Type );
 
-//    @Query("SELECT m FROM ServiceCategory m WHERE m.Service_Type LIKE ?1%")
-//    List<ServiceCategory> display(String Service_Type);
-
-//    @Query("SELECT m FROM ServiceCategory m where m.Service_Type LIKE %: Service_Type%")
-//    public String display(String Service_Type);
-
-//    @Query("SELECT m FROM ServiceCategory m where m.Service_Type like '%[%'")
-//    public String display(String Service_Type);
 
 }
