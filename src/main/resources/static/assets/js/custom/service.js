@@ -1,5 +1,7 @@
 $(document).ready(function () {
     $('.alert-danger').hide();
+    $('.alert-success').hide();
+
     var $login = $('#login');
     var $user = $("#user");
     var isAuthenticated = localStorage.getItem('username');
@@ -59,12 +61,12 @@ function process(input){
 
 function validateCreditCard(){
     let credit_card = $("#credit_card").val();
-    let confirm_credit_card = $("#credit_card").val();
+    let confirm_credit_card = $("#confirm_credit_card").val();
     
     if(credit_card == "" || confirm_credit_card == "") {
         return false;
     } else {
-        if(credit_card === confirm_credit_card){
+        if(credit_card.length === 16 && confirm_credit_card.length === 16 && credit_card === confirm_credit_card){
             return true;
         }else {
             return false;
@@ -72,9 +74,31 @@ function validateCreditCard(){
     }
 }
 
+function validateCVV(){
+    let cvv = $("#cvv").val();
+    if(cvv){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validateMonthYear(){
+    let year = $( ".expYear option:selected" ).val();
+    let month = $( ".expMonth option:selected" ).val();
+
+    if(year && year != "" && month && month != "") {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
 function confirmBooking(){
-    if(validateCreditCard()){
+    if(validateCreditCard() && validateCVV() && validateMonthYear()){
         $('.alert-danger').hide();
+        $('.alert-success').hide();
         var $form = $("#billing_form");
         var data = getFormDataBilling($form);
         let post_url = $form.attr("action"); //get form action url
@@ -95,11 +119,13 @@ function confirmBooking(){
                 $("#billing_form")[0].reset();
                 $("#service_form")[0].reset();
                 $('#booking').modal('hide');
+                displayConfirmationMsg('Service Request has been successfully submitted');
             } else {
                 displayBillingErrorMsg('Some error occured while billing');
             }
         });
     } else {
+
         displayBillingErrorMsg("Please correct credit card details.");
     }
 }
@@ -158,6 +184,7 @@ function getFormData($form){
 // Service Request
 function submitRequest(){
     $('.alert-danger').hide();
+    $('.alert-success').hide();
     var $form = $("#service_form");
     var data = getFormData($form);
     let post_url = $form.attr("action"); //get form action url
@@ -187,3 +214,11 @@ function displayErrorMsg(msg){
     $("#error_service").html(msg);
     $("#error_service").show();
 }
+
+function displayConfirmationMsg(msg){
+    var $form = $("#service_form");
+    $form.find('#success_msg').html(msg);
+    $form.find('.alert-success').show();
+}
+  
+
