@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $('.alert-danger').hide();
-    
+    $('.alert-success').hide();
 });
 
 
@@ -22,16 +22,15 @@ function goToPassword() {
         }).done(function(response){ 
             console.log(response);
             if(response) {
-                let redirectUrl = './forgot-password.html' + '?email_id=' + data.email_id;
-                window.location.replace(redirectUrl);
+                displaySuccessMsg('Please check your email to reset your password');
+                $("#forgot-username")[0].reset();
             } else {
                 // update error message                
                 $form.find('.alert-danger').show();
             }
             
-      });
+    });
 }
-
 
 function getFormData($form){
     let unindexed_array = $form.serializeArray();
@@ -42,4 +41,10 @@ function getFormData($form){
     });
   
     return indexed_array;
-  }
+}
+
+function displaySuccessMsg(msg) {
+    var $form = $("#forgot-username");
+    $form.find('#success_msg').html(msg);
+    $form.find('.alert-success').show();
+}

@@ -11,8 +11,8 @@ function resetPassword() {
         let data = getFormData($form);
 
         // append email_id to data before ajax
-        if(getUrlVars()["email_id"]) {
-            data["email_id"] = getUrlVars()["email_id"];
+        if(getUrlVars()["myToken"]) {
+            data["reset_token"] = getUrlVars()["myToken"];
         }
 
         $.ajax({
@@ -25,23 +25,24 @@ function resetPassword() {
             cache: false,
             processData:false
             }).done(function(response){ 
-                console.log(response);
-                // if(response) {
-                //     let redirectUrl = './forgot-password.html' + '?email_id=' + data.email_id;
-                //     console.log(redirectUrl);
-                //     window.location.replace(redirectUrl);
-                // } else {
-                //     // update error message                
-                //     $form.find('.alert-danger').show();
-                // }
+                if(response) {
+                    window.location.replace("../index.html");
+                } else {
+                    // update error message                
+                    displayErrorMsg("Password is incorrect");
+                }
                 
         });
     } else {
         // Update and show error message
-        var $form = $("#reset-password");
-        $form.find('#error_msg').html("Password dosen't match");
-        $form.find('.alert-danger').show();
+        displayErrorMsg("Password dosen't match");
     }
+}
+
+function displayErrorMsg(msg){
+    var $form = $("#reset-password");
+    $form.find('#error_msg').html(msg);
+    $form.find('.alert-danger').show();
 }
 
 

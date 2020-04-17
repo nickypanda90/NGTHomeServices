@@ -173,7 +173,6 @@ function submitRequest(){
       cache: false,
       processData:false
       }).done(function(response){ 
-        console.log(response);
         if(response){
           // open my modal on success
           $("#serviceId").val(response.service_id);
@@ -184,8 +183,7 @@ function submitRequest(){
     });
 }
 
-function displayBillingErrorMsg(msg){
-    var $form = $("#billing_form");
-    $form.find('#error_msg').html(msg);
-    $form.find('.alert-danger').show();
+function displayErrorMsg(msg){
+    $("#error_service").html(msg);
+    $("#error_service").show();
 }
