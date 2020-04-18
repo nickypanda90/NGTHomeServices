@@ -36,7 +36,7 @@ function customerRegistration(){
         }).done(function(response){ 
           console.log(response);
           if(response.customer_Id){
-            window.location.replace("../index.html");
+            window.location.replace("../../index.html");
           } else {
             displayErrorMsg('Some error occured while registration');
           }
