@@ -43,6 +43,73 @@
       /* padding: 35px 40px 40px 45px; */
       margin: 0 25px;
     }
+
+    .input-group .input-group-text-special {
+      margin-left: 555%;
+    }
+
+    .typeahead, .tt-query, .tt-hint {
+      border: 1px solid #009688;
+      border-radius: px;
+      font-size: 14px;
+      height: 30px;
+      line-height: 30px;
+      outline: medium none;
+      padding: 8px 12px;
+      width: 300%;  
+    } 
+    .typeahead {
+      background-color: #FFFFFF;
+    }
+    .typeahead:focus {
+      border: 1px solid #009688;
+    }
+    .tt-query {
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    }
+    .tt-hint {
+      color: #FFFFFF;
+    }
+    .tt-menu {
+      background-color: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      margin-top: 12px;
+      padding: 8px 0;
+      width: 300%;
+      color: #000;
+      z-index: 1000;
+    }
+    .tt-suggestion {
+      font-size: 14px;  /* Set suggestion dropdown font size */
+      padding: 3px 20px;
+    }
+    .tt-suggestion:hover {
+      cursor: pointer;
+      background-color: #0097CF;
+      color: #FFFFFF;
+    }
+    .tt-suggestion p {
+      margin: 0;
+    }
+
+    @media screen and (min-width: 610px) and (max-width: 990px){
+      .input-group .input-group-text-special {
+        margin-left: 300%;
+      }
+      .typeahead, .tt-query, .tt-hint {
+        width: 208%;  
+      }
+    }
+    @media screen and (max-width: 610px){
+      .input-group .input-group-text-special {
+        margin-left: 140%;
+      }
+      .typeahead, .tt-query, .tt-hint {
+        width: 150%;  
+      }
+    }
   </style>
 </head>
 
@@ -178,10 +245,10 @@
       <div class="container">
         <div class="search-panel">
           <div class="input-group mb-3">
-            <input type="text" class="form-control-special" placeholder="Eg Plumbing or Roofing" aria-label="Search"
-              aria-describedby="find-addon">
+            <input type="text" class=" form-control-special typeahead tt-query" placeholder="Eg Plumbing or Roofing" aria-label="Search"
+              aria-describedby="find-addon" autocomplete="off" spellcheck="false">
             <div class="input-group-append">
-              <span class="input-group-text-special" id="find-addon">Find</span>
+              <span class="input-group-text-special" onclick="submitService()" id="find-addon">Find</span>
             </div>
           </div>
         </div>
@@ -422,6 +489,7 @@
     <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
     <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
     <script src="./assets/js/material-kit.js?v=2.0.6" type="text/javascript"></script>
+    <script src="./assets/js/plugins/typeahead.jquery.js" type="text/javascript"></script>
 
     <script src="../assets/js/custom/logout.js" type="text/javascript"></script>
     <script src="assets/js/custom/home.js"></script>
