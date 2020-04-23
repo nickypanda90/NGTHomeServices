@@ -34,7 +34,7 @@ function signup() {
                 }).done(function(response){ 
                     console.log(response);
                     if(response["name"] != undefined) {
-                        window.location.replace("../index.html");
+                        window.location.replace("../../index.html");
                     } else {
                         // update error message                
                         displayErrorMsg('Some error occured while registration');

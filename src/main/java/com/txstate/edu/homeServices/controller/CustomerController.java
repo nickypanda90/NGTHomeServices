@@ -1,13 +1,11 @@
 package com.txstate.edu.homeServices.controller;
 
 
-import com.txstate.edu.homeServices.model.CustomerFeedback;
 import com.txstate.edu.homeServices.model.CustomerRegistration;
-import com.txstate.edu.homeServices.model.UserAuthenticationResponse;
+import com.txstate.edu.homeServices.model.LoginDetail;
 import com.txstate.edu.homeServices.repository.AuthenticRepository;
 import com.txstate.edu.homeServices.repository.CustomerRepository;
 import com.txstate.edu.homeServices.service.EmailService;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -35,31 +33,33 @@ public class CustomerController {
 
     @PostMapping("/signup")
     public CustomerRegistration signupCustomer(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
-        CustomerRegistration temp = customerregistration;
-        try {
-            customerregistration.setRole_id("customer");
-            temp = customerRepository.save(customerregistration);
 
-            // request.getSession().setAttribute("USER_INFO", temp);
+     String token = UUID.randomUUID().toString();
+       String appUrl = request.getScheme() + "://" + request.getServerName() + ":8080";
+        SimpleMailMessage registrationmsg = new SimpleMailMessage();
+        registrationmsg.setFrom("support@demo.com");
+        registrationmsg.setTo(customerregistration.getEmail_id());
+        registrationmsg.setSubject("Username Request");
+        registrationmsg.setText("You have successfully registered:\n" + appUrl
+                + "/pages/registration/login-page.html?myToken=" + token);
+        emailService.sendEmail(registrationmsg);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return temp;
+        customerregistration.setRole_id("customer");
+        return customerRepository.save(customerregistration);
     }
 
     @PostMapping("/login")
-    public UserAuthenticationResponse login(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
-        String name;
+    public LoginDetail login(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
 
-
-        UserAuthenticationResponse user = new UserAuthenticationResponse();
+        LoginDetail user = new LoginDetail();
         request.getSession().setAttribute("USER_INFO", user);
 
-        name = customerRepository.findByEmail_idaAndPassword(customerregistration.getEmail_id(), customerregistration.getPassword());
 
-        if (name != null) {
-            user.setName(name);
+        LoginDetail name = customerRepository.findByEmail_idaAndPassword(customerregistration.getEmail_id(), customerregistration.getPassword());
+
+        if (name!=null &&  !name.getName().isEmpty()) {
+            user.setRole_id(name.getRole_id());
+            user.setName(name.getName());
             user.setAuthenticated(true);
 
         } else
@@ -85,9 +85,9 @@ public class CustomerController {
             SimpleMailMessage passwordresetEmail = new SimpleMailMessage();
             passwordresetEmail.setFrom("support@demo.com");
             passwordresetEmail.setTo(customerregistration.getEmail_id());
-            passwordresetEmail.setSubject("Username Request");
+            passwordresetEmail.setSubject("Password Request");
             passwordresetEmail.setText("Please click on the link below:\n" + appUrl
-                    + "/examples/forgot-password.html?myToken=" + token);
+                    + "/pages/reset-password/forgot-password.html?myToken=" + token);
             emailService.sendEmail(passwordresetEmail);
         }
         return isValid;
@@ -95,16 +95,10 @@ public class CustomerController {
 
     }
 
-//    @Transactional
-//    @PostMapping("/forgotpass")
-//    public  void updatepass(@Valid @RequestBody CustomerRegistration customerregistration) {
-//
-//       authenticRepository.save(customerregistration.getEmail_id(),customerregistration.getPassword());
-//    }
 
     @Transactional
     @PostMapping("/forgotpass")
-    public CustomerRegistration forgotusername(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
+    public CustomerRegistration forgotpass(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
 
         //please change the port number as per your localhost
         CustomerRegistration existingCustomer = authenticRepository.getUserByToken(customerregistration.getReset_token());
@@ -121,6 +115,5 @@ public class CustomerController {
     private boolean checkExpiry(Date tokenTime) {
         return tokenTime.after(new Date(System.currentTimeMillis() - 15 * 60 * 1000)) && tokenTime.before(new Date());
     }
-
 
 }
