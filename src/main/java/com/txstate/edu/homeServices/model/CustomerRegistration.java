@@ -1,12 +1,9 @@
 package com.txstate.edu.homeServices.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -26,6 +23,16 @@ public class CustomerRegistration {
     private String password;
     private String role_id;
     private String reset_token;
+    private String business_category;
+
+    public String getBusiness_category() {
+        return business_category;
+    }
+
+    public void setBusiness_category(String business_category) {
+        this.business_category = business_category;
+    }
+
     @Transient
     private String passwordConfirm;
 
