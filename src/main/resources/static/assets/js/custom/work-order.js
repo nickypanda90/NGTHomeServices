@@ -22,6 +22,19 @@ $(document).ready(function () {
       $('.customer').hide();
       $('.contractor').hide();
     }
+    
+    //Initialize datatable
+    $('#workOrderTbl').DataTable(
+      {
+        "searching": false,
+        // "pagingType": "numbers",
+        // "pageLength": 10,
+        "paging": false,
+        "bInfo" : false,
+        "bLengthChange": false
+      }
+    );
+
   });
 
   function scrollToDownload() {
