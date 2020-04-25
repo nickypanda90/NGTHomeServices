@@ -16,36 +16,62 @@ function getFormData($form){
 }
 
 function customerRegistration(){
-  if(validatePassword()){
-    if(agreeTerms()) {
-      $('.alert-danger').hide();
-      var $form = $("#customer_form");
-      var data = getFormData($form);
-      let post_url = $form.attr("action"); //get form action url
-      let request_method = $form.attr("method"); //get form GET/POST method
+  if (validateEmail()){
+    if( validatePasswordField()){
+      if(validatePassword()){
+        if(agreeTerms()) {
+          $('.alert-danger').hide();
+          var $form = $("#customer_form");
+          var data = getFormData($form);
+          let post_url = $form.attr("action"); //get form action url
+          let request_method = $form.attr("method"); //get form GET/POST method
 
-      $.ajax({
-        url : post_url,
-        type: request_method,
-        data : JSON.stringify(data),
-        crossDomain: true,
-        contentType: "application/json;",
-        dataType: "json",
-        cache: false,
-        processData:false
-        }).done(function(response){ 
-          console.log(response);
-          if(response.customer_Id){
-            window.location.replace("../../index.html");
-          } else {
-            displayErrorMsg('Some error occured while registration');
-          }
-      });
+          $.ajax({
+            url : post_url,
+            type: request_method,
+            data : JSON.stringify(data),
+            crossDomain: true,
+            contentType: "application/json;",
+            dataType: "json",
+            cache: false,
+            processData:false
+            }).done(function(response){ 
+              console.log(response);
+              if(response.customer_Id){
+                window.location.replace("../../index.html");
+              } else {
+                displayErrorMsg('Some error occured while registration');
+              }
+          });
+        } else {
+          displayErrorMsg("Please Agree to our terms and condtion");
+        }
+      } else {
+        displayErrorMsg("Password dosen't match");
+      }
     } else {
-      displayErrorMsg("Please Agree to our terms and condtion");
+      displayErrorMsg("Password is required");
     }
   } else {
-    displayErrorMsg("Password dosen't match");
+    displayErrorMsg("Email is required");
+  }
+}
+
+function validateEmail(){
+  let emailId = $("#customer_form").find('input[type="email"]');
+  if(emailId.val() == ""){
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function validatePasswordField(){
+  let password = $("#customer_form").find('#password');
+  if(password.val() == ""){
+    return false;
+  } else {
+    return true;
   }
 }
 
