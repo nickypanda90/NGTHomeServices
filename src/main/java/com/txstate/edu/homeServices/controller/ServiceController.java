@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/service")
 public class ServiceController {
@@ -17,6 +19,11 @@ public class ServiceController {
 
     @Autowired
     private OrderService orderService;
+
+    @GetMapping(value = "/contractor/{contractor_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ServiceOrder> getServices(@PathVariable("contractor_id") Integer contractorId) {
+        return orderService.fetchOrders(contractorId);
+    }
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
