@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -54,4 +56,17 @@ public class OrderService {
         return payment;
     }
 
+    public List<ServiceOrder> fetchOrders(Integer businessId) {
+        List<ServiceOrderEntity> entities = serviceRepo.findAllByBusinessIdOrderByServiceIdDesc(businessId);
+        return entities.stream().map(e -> {
+            ServiceOrder order = new ServiceOrder();
+            order.setServiceId(e.getServiceId());
+            order.setCustomerId(e.getCustomerId());
+            order.setBusinessId(e.getBusinessId());
+            order.setServiceDateTime(e.getServiceDateTime().toString());
+            order.setServiceDescription(e.getServiceDescription());
+            order.setServiceCategory(e.getServiceCategory());
+            return order;
+        }).collect(Collectors.toList());
+    }
 }
