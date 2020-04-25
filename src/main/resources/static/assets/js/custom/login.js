@@ -20,11 +20,10 @@ function submitLoginForm() {
         processData:false
         }).done(function(response){ 
             console.log(response);
-            if(response.authenticated ) {
+            if(response.authenticated) {
               localStorage.setItem('username', response.name);
-              localStorage.setItem("role", response.role_id);
-              let redirectUrl = "../../index.html";
-              window.location.replace(redirectUrl);  
+              let redirectUrl = "../index.html";
+              window.location.replace(redirectUrl);
             }else {
               localStorage.clear();
               displayErrorMsg('Some error occured while login');
@@ -37,6 +36,7 @@ function displayErrorMsg(msg){
   $form.find('#error_msg').html(msg);
   $form.find('.alert-danger').show();
 }
+
 
 function getFormData($form){
   let unindexed_array = $form.serializeArray();

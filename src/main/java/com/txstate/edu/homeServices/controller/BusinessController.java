@@ -1,41 +1,34 @@
 package com.txstate.edu.homeServices.controller;
 
-import com.txstate.edu.homeServices.model.CustomerRegistration;
-import com.txstate.edu.homeServices.repository.CustomerRepository;
+import com.txstate.edu.homeServices.model.BusinessEntity;
+import com.txstate.edu.homeServices.object.BusinessRegistration;
+import com.txstate.edu.homeServices.service.BusinessService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.UUID;
+import java.util.List;
 
 @RestController
-@RequestMapping("/business/api")
+@RequestMapping("/business")
 public class BusinessController {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private CustomerRepository repository;
+    private BusinessService service;
 
-    @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
+    public List<BusinessEntity> getBusinesses() {
+        return service.getAllBusinesses();
+    }
+
+    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public CustomerRegistration registerBusiness(@Valid @RequestBody CustomerRegistration contractor) {
-        log.debug("Registering business for {}", contractor);
-
-        String token = UUID.randomUUID().toString();
-//        String appUrl = request.getScheme() + "://" + request.getServerName() + ":8080";
-//        SimpleMailMessage registrationmsg = new SimpleMailMessage();
-//        registrationmsg.setFrom("support@demo.com");
-//        registrationmsg.setTo(customerregistration.getEmail_id());
-//        registrationmsg.setSubject("Username Request");
-//        registrationmsg.setText("You have successfully registered:\n" + appUrl
-//                + "/pages/registration/login-page.html?myToken=" + token);
-//        emailService.sendEmail(registrationmsg);
-
-        contractor.setRole_id("contractor");
-        return repository.save(contractor);
+    public BusinessRegistration registerBusiness(@RequestBody BusinessRegistration registration) {
+        log.debug("Registering business for {}", registration);
+        return service.register(registration);
     }
 }

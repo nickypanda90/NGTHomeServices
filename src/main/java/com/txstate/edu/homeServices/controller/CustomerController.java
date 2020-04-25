@@ -41,7 +41,7 @@ public class CustomerController {
         registrationmsg.setTo(customerregistration.getEmail_id());
         registrationmsg.setSubject("Username Request");
         registrationmsg.setText("You have successfully registered:\n" + appUrl
-                + "/pages/registration/login-page.html?myToken=" + token);
+                + "/examples/login-page.html?myToken=" + token);
         emailService.sendEmail(registrationmsg);
 
         customerregistration.setRole_id("customer");
@@ -85,9 +85,9 @@ public class CustomerController {
             SimpleMailMessage passwordresetEmail = new SimpleMailMessage();
             passwordresetEmail.setFrom("support@demo.com");
             passwordresetEmail.setTo(customerregistration.getEmail_id());
-            passwordresetEmail.setSubject("Password Request");
+            passwordresetEmail.setSubject("Username Request");
             passwordresetEmail.setText("Please click on the link below:\n" + appUrl
-                    + "/pages/reset-password/forgot-password.html?myToken=" + token);
+                    + "/examples/forgot-password.html?myToken=" + token);
             emailService.sendEmail(passwordresetEmail);
         }
         return isValid;
@@ -115,5 +115,7 @@ public class CustomerController {
     private boolean checkExpiry(Date tokenTime) {
         return tokenTime.after(new Date(System.currentTimeMillis() - 15 * 60 * 1000)) && tokenTime.before(new Date());
     }
+
+
 
 }

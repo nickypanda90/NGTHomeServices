@@ -9,78 +9,43 @@ function process(input){
     input.value = letters;
 }
 
-function validateEmail(){
-    let emailId = $("#contractor-form").find('input[type="email"]');
-    if(emailId.val() == ""){
-      return false;
-    } else {
-      return true;
-    }
-}
+function getCategory(){
 
-function validatePasswordField(){
-    let password = $("#contractor-form").find('#password');
-    if(password.val() == ""){
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function validateCategory(){
-    let selectedVal = $( ".categories option:selected" ).val();
-    if(selectedVal == "") {
-        return false;
-    } else {
-        return true;
-    }
 }
 
 function signup() {
+    if(validatePassword()){
+        if(agreeTerms()) {
+            $('.alert-danger').hide();
+            var $form = $("#contractor-form");
+            let post_url = $form.attr("action");
+            let request_method = $form.attr("method");
+            let data = getFormData($form);
 
-    if( validateEmail()) {
-        if(validatePasswordField()) {
-            if(validateCategory()) {
-                if(validatePassword()){
-                    if(agreeTerms()) {
-                        $('.alert-danger').hide();
-                        var $form = $("#contractor-form");
-                        let post_url = $form.attr("action");
-                        let request_method = $form.attr("method");
-                        let data = getFormData($form);
-            
-                        $.ajax({
-                            url : post_url,
-                            type: request_method,
-                            data : JSON.stringify(data),
-                            crossDomain: true,
-                            contentType: "application/json;",
-                            dataType: "json",
-                            cache: false,
-                            processData:false
-                            }).done(function(response){ 
-                                console.log(response);
-                                if(response["name"] != undefined) {
-                                    window.location.replace("../../index.html");
-                                } else {
-                                    // update error message                
-                                    displayErrorMsg('Some error occured while registration');
-                                }    
-                        });
+            $.ajax({
+                url : post_url,
+                type: request_method,
+                data : JSON.stringify(data),
+                crossDomain: true,
+                contentType: "application/json;",
+                dataType: "json",
+                cache: false,
+                processData:false
+                }).done(function(response){ 
+                    console.log(response);
+                    if(response["name"] != undefined) {
+                        window.location.replace("../index.html");
                     } else {
-                        displayErrorMsg("Please Agree to our terms and condtion");
+                        // update error message                
+                        displayErrorMsg('Some error occured while registration');
                     }
-                } else {
-                    displayErrorMsg("Password dosen't match");
-                } 
-            } else {
-                displayErrorMsg("Category is required");
-            }
+                    
+            });
         } else {
-            displayErrorMsg("Password is required");
-        }  
+            displayErrorMsg("Please Agree to our terms and condtion");
+        }
     } else {
-        displayErrorMsg("Email is required");
+        displayErrorMsg("Password dosen't match");
     }
 }
 
@@ -97,6 +62,7 @@ function getFormData($form){
       indexed_array[n['name']] = n['value'];
     });
   
+    
     if(getSelectedCategory()){
         indexed_array["category"] =  getSelectedCategory();
     }
