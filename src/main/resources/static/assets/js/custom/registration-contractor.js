@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
     $('.alert-danger').hide();
+    $('.alert-success').hide();
 });
 
 function process(input){
@@ -43,6 +44,7 @@ function signup() {
             if(validateCategory()) {
                 if(validatePassword()){
                     if(agreeTerms()) {
+                        $('.alert-success').hide();
                         $('.alert-danger').hide();
                         var $form = $("#contractor-form");
                         let post_url = $form.attr("action");
@@ -58,10 +60,12 @@ function signup() {
                             dataType: "json",
                             cache: false,
                             processData:false
-                            }).done(function(response){ 
-                                console.log(response);
+                            }).done((response) => { 
                                 if(response["name"] != undefined) {
-                                    window.location.replace("../../index.html");
+                                    displaySuccessMsg("Registration Succesfull");
+                                    setTimeout(() => { 
+                                        window.location.replace("../../index.html");
+                                     }, 5000);
                                 } else {
                                     // update error message                
                                     displayErrorMsg('Some error occured while registration');
@@ -89,6 +93,13 @@ function displayErrorMsg(msg){
     $form.find('#error_msg').html(msg);
     $form.find('.alert-danger').show();
 }
+
+function displaySuccessMsg(msg){
+    var $form = $("#contractor-form");
+    $form.find('#success_msg').html(msg);
+    $form.find('.alert-success').show();
+}
+
 function getFormData($form){
     let unindexed_array = $form.serializeArray();
     let indexed_array = {};

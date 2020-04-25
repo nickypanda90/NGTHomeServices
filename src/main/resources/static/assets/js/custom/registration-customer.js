@@ -1,6 +1,7 @@
 
 $(document).ready(function () {
   $('.alert-danger').hide();
+  $('.alert-success').hide();
 });
 
 function getFormData($form){
@@ -21,6 +22,7 @@ function customerRegistration(){
       if(validatePassword()){
         if(agreeTerms()) {
           $('.alert-danger').hide();
+          $('.alert-success').hide();
           var $form = $("#customer_form");
           var data = getFormData($form);
           let post_url = $form.attr("action"); //get form action url
@@ -35,11 +37,13 @@ function customerRegistration(){
             dataType: "json",
             cache: false,
             processData:false
-            }).done(function(response){ 
-              console.log(response);
+            }).done((response) => { 
               if(response.customer_Id){
-                window.location.replace("../../index.html");
-              } else {
+                displaySuccessMsg("Registration Succesfull");
+                setTimeout(() => { 
+                  window.location.replace("../../index.html");
+                }, 5000);              }
+              else {
                 displayErrorMsg('Some error occured while registration');
               }
           });
@@ -96,6 +100,12 @@ function displayErrorMsg(msg){
   var $form = $("#customer_form");
   $form.find('#error_msg').html(msg);
   $form.find('.alert-danger').show();
+}
+
+function displaySuccessMsg(msg){
+  var $form = $("#customer_form");
+  $form.find('#success_msg').html(msg);
+  $form.find('.alert-success').show();
 }
 
 function process(input){
