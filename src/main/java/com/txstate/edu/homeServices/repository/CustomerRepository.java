@@ -13,7 +13,7 @@ import java.util.List;
 public interface CustomerRepository extends JpaRepository<CustomerRegistration, Integer> {
 
 
-  @Query("SELECT new com.txstate.edu.homeServices.model.LoginDetail(u.name,u.role_id,true) FROM CustomerRegistration u WHERE LOWER(u.email_id) = LOWER(:email_id) and u.password = :password")
+  @Query("SELECT new com.txstate.edu.homeServices.model.LoginDetail(u.name,u.role_id,true,u.customer_Id) FROM CustomerRegistration u WHERE LOWER(u.email_id) = LOWER(:email_id) and u.password = :password")
 
 // public String findByEmail_idaAndPassword(String email_id,String password);
 

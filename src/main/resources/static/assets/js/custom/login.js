@@ -23,6 +23,7 @@ function submitLoginForm() {
             if(response.authenticated ) {
               localStorage.setItem('username', response.name);
               localStorage.setItem("role", response.role_id);
+              localStorage.setItem("id", response.customer_Id);
               let redirectUrl = "../../index.html";
               window.location.replace(redirectUrl);  
             }else {

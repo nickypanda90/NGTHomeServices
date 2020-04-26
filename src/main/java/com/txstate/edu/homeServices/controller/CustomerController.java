@@ -57,10 +57,11 @@ public class CustomerController {
 
         LoginDetail name = customerRepository.findByEmail_idaAndPassword(customerregistration.getEmail_id(), customerregistration.getPassword());
 
-        if (name!=null &&  !name.getName().isEmpty()) {
+        if (name!=null && !name.getName().isEmpty()) {
             user.setRole_id(name.getRole_id());
             user.setName(name.getName());
             user.setAuthenticated(true);
+            user.setCustomer_Id(name.getCustomer_Id());
 
         } else
             user.setAuthenticated(false);

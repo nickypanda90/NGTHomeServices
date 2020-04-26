@@ -51,7 +51,7 @@ function customerRegistration(){
           displayErrorMsg("Please Agree to our terms and condtion");
         }
       } else {
-        displayErrorMsg("Password dosen't match");
+        displayErrorMsg("Password doesn't match");
       }
     } else {
       displayErrorMsg("Password is required");

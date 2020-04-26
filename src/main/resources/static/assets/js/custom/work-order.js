@@ -3,7 +3,8 @@ $(document).ready(function () {
     var $user = $("#user");
     var isAuthenticated = localStorage.getItem('username');
     var role = localStorage.getItem("role");
-    if (isAuthenticated && role) {
+    var id = localStorage.getItem("id");
+    if (isAuthenticated && role && id) {
       // update user name
       $login.hide();
       $user.show();
@@ -15,14 +16,7 @@ $(document).ready(function () {
         $('.contractor').show();
         $('.customer').hide();
       }
-    } else {
-      // not authenticated
-      $login.show();
-      $("#user").hide();
-      $('.customer').hide();
-      $('.contractor').hide();
-    }
-    
+
     //Initialize datatable
     $('#workOrderTbl').DataTable(
       {
@@ -31,10 +25,47 @@ $(document).ready(function () {
         // "pageLength": 10,
         "paging": false,
         "bInfo" : false,
-        "bLengthChange": false
-      }
+        "bLengthChange": false,
+        "language": {
+          "emptyTable": "No data available in table"
+        },
+        "ajax": "/service/contractor/"+ id,
+        "columns": [
+          { 
+            "title": "Service ID",
+            "data": "service_id" 
+          },
+          { 
+            "title": "Customer ID",
+            "data": "customer_id" 
+          },
+          { 
+            "title": "Business ID", 
+            "data": "business_id" 
+          },
+          { 
+            "title": "Service Date time",
+            "data": "service_date_time" 
+          },
+          {  
+            "title": "Description",
+            "data": "service_description" 
+          },
+          { 
+            "title": "Category",
+            "data": "service_category" 
+          }
+      ]}
     );
 
+    } else {
+      // not authenticated
+      $login.show();
+      $("#user").hide();
+      $('.customer').hide();
+      $('.contractor').hide();
+      window.location.replace("../../index.html"); 
+    }
   });
 
   function scrollToDownload() {
