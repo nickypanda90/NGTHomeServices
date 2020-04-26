@@ -2,12 +2,15 @@ package com.txstate.edu.homeServices.controller;
 
 import com.txstate.edu.homeServices.model.CustomerRegistration;
 import com.txstate.edu.homeServices.repository.CustomerRepository;
+import com.txstate.edu.homeServices.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.UUID;
 
@@ -20,22 +23,33 @@ public class BusinessController {
     @Autowired
     private CustomerRepository repository;
 
+    @Autowired
+    private EmailService emailService;
+
     @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public CustomerRegistration registerBusiness(@Valid @RequestBody CustomerRegistration contractor) {
+    public CustomerRegistration registerBusiness(@Valid @RequestBody CustomerRegistration contractor, HttpServletRequest request) {
         log.debug("Registering business for {}", contractor);
-
-        String token = UUID.randomUUID().toString();
-//        String appUrl = request.getScheme() + "://" + request.getServerName() + ":8080";
-//        SimpleMailMessage registrationmsg = new SimpleMailMessage();
-//        registrationmsg.setFrom("support@demo.com");
-//        registrationmsg.setTo(customerregistration.getEmail_id());
-//        registrationmsg.setSubject("Username Request");
-//        registrationmsg.setText("You have successfully registered:\n" + appUrl
-//                + "/pages/registration/login-page.html?myToken=" + token);
-//        emailService.sendEmail(registrationmsg);
-
         contractor.setRole_id("contractor");
-        return repository.save(contractor);
+        repository.save(contractor);
+        sendRegistrationEmail(contractor, request);
+        return contractor;
+    }
+
+    private void sendRegistrationEmail(CustomerRegistration contractor, HttpServletRequest request) {
+        log.debug("Sending registration email to {}", contractor.getEmail_id());
+        try {
+            String token = UUID.randomUUID().toString();
+            String appUrl = request.getScheme() + "://" + request.getServerName() + ":8080";
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("support@demo.com");
+            message.setTo(contractor.getEmail_id());
+            message.setSubject("Username Request");
+            message.setText("You have successfully registered:\n" + appUrl
+                    + "/pages/registration/login-page.html?myToken=" + token);
+            emailService.sendEmail(message);
+        } catch (Exception exe) {
+            log.error("Exception while sending registration email", exe);
+        }
     }
 }
