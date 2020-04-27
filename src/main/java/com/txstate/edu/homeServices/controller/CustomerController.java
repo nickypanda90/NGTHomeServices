@@ -34,20 +34,19 @@ public class CustomerController {
     @PostMapping("/signup")
     public CustomerRegistration signupCustomer(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
 
-     String token = UUID.randomUUID().toString();
-       String appUrl = request.getScheme() + "://" + request.getServerName() + ":8080";
+        String token = UUID.randomUUID().toString();
+        String appUrl = request.getScheme() + "://" + request.getServerName() + ":8080";
         SimpleMailMessage registrationmsg = new SimpleMailMessage();
         registrationmsg.setFrom("support@demo.com");
         registrationmsg.setTo(customerregistration.getEmail_id());
         registrationmsg.setSubject("Username Request");
         registrationmsg.setText("You have successfully registered:\n" + appUrl
-                + "/examples/login-page.html?myToken=" + token);
+                + "/pages/registration/login-page.html?myToken=" + token);
         emailService.sendEmail(registrationmsg);
 
         customerregistration.setRole_id("customer");
         return customerRepository.save(customerregistration);
     }
-
     @PostMapping("/login")
     public LoginDetail login(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
 
@@ -61,6 +60,9 @@ public class CustomerController {
             user.setRole_id(name.getRole_id());
             user.setName(name.getName());
             user.setAuthenticated(true);
+            customerregistration.setName(user.getName());
+            request.getSession().setAttribute("USER_DETAILS_EXPANDED", customerregistration);
+
 
         } else
             user.setAuthenticated(false);
@@ -85,9 +87,9 @@ public class CustomerController {
             SimpleMailMessage passwordresetEmail = new SimpleMailMessage();
             passwordresetEmail.setFrom("support@demo.com");
             passwordresetEmail.setTo(customerregistration.getEmail_id());
-            passwordresetEmail.setSubject("Username Request");
+            passwordresetEmail.setSubject("Password Request");
             passwordresetEmail.setText("Please click on the link below:\n" + appUrl
-                    + "/examples/forgot-password.html?myToken=" + token);
+                    + "/pages/reset-password/forgot-password.html?myToken=" + token);
             emailService.sendEmail(passwordresetEmail);
         }
         return isValid;
@@ -115,7 +117,6 @@ public class CustomerController {
     private boolean checkExpiry(Date tokenTime) {
         return tokenTime.after(new Date(System.currentTimeMillis() - 15 * 60 * 1000)) && tokenTime.before(new Date());
     }
-
 
 
 }
