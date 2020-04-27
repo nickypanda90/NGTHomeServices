@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
     $('.alert-danger').hide();
+    $('.alert-success').hide();
 });
 
 function process(input){
@@ -9,43 +10,81 @@ function process(input){
     input.value = letters;
 }
 
-function getCategory(){
+function validateEmail(){
+    let emailId = $("#contractor-form").find('input[type="email"]');
+    if(emailId.val() == ""){
+      return false;
+    } else {
+      return true;
+    }
+}
 
+function validatePasswordField(){
+    let password = $("#contractor-form").find('#password');
+    if(password.val() == ""){
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function validateCategory(){
+    let selectedVal = $( ".categories option:selected" ).val();
+    if(selectedVal == "") {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 function signup() {
-    if(validatePassword()){
-        if(agreeTerms()) {
-            $('.alert-danger').hide();
-            var $form = $("#contractor-form");
-            let post_url = $form.attr("action");
-            let request_method = $form.attr("method");
-            let data = getFormData($form);
 
-            $.ajax({
-                url : post_url,
-                type: request_method,
-                data : JSON.stringify(data),
-                crossDomain: true,
-                contentType: "application/json;",
-                dataType: "json",
-                cache: false,
-                processData:false
-                }).done(function(response){ 
-                    console.log(response);
-                    if(response["name"] != undefined) {
-                        window.location.replace("../index.html");
+    if( validateEmail()) {
+        if(validatePasswordField()) {
+            if(validateCategory()) {
+                if(validatePassword()){
+                    if(agreeTerms()) {
+                        $('.alert-success').hide();
+                        $('.alert-danger').hide();
+                        var $form = $("#contractor-form");
+                        let post_url = $form.attr("action");
+                        let request_method = $form.attr("method");
+                        let data = getFormData($form);
+            
+                        $.ajax({
+                            url : post_url,
+                            type: request_method,
+                            data : JSON.stringify(data),
+                            crossDomain: true,
+                            contentType: "application/json;",
+                            dataType: "json",
+                            cache: false,
+                            processData:false
+                            }).done((response) => { 
+                                if(response["name"] != undefined) {
+                                    displaySuccessMsg("Registration Succesfull");
+                                    setTimeout(() => { 
+                                        window.location.replace("../../index.html");
+                                     }, 5000);
+                                } else {
+                                    // update error message                
+                                    displayErrorMsg('Some error occured while registration');
+                                }    
+                        });
                     } else {
-                        // update error message                
-                        displayErrorMsg('Some error occured while registration');
+                        displayErrorMsg("Please Agree to our terms and condtion");
                     }
-                    
-            });
+                } else {
+                    displayErrorMsg("Password doesn't match");
+                } 
+            } else {
+                displayErrorMsg("Category is required");
+            }
         } else {
-            displayErrorMsg("Please Agree to our terms and condtion");
-        }
+            displayErrorMsg("Password is required");
+        }  
     } else {
-        displayErrorMsg("Password dosen't match");
+        displayErrorMsg("Email is required");
     }
 }
 
@@ -54,6 +93,13 @@ function displayErrorMsg(msg){
     $form.find('#error_msg').html(msg);
     $form.find('.alert-danger').show();
 }
+
+function displaySuccessMsg(msg){
+    var $form = $("#contractor-form");
+    $form.find('#success_msg').html(msg);
+    $form.find('.alert-success').show();
+}
+
 function getFormData($form){
     let unindexed_array = $form.serializeArray();
     let indexed_array = {};
@@ -62,7 +108,6 @@ function getFormData($form){
       indexed_array[n['name']] = n['value'];
     });
   
-    
     if(getSelectedCategory()){
         indexed_array["category"] =  getSelectedCategory();
     }

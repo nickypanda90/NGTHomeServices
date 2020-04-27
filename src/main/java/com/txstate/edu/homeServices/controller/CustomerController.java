@@ -60,6 +60,7 @@ public class CustomerController {
             user.setRole_id(name.getRole_id());
             user.setName(name.getName());
             user.setAuthenticated(true);
+            user.setCustomer_Id(name.getCustomer_Id());
             customerregistration.setName(user.getName());
             request.getSession().setAttribute("USER_DETAILS_EXPANDED", customerregistration);
 

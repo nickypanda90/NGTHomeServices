@@ -1,7 +1,7 @@
 body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
-  font-family: $font-family-sans-serif;
-  font-weight: 300;
-  line-height: 1.5em;
+    font-family: $font-family-sans-serif;
+    font-weight: 300;
+    line-height: 1.5em;
 }
 
 h1,h2,h3,.h1,.h2,.h3{
@@ -88,19 +88,19 @@ h2.title{
 }
 
 .text-warning {
-  color: $brand-warning !important;
+color: $brand-warning !important;
 }
 .text-primary {
-  color: $brand-primary !important;
+color: $brand-primary !important;
 }
 .text-danger {
-  color: $brand-danger !important;
+color: $brand-danger !important;
 }
 .text-success {
-  color: $brand-success !important;
+color: $brand-success !important;
 }
 .text-info {
-  color: $brand-info !important;
+color: $brand-info !important;
 }
 .text-rose{
     color: $brand-rose !important;
@@ -177,3 +177,7 @@ h2.title{
     font-weight: bold;
     color: $red;
 }
+
+.datatbl-padding-bottom{
+    padding-bottom: 1rem;
+} 

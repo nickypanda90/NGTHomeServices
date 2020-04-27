@@ -26,7 +26,7 @@ function resetPassword() {
             processData:false
             }).done(function(response){ 
                 if(response) {
-                    window.location.replace("../index.html");
+                    window.location.replace("../../index.html");
                 } else {
                     // update error message                
                     displayErrorMsg("Password is incorrect");
@@ -77,5 +77,3 @@ function validatePassword(){
         }
     }
 }
-
-

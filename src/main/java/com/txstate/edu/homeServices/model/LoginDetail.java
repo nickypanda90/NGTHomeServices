@@ -6,12 +6,15 @@ public class LoginDetail {
     private String name;
     private String role_id;
     private boolean isAuthenticated;
+    private Integer customer_Id;
+
 
     public LoginDetail(){}
-    public LoginDetail(String name, String role_id, boolean isAuthenticated) {
+    public LoginDetail(String name, String role_id, boolean isAuthenticated, Integer customer_Id) {
         this.name = name;
         this.role_id = role_id;
         this.isAuthenticated = isAuthenticated;
+        this.customer_Id = customer_Id;
     }
 
     public boolean isAuthenticated() {
@@ -37,5 +40,8 @@ public class LoginDetail {
         this.role_id = role_id;
     }
 
+    public Integer getCustomer_Id() { return customer_Id; }
+
+    public void setCustomer_Id(Integer customer_Id) { this.customer_Id = customer_Id; }
 
 }
