@@ -21,6 +21,16 @@ public class CustomerFeedback {
     private String name;
     private String message;
 
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    private String rating;
+
 
     public int getCust_review_id() {
         return cust_review_id;
