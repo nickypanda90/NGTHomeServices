@@ -1,5 +1,6 @@
 package com.txstate.edu.homeServices.controller;
 
+import com.txstate.edu.homeServices.model.CustomerRegistration;
 import com.txstate.edu.homeServices.object.ServiceOrder;
 import com.txstate.edu.homeServices.object.ServicePayment;
 import com.txstate.edu.homeServices.service.OrderService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -27,8 +29,11 @@ public class ServiceController {
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ServiceOrder createService(@RequestBody ServiceOrder serviceOrder) {
+    public ServiceOrder createService(@RequestBody ServiceOrder serviceOrder, HttpServletRequest request) {
         log.debug("Creating service for {}", serviceOrder);
+        CustomerRegistration customer = (CustomerRegistration) request.getSession().getAttribute("USER_DETAILS_EXPANDED");
+        serviceOrder.setBusinessId(serviceOrder.getCustomerId());
+        serviceOrder.setCustomerId(customer.getCustomer_Id());
         return orderService.createServiceOrder(serviceOrder);
     }
 

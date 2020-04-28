@@ -130,4 +130,22 @@ public class CustomerRegistration {
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
+
+    @Override
+    public String toString() {
+        return "CustomerRegistration{" +
+                "customer_Id=" + customer_Id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", email_id='" + email_id + '\'' +
+                ", phone_no='" + phone_no + '\'' +
+                ", password='" + password + '\'' +
+                ", role_id='" + role_id + '\'' +
+                ", reset_token='" + reset_token + '\'' +
+                ", business_category='" + business_category + '\'' +
+                ", passwordConfirm='" + passwordConfirm + '\'' +
+                ", token='" + token + '\'' +
+                ", token_ts=" + token_ts +
+                '}';
+    }
 }
