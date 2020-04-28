@@ -43,6 +43,23 @@ $(document).ready(function () {
     }
 
     $('#serviceAmt').val(getAmountValueFromService());
+
+    let customerURL = "/business/api/category/" + getUrlVars()["serviceType"];
+    
+    $.ajax({
+        url : customerURL,
+        type: "GET",
+        crossDomain: true,
+        contentType: "application/json;",
+        dataType: "json",
+        cache: false,
+        processData:false
+        }).done(function(response){ 
+          if(response){
+
+            console.log(response); 
+          } 
+      });
   });
 
 function getUrlVars() {
