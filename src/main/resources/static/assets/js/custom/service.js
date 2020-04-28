@@ -56,8 +56,12 @@ $(document).ready(function () {
         processData:false
         }).done(function(response){ 
           if(response){
-
-            console.log(response); 
+            response.forEach((val, index) => {
+                $('.categories').append(`<option value="${val.customer_Id}"> 
+                ${val.name} 
+                </option>`); 
+            })
+            
           } 
       });
   });
@@ -195,7 +199,16 @@ function getFormData($form){
     if(serviceType) {
         indexed_array["service_category"] = serviceType;
     }
+
+    if (getSelectedCategory() != "") {
+        indexed_array["customer_id"] = getSelectedCategory();
+    }
+    
     return indexed_array;
+}
+
+function getSelectedCategory() {
+    return $(".categories option:selected").val();
 }
 
 // Service Request
