@@ -109,7 +109,7 @@ function getFormData($form){
     });
   
     if(getSelectedCategory()){
-        indexed_array["category"] =  getSelectedCategory();
+        indexed_array["business_category"] =  getSelectedCategory();
     }
     return indexed_array;
 }
