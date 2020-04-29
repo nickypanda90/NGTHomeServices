@@ -42,7 +42,7 @@ function customerRegistration(){
                 displaySuccessMsg("Registration Succesfull");
                 setTimeout(() => { 
                   window.location.replace("../../index.html");
-                }, 5000);              }
+                }, 3000);              }
               else {
                 displayErrorMsg('Some error occured while registration');
               }

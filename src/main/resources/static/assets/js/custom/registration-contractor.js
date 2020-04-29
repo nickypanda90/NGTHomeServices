@@ -65,7 +65,7 @@ function signup() {
                                     displaySuccessMsg("Registration Succesfull");
                                     setTimeout(() => { 
                                         window.location.replace("../../index.html");
-                                     }, 5000);
+                                     }, 3000);
                                 } else {
                                     // update error message                
                                     displayErrorMsg('Some error occured while registration');
