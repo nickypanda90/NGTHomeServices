@@ -39,7 +39,7 @@ public class CustomerController {
         SimpleMailMessage registrationmsg = new SimpleMailMessage();
         registrationmsg.setFrom("support@demo.com");
         registrationmsg.setTo(customerregistration.getEmail_id());
-        registrationmsg.setSubject("Username Request");
+        registrationmsg.setSubject("Register Successfully");
         registrationmsg.setText("You have successfully registered:\n" + appUrl
                 + "/pages/registration/login-page.html?myToken=" + token);
         emailService.sendEmail(registrationmsg);
