@@ -1,26 +1,39 @@
 package com.txstate.edu.homeServices.service;
 
+import com.txstate.edu.homeServices.model.CustomerRegistration;
 import com.txstate.edu.homeServices.model.ServiceOrderEntity;
 import com.txstate.edu.homeServices.model.ServicePaymentEntity;
 import com.txstate.edu.homeServices.object.ServiceOrder;
 import com.txstate.edu.homeServices.object.ServicePayment;
+import com.txstate.edu.homeServices.repository.CustomerRepository;
 import com.txstate.edu.homeServices.repository.ServiceOrderRepository;
 import com.txstate.edu.homeServices.repository.ServicePaymentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
 
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private ServiceOrderRepository serviceRepo;
     @Autowired
     private ServicePaymentRepository paymentRepo;
+    @Autowired
+    private CustomerRepository customerRepo;
+    @Autowired
+    private EmailService emailService;
 
     public ServiceOrder createServiceOrder(ServiceOrder order) {
         ServiceOrderEntity entity = new ServiceOrderEntity();
@@ -29,9 +42,11 @@ public class OrderService {
         entity.setServiceDateTime(parseServiceDateTime(order.getServiceDateTime()));
         entity.setServiceDescription(order.getServiceDescription());
         entity.setServiceCategory(order.getServiceCategory());
+        entity.setStatus("Pending");
 
         ServiceOrderEntity savedEntity = serviceRepo.save(entity);
         order.setServiceId(savedEntity.getServiceId());
+        order.setStatus("Pending");
         return order;
     }
 
@@ -66,7 +81,43 @@ public class OrderService {
             order.setServiceDateTime(e.getServiceDateTime().toString());
             order.setServiceDescription(e.getServiceDescription());
             order.setServiceCategory(e.getServiceCategory());
+            order.setStatus(e.getStatus());
             return order;
         }).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public ServiceOrder updateServiceStatus(ServiceOrder serviceOrder) {
+        ServiceOrderEntity entity = serviceRepo.findById(serviceOrder.getServiceId()).get();
+        entity.setStatus(serviceOrder.getStatus());
+        serviceRepo.save(entity);
+
+        serviceOrder.setCustomerId(entity.getCustomerId());
+        serviceOrder.setBusinessId(entity.getBusinessId());
+        serviceOrder.setStatus(entity.getStatus());
+        serviceOrder.setServiceCategory(entity.getServiceCategory());
+        serviceOrder.setServiceDescription(entity.getServiceDescription());
+        sendServiceAcceptance(entity);
+        log.debug("Updated service status and send acceptance email.");
+        return serviceOrder;
+    }
+
+    private void sendServiceAcceptance(ServiceOrderEntity entity) {
+        log.debug("Sending service acceptance email for service {}", entity.getServiceId());
+        try {
+            CustomerRegistration customer = customerRepo.findById(entity.getCustomerId()).get();
+            CustomerRegistration contractor = customerRepo.findById(entity.getBusinessId()).get();
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("support@demo.com");
+            message.setTo(customer.getEmail_id());
+            message.setSubject("Work Order Confirmation");
+            String status = entity.getStatus().toLowerCase();
+            message.setText("The service work order submitted by you has been " + status + " by " + contractor.getName()
+                    + " for date " + entity.getServiceDateTime());
+            emailService.sendEmail(message);
+        } catch (Exception exe) {
+            log.error("Exception while sending registration email", exe);
+        }
     }
 }

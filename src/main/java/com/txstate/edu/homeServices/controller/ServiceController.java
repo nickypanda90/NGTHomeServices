@@ -37,6 +37,14 @@ public class ServiceController {
         return orderService.createServiceOrder(serviceOrder);
     }
 
+    @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ServiceOrder updateServiceStatus(@RequestBody ServiceOrder serviceOrder) {
+        log.debug("Updating service status for {}", serviceOrder);
+        orderService.updateServiceStatus(serviceOrder);
+        return serviceOrder;
+    }
+
     @PostMapping(value = "/payment", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ServicePayment savePaymentInfo(@RequestBody ServicePayment paymentInfo) {

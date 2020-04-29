@@ -27,6 +27,9 @@ public class ServiceOrderEntity {
     @Column(name = "service_category")
     private String serviceCategory;
 
+    @Column(name = "status")
+    private String status;
+
     public Integer getServiceId() {
         return serviceId;
     }
@@ -73,5 +76,13 @@ public class ServiceOrderEntity {
 
     public void setServiceCategory(String serviceCategory) {
         this.serviceCategory = serviceCategory;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

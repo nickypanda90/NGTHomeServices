@@ -22,6 +22,8 @@ public class ServiceOrder {
     @JsonProperty("service_category")
     private String serviceCategory;
 
+    private String status;
+
     public Integer getServiceId() {
         return serviceId;
     }
@@ -70,15 +72,24 @@ public class ServiceOrder {
         this.serviceCategory = serviceCategory;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "ServiceOrder{" +
                 "serviceId=" + serviceId +
                 ", customerId=" + customerId +
                 ", businessId=" + businessId +
-                ", serviceDateTime=" + serviceDateTime +
+                ", serviceDateTime='" + serviceDateTime + '\'' +
                 ", serviceDescription='" + serviceDescription + '\'' +
                 ", serviceCategory='" + serviceCategory + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
