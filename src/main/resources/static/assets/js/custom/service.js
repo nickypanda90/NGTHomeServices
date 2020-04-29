@@ -57,7 +57,7 @@ $(document).ready(function () {
         }).done(function(response){ 
           if(response){
             response.forEach((val, index) => {
-                $('.categories').append(`<option value="${val.customer_Id}"> 
+                $('#contractor').append(`<option value="${val.customer_Id}"> 
                 ${val.name} 
                 </option>`); 
             })
