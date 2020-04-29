@@ -17,46 +17,52 @@ $(document).ready(function () {
       $('.customer').hide();
     }
 
+
+  getWorkOrder(id);
+
   //Initialize datatable
-  $('#workOrderTbl').DataTable(
-    {
-      "searching": false,
-      // "pagingType": "numbers",
-      // "pageLength": 10,
-      "paging": false,
-      "bInfo" : false,
-      "bLengthChange": false,
-      "language": {
-        "emptyTable": "No data available in table"
-      },
-      "ajax": "/service/contractor/"+ id,
-      "columns": [
-        { 
-          "title": "Service ID",
-          "data": "service_id" 
-        },
-        { 
-          "title": "Customer ID",
-          "data": "customer_id" 
-        },
-        { 
-          "title": "Business ID", 
-          "data": "business_id" 
-        },
-        { 
-          "title": "Service Date time",
-          "data": "service_date_time" 
-        },
-        {  
-          "title": "Description",
-          "data": "service_description" 
-        },
-        { 
-          "title": "Category",
-          "data": "service_category" 
-        }
-    ]}
-  );
+  // $('#workOrderTbl').DataTable(
+  //   {
+  //     "searching": false,
+  //     // "pagingType": "numbers",
+  //     // "pageLength": 10,
+  //     "paging": false,
+  //     "bInfo" : false,
+  //     "bLengthChange": false,
+  //     "language": {
+  //       "emptyTable": "No data available in table"
+  //     },
+  //     "ajax": {
+  //       url: "/service/contractor/"+ id
+  //     },
+  //     "columns": [
+  //       { 
+  //         // "title": "Service ID",
+  //         "data": "service_id" 
+  //       },
+  //       { 
+  //         // "title": "Customer ID",
+  //         "data": "customer_id" 
+  //       },
+  //       { 
+  //         // "title": "Business ID", 
+  //         "data": "business_id" 
+  //       },
+  //       { 
+  //         // "title": "Service Date time",
+  //         "data": "service_date_time" 
+  //       },
+  //       {  
+  //         // "title": "Description",
+  //         "data": "service_description" 
+  //       },
+  //       { 
+  //         // "title": "Category",
+  //         "data": "service_category" 
+  //       }
+  //   ]
+  // }
+  // );
 
   } else {
     // not authenticated
@@ -82,4 +88,31 @@ function getUrlVars() {
     vars[key] = value;
   });
   return vars;
+}
+
+function getWorkOrder(id){
+  $.ajax({
+    url: "/service/contractor/" + id,
+    type: "GET",
+    crossDomain: true,
+    contentType: "application/json;",
+    dataType: "json",
+    cache: false,
+    processData: false
+}).done(function (response) {
+    var table = $('#workOrderTbl');
+    var tbody = table.find('tbody');
+    response.forEach((val, index)=> {
+      // var row = $('<tr>').html("<td>" + val.service_id + "</td><td>" + 
+      //             val.customer_id + "</td><td>" + val.business_id + 
+      //             "</td><td>" +val.customer_id + "</td><td>"+ moment(val.service_date_time).format("MM-DD-YYYY HH:mm:ss") + 
+      //             "</td><td>" +val.service_description + "</td><td>" +  
+      //             val.service_category + "</td>");
+    var row = $('<tr>').html("<td>" + val.service_id + "</td><td>"+val.service_description + "</td><td>" 
+                    + moment(val.service_date_time).format("MM-DD-YYYY HH:mm:ss") + 
+                  "</td><td>" +val.service_description + "</td><td>" +  
+                  val.service_category + "</td>");
+      tbody.append(row);
+    });
+});
 }
