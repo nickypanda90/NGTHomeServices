@@ -45,7 +45,7 @@ public class BusinessController {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom("support@demo.com");
             message.setTo(contractor.getEmail_id());
-            message.setSubject("Username Request");
+            message.setSubject("Registration successfull");
             message.setText("You have successfully registered:\n" + appUrl
                     + "/pages/registration/login-page.html?myToken=" + token);
             emailService.sendEmail(message);

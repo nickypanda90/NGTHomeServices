@@ -113,8 +113,9 @@ public class OrderService {
             message.setTo(customer.getEmail_id());
             message.setSubject("Work Order Confirmation");
             String status = entity.getStatus().toLowerCase();
-            message.setText("The service work order submitted by you has been " + status + " by " + contractor.getName()
-                    + " for date " + entity.getServiceDateTime());
+            message.setText("The service work order submitted by you has been " + status + " by provider " + contractor.getName()
+                    + " for date " + entity.getServiceDateTime().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")) + " at "
+                    + entity.getServiceDateTime().format(DateTimeFormatter.ofPattern("hh:mm a")) + ".");
             emailService.sendEmail(message);
         } catch (Exception exe) {
             log.error("Exception while sending registration email", exe);
