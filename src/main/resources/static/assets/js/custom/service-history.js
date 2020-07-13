@@ -57,9 +57,9 @@ function scrollToDownload() {
         let statusId = val.status + val.serviceId;
         let actionID= "action" + val.serviceId;
         let row = $('<tr>').attr('id', val.serviceId).html(
-                "<td>" + val.serviceId + "</td><td><textarea type='text' name='service_description' class='form-control unedit' rows='1' id='serviceDescription'></textarea> <span class='edit' >" 
+                "<td>" + val.serviceId + "</td><td><input type='text' name='service_description' class='form-control unedit' rows='1' id='serviceDescription' value ='" + val.serviceDescription + " '/> <span class='edit' >" 
                         + (val.serviceDescription ? val.serviceDescription : "") + " </span></td><td>" 
-                      + "<input type='text' name='service_date_time' class='form-control datetimepicker unedit'> <span class='edit'>" 
+                      + "<input type='text' value ='" + moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  + " name='service_date_time' class='form-control datetimepicker unedit'> <span class='edit'>" 
                       + (val.serviceDateTime ? moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  : "" ) + 
                     "</span></td><td>" + val.serviceCategory + "</td><td id= "+statusId+">"+ (val.status ? val.status : "") +
                     "</td><td id="+actionID+" >" + ( val.status == "Pending"  ? "<a href onclick='action(this)' title='Edit Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-pencil pencil' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Deny Service'><i class='fa fa-times danger' aria-hidden='true'></i></a>" :  "" )  + "</td>");
