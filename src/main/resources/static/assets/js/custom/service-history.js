@@ -18,8 +18,9 @@ $(document).ready(function () {
         $("#user").hide();
     }
 
-    // Get Logged in user details
-    //getUserDetails();
+    const id = localStorage.getItem("id");
+    console.log(id);
+    getOrderHistory(id);
 });
 
 
@@ -39,9 +40,10 @@ function scrollToDownload() {
     return vars;
   }
   
-  function getWorkOrder(id){
+  function getOrderHistory(id){
+      console.log("method ",id);
     $.ajax({
-      url: "/service/contractor/" + id,
+      url: "/customer/api/servicehistory/" + id,
       type: "GET",
       crossDomain: true,
       contentType: "application/json;",
@@ -49,16 +51,26 @@ function scrollToDownload() {
       cache: false,
       processData: false
   }).done(function (response) {
-      let table = $('#workOrderTbl');
+      let table = $('#serviceOrderTbl');
       let tbody = table.find('tbody');
       response.forEach((val, index)=> {
-        let statusId = val.status + val.service_id;
-        let actionID= "action" + val.service_id;
-        let row = $('<tr>').attr('id', val.service_id).html("<td>" + val.service_id + "</td><td>"+ (val.service_description ? val.service_description : "") + "</td><td>" 
-                      + (val.service_date_time ? moment(val.service_date_time).format("MM-DD-YYYY HH:mm:ss")  : "" ) + 
-                    "</td><td>" + val.service_category + "</td><td id= "+statusId+">"+ (val.status ? val.status : "") +
-                    "</td><td id="+actionID+" >" + ( val.status == "Pending"  ? "<a href='' onclick='action(this)' title='Approve Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-check success' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Deny Service'><i class='fa fa-times danger' aria-hidden='true'></i></a>" :  "" )  + "</td>");
+        let statusId = val.status + val.serviceId;
+        let actionID= "action" + val.serviceId;
+        let row = $('<tr>').attr('id', val.serviceId).html(
+                "<td>" + val.serviceId + "</td><td><textarea type='text' name='service_description' class='form-control unedit' rows='1' id='serviceDescription'></textarea> <span class='edit' >" 
+                        + (val.serviceDescription ? val.serviceDescription : "") + " </span></td><td>" 
+                      + "<input type='text' name='service_date_time' class='form-control datetimepicker unedit'> <span class='edit'>" 
+                      + (val.serviceDateTime ? moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  : "" ) + 
+                    "</span></td><td>" + val.serviceCategory + "</td><td id= "+statusId+">"+ (val.status ? val.status : "") +
+                    "</td><td id="+actionID+" >" + ( val.status == "Pending"  ? "<a href onclick='action(this)' title='Edit Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-pencil pencil' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Deny Service'><i class='fa fa-times danger' aria-hidden='true'></i></a>" :  "" )  + "</td>");
         tbody.append(row);
+
+        $('.unedit').hide();
+        $('.edit').show();
+        if ($('.datetimepicker').length != 0) {
+            //init DateTimePickers
+            materialKit.initFormExtendedDatetimepickers();
+        }
       });
   });
   }
@@ -66,24 +78,29 @@ function scrollToDownload() {
   function action(self){
     event.preventDefault();
     let data = JSON.parse($(self).attr('data-val'));
-    if($(self).find('i').hasClass('success')) {
-      data.status = "Approved";
+    if($(self).find('i').hasClass('pencil')) {
+      data.status = "Pending";
+      const rowid = data.serviceId;
+      $('tr[id='+ rowid +']').find('.unedit').show();
+      $('tr[id='+ rowid +']').find('.edit').hide();
     } else {
-      data.status = "Denied";
+      data.status = "Cancelled";
     }
-    $.ajax({
-      url: "/service/update",
-      type: "POST",
-      data: JSON.stringify(data),
-      crossDomain: true,
-      contentType: "application/json;",
-      dataType: "json",
-      cache: false,
-      processData: false
-    }).done((response) =>{
-      if(response) {
-        $("#Pending"+response.service_id).html(response.status);
-        $("#action"+response.service_id).html("");
-      }   
-    });
+
+    // update the records 
+    // $.ajax({
+    //   url: "/service/update",
+    //   type: "POST",
+    //   data: JSON.stringify(data),
+    //   crossDomain: true,
+    //   contentType: "application/json;",
+    //   dataType: "json",
+    //   cache: false,
+    //   processData: false
+    // }).done((response) =>{
+    //   if(response) {
+    //     $("#Pending"+response.service_id).html(response.status);
+    //     $("#action"+response.service_id).html("");
+    //   }   
+    // });
   }

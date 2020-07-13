@@ -42,15 +42,14 @@ public class ReviewController {
         return reviewRepository.save(customerFeedback);
     }
 /* Display Work order History At Customer End */
-    @GetMapping  ("/servicehistory")
+    @GetMapping  ("/servicehistory/{customer_id}")
     //public List<ServiceOrderEntity> servicehistory(@Valid @RequestBody ServiceOrderEntity serviceOrderEntity, HttpServletRequest request) {
 
-    public List<ServiceOrderEntity> servicehistory(HttpServletRequest request)
+    public List<ServiceOrderEntity> servicehistory(@PathVariable("customer_id") Integer customer_id, HttpServletRequest request)
     {
-        loginDetail= (LoginDetail) request.getSession().getAttribute("USER_INFO");
         List<ServiceOrderEntity> serviceOrderEntitys;
-        serviceOrderEntitys = serviceOrderRepository.findWorkOrder_History(loginDetail.getCustomer_Id());
-        System.out.println("ID: " + loginDetail.getCustomer_Id());
+        serviceOrderEntitys = serviceOrderRepository.findWorkOrder_History(customer_id);
+        System.out.println("ID: " + customer_id);
         return serviceOrderEntitys;
 
     }

@@ -85,4 +85,5 @@ public class ServiceOrderEntity {
     public void setStatus(String status) {
         this.status = status;
     }
+
 }
