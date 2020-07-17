@@ -18,6 +18,6 @@ public interface ReviewRepository extends JpaRepository<CustomerFeedback, Long> 
 //    List<CustomerFeedback> display_Contractor_List();
 
     @Query("SELECT auth.name FROM CustomerRegistration auth WHERE auth.business_category = :business_category")
-    public String getContractor(String business_category);
+    public String getContractors(String business_category);
 
 }

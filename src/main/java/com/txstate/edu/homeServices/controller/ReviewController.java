@@ -76,6 +76,6 @@ public class ReviewController {
     @PostMapping("/getcontractorname")
     public String getContractorName(@Valid @RequestBody CustomerRegistration customerRegistration, HttpServletRequest request) {
 
-        return reviewRepository.getContractor(customerRegistration.getBusiness_category());
+        return reviewRepository.getContractors(customerRegistration.getBusiness_category());
     }
-}
+}   
