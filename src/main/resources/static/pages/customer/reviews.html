@@ -236,7 +236,7 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <select class="categories form-control">
+                  <select class="categories form-control" onchange="filterContractorsFromList()">
                     <option value="" selected>Select a Category</option>
                     <option value="CCleaning">Carpet Cleaning</option>
                     <option value="fencing">Fencing</option>
@@ -252,6 +252,13 @@
                     <option value="windows">Windows</option>
                   </select>
                 </div>
+
+                <div class="col-12">
+                  <select id="contractor" class="categories form-control">
+                    <option value="" selected>Select Contractor</option>
+                  </select>
+                </div>
+  
                 <div class="col-12">
                   <fieldset class="rating rating-margin">
                     <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5"

@@ -18,6 +18,26 @@ $(document).ready(function () {
         $("#user").hide();
     }
 
+    let customerURL = "";
+    $.ajax({
+        url : customerURL,
+        type: "GET",
+        crossDomain: true,
+        contentType: "application/json;",
+        dataType: "json",
+        cache: false,
+        processData:false
+        }).done(function(response){ 
+          if(response){
+            response.forEach((val, index) => {
+                $('#contractor').append(`<option value="${val.customer_Id}"> 
+                ${val.name} 
+                </option>`); 
+            })
+            
+          } 
+    });
+
     // Get Logged in user details
     getUserDetails();
 });
@@ -82,7 +102,6 @@ function displayConfirmationMsg(msg) {
     $form.find('.alert-success').show();
 }
 
-
 function getFormData($form) {
     let unindexed_array = $form.serializeArray();
     let indexed_array = {};
@@ -112,4 +131,9 @@ function validation() {
     } else {
         return false;
     }
+}
+
+
+function filterContractorsFromList(){
+    console.log("on change event ");
 }
