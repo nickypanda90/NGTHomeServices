@@ -41,9 +41,8 @@ public class ReviewController {
 
         return reviewRepository.save(customerFeedback);
     }
-/* Display Work order History At Customer End */
+    /* Display Work order History At Customer End */
     @GetMapping  ("/servicehistory/{customer_id}")
-    //public List<ServiceOrderEntity> servicehistory(@Valid @RequestBody ServiceOrderEntity serviceOrderEntity, HttpServletRequest request) {
 
     public List<ServiceOrderEntity> servicehistory(@PathVariable("customer_id") Integer customer_id, HttpServletRequest request)
     {
@@ -59,9 +58,24 @@ public class ReviewController {
 
         CustomerRegistration user = new CustomerRegistration();
 
-      user= (CustomerRegistration) request.getSession().getAttribute("USER_DETAILS_EXPANDED");
+        user= (CustomerRegistration) request.getSession().getAttribute("USER_DETAILS_EXPANDED");
 
 
         return user;
+    }
+
+    /* comment this one before commit- Service for getting list of contractor */
+//    @GetMapping("/getcontractorlist")
+//    public List<CustomerFeedback> displaycontractorlist(HttpServletRequest request)
+//    {
+//        return reviewRepository.display_Contractor_List();
+//
+//    }
+
+    /* service for displaying contractor name on the basis of category */
+    @PostMapping("/getcontractorname")
+    public String getContractorName(@Valid @RequestBody CustomerRegistration customerRegistration, HttpServletRequest request) {
+
+        return reviewRepository.getContractor(customerRegistration.getBusiness_category());
     }
 }
