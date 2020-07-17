@@ -6,6 +6,8 @@ import com.txstate.edu.homeServices.model.LoginDetail;
 import com.txstate.edu.homeServices.repository.AuthenticRepository;
 import com.txstate.edu.homeServices.repository.CustomerRepository;
 import com.txstate.edu.homeServices.service.EmailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,9 @@ import org.springframework.mail.SimpleMailMessage;
 @RestController
 @RequestMapping("/customer/api")//After deployment on web take the IP port(e.g Amazon)
 public class CustomerController {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     CustomerRepository customerRepository;
 
@@ -33,7 +38,7 @@ public class CustomerController {
 
     @PostMapping("/signup")
     public CustomerRegistration signupCustomer(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
-
+        log.debug("Registering customer {}", customerregistration);
         String token = UUID.randomUUID().toString();
         String appUrl = request.getScheme() + "://" + request.getServerName() + ":8080";
         SimpleMailMessage registrationmsg = new SimpleMailMessage();

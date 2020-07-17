@@ -24,6 +24,11 @@ public class ServiceOrder {
 
     private String status;
 
+
+
+    @JsonProperty("promo")
+    private String promoCode;
+
     public Integer getServiceId() {
         return serviceId;
     }
@@ -79,6 +84,13 @@ public class ServiceOrder {
     public void setStatus(String status) {
         this.status = status;
     }
+    public String getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(String promoCode) {
+        this.promoCode = promoCode;
+    }
 
     @Override
     public String toString() {
@@ -90,6 +102,7 @@ public class ServiceOrder {
                 ", serviceDescription='" + serviceDescription + '\'' +
                 ", serviceCategory='" + serviceCategory + '\'' +
                 ", status='" + status + '\'' +
+                ", promoCode='" + promoCode + '\'' +
                 '}';
     }
 }
