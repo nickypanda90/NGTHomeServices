@@ -22,26 +22,6 @@ $(document).ready(function () {
       materialKit.initFormExtendedDatetimepickers();
     }
 
-    let amountMap = {
-      carpetCleaning: "$300",
-      homeCleaning: "$400",
-      painting: "$600",
-      plumbing: "$250",
-      gutterCleaning: "$300",
-      masonry: "$3000",
-      roofing: "$2500",
-      windows: "$525",
-      fencing: "$900",
-      handymen: "$150",
-      landscaping: "$425",
-      pestControl: "$360"
-    };
-
-    function getAmountValueFromService() {
-      let serviceType = getUrlVars()["serviceType"];
-      return amountMap[serviceType];
-    }
-
     $('#serviceAmt').val(getAmountValueFromService());
 
     let customerURL = "/business/api/category/" + getUrlVars()["serviceType"];
@@ -65,6 +45,51 @@ $(document).ready(function () {
           } 
       });
   });
+
+function getAmountValueFromService() {
+    let serviceType = getUrlVars()["serviceType"];
+    return amountMapFunc()[serviceType];
+}
+
+function amountMapFunc(){
+
+    let amountMap = {
+        carpetCleaning: "$300",
+        homeCleaning: "$400",
+        painting: "$600",
+        plumbing: "$250",
+        gutterCleaning: "$300",
+        masonry: "$3000",
+        roofing: "$2500",
+        windows: "$525",
+        fencing: "$900",
+        handymen: "$150",
+        landscaping: "$425",
+        pestControl: "$360"
+    };
+
+    return amountMap;
+}
+
+function validatePromo(){
+    $('.alert-danger').hide();
+    $('.alert-success').hide();
+    let promo = $('#promo');
+    if( promo.val().toLowerCase() === 'service10'){
+        let amount = getAmountValueFromService();
+        amount = amount.split('$')[1];
+        let newAmount =  ( 10 * parseFloat(amount) ) / 100;
+        newAmount = "$" + (amount - newAmount);
+
+        displayConfirmationMsg("Promo Code successfully applied!!");
+        $('#serviceAmt').val(newAmount);
+        promo.val('');
+    } else if( promo.val() != ""){
+        //promo code not valid error
+        displayErrorMsg("Promo Code is not valid");
+        promo.val('');
+    }    
+}  
 
 function getUrlVars() {
     var vars = {};
@@ -150,6 +175,7 @@ function confirmBooking(){
         displayBillingErrorMsg("Please correct credit card details.");
     }
 }
+
 
 function displayBillingErrorMsg(msg){
     var $form = $("#billing_form");
