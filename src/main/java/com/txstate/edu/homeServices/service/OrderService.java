@@ -43,6 +43,7 @@ public class OrderService {
         entity.setServiceDescription(order.getServiceDescription());
         entity.setServiceCategory(order.getServiceCategory());
         entity.setStatus("Pending");
+        entity.setPromoCode(order.getPromoCode());
 
         ServiceOrderEntity savedEntity = serviceRepo.save(entity);
         order.setServiceId(savedEntity.getServiceId());

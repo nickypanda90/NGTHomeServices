@@ -30,6 +30,11 @@ public class ServiceOrderEntity {
     @Column(name = "status")
     private String status;
 
+
+
+    @Column(name = "promo_code")
+    private String promoCode;
+
     public Integer getServiceId() {
         return serviceId;
     }
@@ -85,5 +90,13 @@ public class ServiceOrderEntity {
     public void setStatus(String status) {
         this.status = status;
     }
+    public String getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(String promoCode) {
+        this.promoCode = promoCode;
+    }
+
 
 }
