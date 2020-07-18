@@ -22,10 +22,9 @@ public interface ServiceOrderRepository extends JpaRepository<ServiceOrderEntity
     @Query("update ServiceOrderEntity s set s.status = :#{#order.status} WHERE s.serviceId = :#{#order.serviceId}")
     void updateStatus(ServiceOrder order);
 
-
+    int countByCustomerId(int customerId);
 
     /* Display Work order History At Customer End */
     @Query("SELECT so from ServiceOrderEntity so WHERE so.customerId = :customer_id")
-
     List<ServiceOrderEntity> findWorkOrder_History(Integer customer_id);
 }

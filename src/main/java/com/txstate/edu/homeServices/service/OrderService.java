@@ -58,6 +58,13 @@ public class OrderService {
             return LocalDateTime.parse(serviceDateTime, DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm a"));
         }
     }
+    public boolean isFirstTimeUser(int customerId){
+        int count= serviceRepo.countByCustomerId(customerId);
+        if (count==0){
+            return true;
+        }
+        return false;
+    }
 
     public ServicePayment savePaymentInfo(ServicePayment payment) {
         ServicePaymentEntity entity = new ServicePaymentEntity();

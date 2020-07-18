@@ -32,6 +32,16 @@ public class ServiceController {
         return orderService.fetchOrders(contractorId);
     }
 
+    /**
+     * Checking customer using the service is first time(True- first time)
+     * @param customerId
+     * @return
+     */
+    @GetMapping(value = "/customer/{customer_id}/firsttimeuser", produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean isFirstTimeUser(@PathVariable("customer_id") Integer customerId) {
+        return orderService.isFirstTimeUser(customerId);
+    }
+
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ServiceOrder createService(@RequestBody ServiceOrder serviceOrder, HttpServletRequest request) {
