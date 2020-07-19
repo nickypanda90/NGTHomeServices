@@ -44,7 +44,7 @@ public class ReviewController {
     /* Display Work order History At Customer End */
     @GetMapping  ("/servicehistory/{customer_id}")
 
-    public List<ServiceOrderEntity> servicehistory(@PathVariable("customer_id") Integer customer_id, HttpServletRequest request)
+      public List<ServiceOrderEntity> servicehistory(@PathVariable("customer_id") Integer customer_id, HttpServletRequest request)
     {
         List<ServiceOrderEntity> serviceOrderEntitys;
         serviceOrderEntitys = serviceOrderRepository.findWorkOrder_History(customer_id);
@@ -66,16 +66,17 @@ public class ReviewController {
 
     /* comment this one before commit- Service for getting list of contractor */
 //    @GetMapping("/getcontractorlist")
-//    public List<CustomerFeedback> displaycontractorlist(HttpServletRequest request)
+//    public List<CustomerRating> displaycontractorlist(HttpServletRequest request)
 //    {
 //        return reviewRepository.display_Contractor_List();
 //
 //    }
 
+
     /* service for displaying contractor name on the basis of category */
     @PostMapping("/getcontractorname")
-    public String getContractorName(@Valid @RequestBody CustomerRegistration customerRegistration, HttpServletRequest request) {
+    public List<String> getContractorName(@Valid @RequestBody CustomerRegistration customerRegistration, HttpServletRequest request) {
 
         return reviewRepository.getContractors(customerRegistration.getBusiness_category());
     }
-}   
+}

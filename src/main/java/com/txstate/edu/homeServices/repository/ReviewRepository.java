@@ -1,8 +1,5 @@
 package com.txstate.edu.homeServices.repository;
-import com.txstate.edu.homeServices.model.CustomerFeedback;
-import com.txstate.edu.homeServices.model.CustomerRegistration;
-import com.txstate.edu.homeServices.model.ServiceCategory;
-import com.txstate.edu.homeServices.model.ServiceOrderEntity;
+import com.txstate.edu.homeServices.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,11 +10,12 @@ import java.util.List;
 @Repository
 public interface ReviewRepository extends JpaRepository<CustomerFeedback, Long> {
 
-//uncomment for contractor list
-//    @Query("SELECT cust from CustomerFeedback cust")
-//    List<CustomerFeedback> display_Contractor_List();
+//Search contractor
+//@Query("SELECT new com.txstate.edu.homeServices.model.CustomerRating(count(cu.name),cu.name,cu.review_catg,avg(cu.rating)) FROM CustomerFeedback AS cu GROUP BY cu.name,cu.review_catg")
+//List<CustomerRating> display_Contractor_List();
 
+//Contractor name
     @Query("SELECT auth.name FROM CustomerRegistration auth WHERE auth.business_category = :business_category")
-    public String getContractors(String business_category);
+    List<String> getContractors(String business_category);
 
 }

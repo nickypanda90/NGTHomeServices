@@ -119,7 +119,7 @@ function filterContractorsFromList(){
     if (getSelectedCategory()) {
         data["business_category"] = getSelectedCategory();
     }
-    
+
     let customerURL = "/customer/api/getcontractorname";
     $.ajax({
         url : customerURL,
@@ -130,15 +130,28 @@ function filterContractorsFromList(){
         dataType: "json",
         cache: false,
         processData:false
+
         }).done(function(response){ 
           if(response){
               debugger;
             response.forEach((val, index) => {
-                $('#contractor').append(`<option value="${val.customer_Id}"> 
-                ${val.name} 
+                $('#contractor').append(`<option value="${val}"> 
+                ${val} 
                 </option>`); 
             })
             
           } 
+
+    }).done(function(response){
+        if(response){
+            debugger;
+            response.forEach((val, index) => {
+                $('#contractor').append(`<option value="${val}"> 
+                ${val} 
+                </option>`);
+            })
+
+        }
+
     });
 }

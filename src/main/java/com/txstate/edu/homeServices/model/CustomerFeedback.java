@@ -20,6 +20,18 @@ public class CustomerFeedback {
     private String email_id;
     private String name;
     private String message;
+    private String rating;
+    private String contractor_name;
+
+
+
+    public String getContractor_name() {
+        return contractor_name;
+    }
+
+    public void setContractor_name(String contractor_name) {
+        this.contractor_name = contractor_name;
+    }
 
     public String getRating() {
         return rating;
@@ -29,7 +41,7 @@ public class CustomerFeedback {
         this.rating = rating;
     }
 
-    private String rating;
+
 
 
     public int getCust_review_id() {
