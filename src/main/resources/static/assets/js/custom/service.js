@@ -74,21 +74,39 @@ function amountMapFunc(){
 function validatePromo(){
     $('.alert-danger').hide();
     $('.alert-success').hide();
+
+    const userId = localStorage.getItem('id');
+    const url = "/service/customer/"+ userId + "/firsttimeuser";
+
     let promo = $('#promo');
     if( promo.val().toLowerCase() === 'service10'){
         let amount = getAmountValueFromService();
         amount = amount.split('$')[1];
         let newAmount =  ( 10 * parseFloat(amount) ) / 100;
         newAmount = "$" + (amount - newAmount);
-
-        displayConfirmationMsg("Promo Code successfully applied!!");
-        $('#serviceAmt').val(newAmount);
-        promo.val('');
+        $.ajax({
+            url : url,
+            type: "GET",
+            crossDomain: true,
+            contentType: "application/json;",
+            dataType: "json",
+            cache: false,
+            processData:false
+            }).done((response) => { 
+                if(response){
+                    displayConfirmationMsg("Promo Code successfully applied!!");
+                    $('#serviceAmt').val(newAmount);
+                } else {
+                    displayErrorMsg("Promo Code is already used");
+                }
+                promo.val('');
+        });
+        
     } else if( promo.val() != ""){
         //promo code not valid error
         displayErrorMsg("Promo Code is not valid");
         promo.val('');
-    }    
+    }
 }  
 
 function getUrlVars() {

@@ -31,6 +31,5 @@ function submitUserName(){
       processData:false
       }).done(function(response){ 
         console.log(response);
-        // window.location.replace("../index.html");
     });
 }

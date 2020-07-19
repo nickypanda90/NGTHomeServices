@@ -18,26 +18,6 @@ $(document).ready(function () {
         $("#user").hide();
     }
 
-    let customerURL = "";
-    $.ajax({
-        url : customerURL,
-        type: "GET",
-        crossDomain: true,
-        contentType: "application/json;",
-        dataType: "json",
-        cache: false,
-        processData:false
-        }).done(function(response){ 
-          if(response){
-            response.forEach((val, index) => {
-                $('#contractor').append(`<option value="${val.customer_Id}"> 
-                ${val.name} 
-                </option>`); 
-            })
-            
-          } 
-    });
-
     // Get Logged in user details
     getUserDetails();
 });
@@ -49,7 +29,6 @@ function submitReview() {
     let post_url = $form.attr("action");
     let request_method = $form.attr("method");
     let data = getFormData($form);
-    console.log(data);
     if (validation()) {
         $.ajax({
             url: post_url,
@@ -135,5 +114,31 @@ function validation() {
 
 
 function filterContractorsFromList(){
-    console.log("on change event ");
+
+    let data = {};
+    if (getSelectedCategory()) {
+        data["business_category"] = getSelectedCategory();
+    }
+    
+    let customerURL = "/customer/api/getcontractorname";
+    $.ajax({
+        url : customerURL,
+        type: "POST",
+        data: JSON.stringify(data),
+        crossDomain: true,
+        contentType: "application/json;",
+        dataType: "json",
+        cache: false,
+        processData:false
+        }).done(function(response){ 
+          if(response){
+              debugger;
+            response.forEach((val, index) => {
+                $('#contractor').append(`<option value="${val.customer_Id}"> 
+                ${val.name} 
+                </option>`); 
+            })
+            
+          } 
+    });
 }

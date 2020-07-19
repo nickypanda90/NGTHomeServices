@@ -62,7 +62,7 @@ function scrollToDownload() {
                       + "<input type='text' value ='" + moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  + " name='service_date_time' class='form-control datetimepicker unedit'> <span class='edit'>" 
                       + (val.serviceDateTime ? moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  : "" ) + 
                     "</span></td><td>" + val.serviceCategory + "</td><td id= "+statusId+">"+ (val.status ? val.status : "") +
-                    "</td><td id="+actionID+" >" + ( val.status == "Pending"  ? "<a href onclick='action(this)' title='Edit Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-pencil pencil' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Deny Service'><i class='fa fa-times danger' aria-hidden='true'></i></a>" :  "" )  + "</td>");
+                    "</td><td id="+actionID+" >" + ( val.status == "Pending"  ? "<a href class='unedit' onclick='action(this)' title='Approve' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-check success' aria-hidden='true'></i></a> <a href class='edit' onclick='action(this)' title='Edit Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-pencil pencil' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Deny Service'><i class='fa fa-times danger' aria-hidden='true'></i></a>" :  "" )  + "</td>");
         tbody.append(row);
 
         $('.unedit').hide();
@@ -78,11 +78,14 @@ function scrollToDownload() {
   function action(self){
     event.preventDefault();
     let data = JSON.parse($(self).attr('data-val'));
+    const rowid = data.serviceId;
     if($(self).find('i').hasClass('pencil')) {
       data.status = "Pending";
-      const rowid = data.serviceId;
       $('tr[id='+ rowid +']').find('.unedit').show();
       $('tr[id='+ rowid +']').find('.edit').hide();
+    } else if ($(self).find('i').hasClass('success')) {
+      $('tr[id='+ rowid +']').find('.edit').show();
+      $('tr[id='+ rowid +']').find('.unedit').hide();
     } else {
       data.status = "Cancelled";
     }
