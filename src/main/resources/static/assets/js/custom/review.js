@@ -93,6 +93,10 @@ function getFormData($form) {
         indexed_array["review_catg"] = getSelectedCategory();
     }
 
+    if (getSelectedContractor()) {
+        indexed_array["contractor_name"] = getSelectedContractor();
+    }
+
     var ratings = $("input:checked").val();
     if (ratings) {
         indexed_array["rating"] = ratings;
@@ -104,6 +108,10 @@ function getSelectedCategory() {
     return $(".categories option:selected").val();
 }
 
+function getSelectedContractor(){
+    return $("#contractor option:selected").val();
+}
+
 function validation() {
     if ($(".categories option:selected").val() != "") {
         return true;
@@ -112,8 +120,9 @@ function validation() {
     }
 }
 
-
 function filterContractorsFromList(){
+    // remove the value to remove previously added options
+    $('#contractor').find('option').remove().end().append('<option value="" selected>Select Contractor</option>');
 
     let data = {};
     if (getSelectedCategory()) {
@@ -133,25 +142,11 @@ function filterContractorsFromList(){
 
         }).done(function(response){ 
           if(response){
-              debugger;
             response.forEach((val, index) => {
                 $('#contractor').append(`<option value="${val}"> 
                 ${val} 
                 </option>`); 
             })
-            
-          } 
-
-    }).done(function(response){
-        if(response){
-            debugger;
-            response.forEach((val, index) => {
-                $('#contractor').append(`<option value="${val}"> 
-                ${val} 
-                </option>`);
-            })
-
-        }
-
+        } 
     });
 }
