@@ -93,11 +93,11 @@ function validatePromo(){
             cache: false,
             processData:false
             }).done((response) => { 
-                if(response){
+                if(!response){
                     displayConfirmationMsg("Promo Code successfully applied!!");
                     $('#serviceAmt').val(newAmount);
                 } else {
-                    displayErrorMsg("Promo Code is already used");
+                    displayErrorMsg("Promo Code cannot be applied for first use");
                 }
                 promo.val('');
         });

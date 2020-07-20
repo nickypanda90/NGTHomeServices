@@ -63,7 +63,7 @@ function getWorkOrder(id){
       let row = $('<tr>').attr('id', val.service_id).html("<td>" + val.service_id + "</td><td>"+ (val.service_description ? val.service_description : "") + "</td><td>" 
                     + (val.service_date_time ? moment(val.service_date_time).format("MM-DD-YYYY HH:mm:ss")  : "" ) + 
                   "</td><td>" + val.service_category + "</td><td id= "+statusId+">"+ (val.status ? val.status : "") +
-                  "</td><td id="+actionID+" >" + ( val.status == "Pending"  ? "<a href='' onclick='action(this)' title='Approve Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-check success' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Deny Service'><i class='fa fa-times danger' aria-hidden='true'></i></a>" :  "" )  + "</td>");
+                  "</td><td id="+actionID+" >" + ( val.status == "Pending"  ? "<a href='' onclick='action(this)' title='Approve Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-check success' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Deny Service'><i class='fa fa-times danger' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Complete'><i class='fa fa-flag-checkered' aria-hidden='true'></i></a>" :  "" )  + "</td>");
       tbody.append(row);
     });
 });
