@@ -58,4 +58,6 @@ public class BusinessController {
     public List<CustomerRegistration> getServices(@PathVariable("category") String category) {
         return repository.findByBusiness_category(category);
     }
+
+
 }

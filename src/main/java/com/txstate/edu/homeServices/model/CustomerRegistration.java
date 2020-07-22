@@ -24,6 +24,16 @@ public class CustomerRegistration {
     private String role_id;
     private String reset_token;
     private String business_category;
+    private String business_description;
+
+    public String getBusiness_description() {
+        return business_description;
+    }
+
+    public void setBusiness_description(String business_description) {
+        this.business_description = business_description;
+    }
+
 
     public String getBusiness_category() {
         return business_category;
@@ -143,6 +153,7 @@ public class CustomerRegistration {
                 ", role_id='" + role_id + '\'' +
                 ", reset_token='" + reset_token + '\'' +
                 ", business_category='" + business_category + '\'' +
+                ", business_description='" + business_description + '\'' +
                 ", passwordConfirm='" + passwordConfirm + '\'' +
                 ", token='" + token + '\'' +
                 ", token_ts=" + token_ts +
