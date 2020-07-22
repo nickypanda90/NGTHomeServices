@@ -74,7 +74,9 @@ function action(self){
   let data = JSON.parse($(self).attr('data-val'));
   if($(self).find('i').hasClass('success')) {
     data.status = "Approved";
-  } else {
+  } else if($(self).find('i').hasClass('fa-flag-checkered')) {
+    data.status = "Completed";
+  }else {
     data.status = "Denied";
   }
   $.ajax({
