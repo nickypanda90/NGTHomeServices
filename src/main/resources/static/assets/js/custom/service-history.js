@@ -92,14 +92,25 @@ function scrollToDownload() {
     return newObj;
   }
 
+  function checkDate(date){
+    let myDate = moment(date);
+    let today = moment();
+    let diff = myDate.diff(today, 'days');
+
+    return (diff > 1 ? true : false);
+    
+  }
+
   function action(self){
     event.preventDefault();
     let data = JSON.parse($(self).attr('data-val'));
     const rowid = data.serviceId;
     if($(self).find('i').hasClass('pencil')) {
-      data.status = "Pending";
-      $('tr[id='+ rowid +']').find('.unedit').show();
-      $('tr[id='+ rowid +']').find('.edit').hide();
+      if(checkDate(data.serviceDateTime)){
+        data.status = "Pending";
+        $('tr[id='+ rowid +']').find('.unedit').show();
+        $('tr[id='+ rowid +']').find('.edit').hide();
+      }
     } else if ($(self).find('i').hasClass('success')) {
       // data.status = "Updated";
       //input desc
@@ -117,9 +128,11 @@ function scrollToDownload() {
       data = dataMapperFunction(data);
       updateStatus(data);
     } else {
-      data.status = "Cancelled";
-      data = dataMapperFunction(data);
-      updateStatus(data);
+      if(checkDate(data.serviceDateTime)){
+        data.status = "Cancelled";
+        data = dataMapperFunction(data);
+        updateStatus(data);
+      }
     }
     
   }
