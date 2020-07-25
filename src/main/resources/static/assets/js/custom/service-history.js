@@ -60,7 +60,7 @@ function scrollToDownload() {
                       + "<input type='text' id='date-"+ val.serviceId  + "' value ='" + moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  + "' name='service_date_time' class='form-control datetimepicker unedit'> <span class='edit' id='spandate-"+ val.serviceId  + "'>" 
                       + (val.serviceDateTime ? moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  : "" ) + 
                     "</span></td><td>" + val.serviceCategory + "</td><td id= "+statusId+">"+ (val.status ? val.status : "") +
-                    "</td><td id="+actionID+" >" + ( val.status == "Pending"  ? "<a href class='unedit' onclick='action(this)' title='Approve' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-check success' aria-hidden='true'></i></a> <a href class='edit' onclick='action(this)' title='Edit Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-pencil pencil' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Deny Service'><i class='fa fa-times danger' aria-hidden='true'></i></a>" :  "" )  + "</td>");
+                    "</td><td id="+actionID+" >" + ( val.status == "Pending"  ? "<a href class='unedit' onclick='action(this)' title='Approve' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-check success' aria-hidden='true'></i></a> <a href class='edit' onclick='action(this)' title='Edit Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-pencil pencil' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Cancel Service'><i class='fa fa-times danger' aria-hidden='true'></i></a>" :  "" )  + "</td>");
         tbody.append(row);
 
         $('.unedit').hide();
@@ -153,7 +153,7 @@ function scrollToDownload() {
         $('tr[id='+ response.service_id +']').find('.edit').show();
         $('tr[id='+ response.service_id +']').find('.unedit').hide();
         $("#Pending"+response.service_id).html(response.status);
-        $("#action"+response.service_id).html("");
+        //$("#action"+response.service_id).html("");
 
       }   
     });
