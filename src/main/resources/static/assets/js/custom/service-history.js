@@ -19,7 +19,6 @@ $(document).ready(function () {
     }
 
     const id = localStorage.getItem("id");
-    console.log(id);
     getOrderHistory(id);
 });
 
@@ -41,7 +40,6 @@ function scrollToDownload() {
   }
   
   function getOrderHistory(id){
-      console.log("method ",id);
     $.ajax({
       url: "/customer/api/servicehistory/" + id,
       type: "GET",
@@ -57,9 +55,9 @@ function scrollToDownload() {
         let statusId = val.status + val.serviceId;
         let actionID= "action" + val.serviceId;
         let row = $('<tr>').attr('id', val.serviceId).html(
-                "<td>" + val.serviceId + "</td><td><input type='text' name='service_description' class='form-control unedit' rows='1' id='serviceDescription' value ='" + val.serviceDescription + " '/> <span class='edit' >" 
+                "<td>" + val.serviceId + "</td><td><input type='text' name='service_description' class='form-control unedit' rows='1'  id='description-"+ val.serviceId  + "' value ='" + val.serviceDescription + " '/> <span class='edit' id='spandesc-"+ val.serviceId  + "'>" 
                         + (val.serviceDescription ? val.serviceDescription : "") + " </span></td><td>" 
-                      + "<input type='text' value ='" + moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  + " name='service_date_time' class='form-control datetimepicker unedit'> <span class='edit'>" 
+                      + "<input type='text' id='date-"+ val.serviceId  + "' value ='" + moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  + "' name='service_date_time' class='form-control datetimepicker unedit'> <span class='edit' id='spandate-"+ val.serviceId  + "'>" 
                       + (val.serviceDateTime ? moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  : "" ) + 
                     "</span></td><td>" + val.serviceCategory + "</td><td id= "+statusId+">"+ (val.status ? val.status : "") +
                     "</td><td id="+actionID+" >" + ( val.status == "Pending"  ? "<a href class='unedit' onclick='action(this)' title='Approve' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-check success' aria-hidden='true'></i></a> <a href class='edit' onclick='action(this)' title='Edit Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-pencil pencil' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Deny Service'><i class='fa fa-times danger' aria-hidden='true'></i></a>" :  "" )  + "</td>");
@@ -75,6 +73,25 @@ function scrollToDownload() {
   });
   }
   
+
+  function dataMapperFunction(data){
+    const dataMapper = {
+      "serviceId": "service_id",
+      "customerId": "customer_id",
+      "businessId": "business_id",
+      "serviceDateTime": "service_date_time",
+      "serviceDescription": "service_description",
+      "status": "status",
+      "serviceCategory": "service_category",
+      "promoCode": "promo"
+    }
+    let newObj = {};
+    for( let prop in data){
+      newObj[dataMapper[prop]] = data[prop];
+    }
+    return newObj;
+  }
+
   function action(self){
     event.preventDefault();
     let data = JSON.parse($(self).attr('data-val'));
@@ -84,26 +101,47 @@ function scrollToDownload() {
       $('tr[id='+ rowid +']').find('.unedit').show();
       $('tr[id='+ rowid +']').find('.edit').hide();
     } else if ($(self).find('i').hasClass('success')) {
-      $('tr[id='+ rowid +']').find('.edit').show();
-      $('tr[id='+ rowid +']').find('.unedit').hide();
+      // data.status = "Updated";
+      //input desc
+      let descFieldId = '#description-' + rowid;
+      let spandateField = '#spandesc-'+ rowid;
+      data.serviceDescription = $(descFieldId).val();
+      $(spandateField).html(data.serviceDescription);
+
+      //input date
+      let dateFieldId =  '#date-' + rowid;
+      data.serviceDateTime = $(dateFieldId).val();
+      let spandescField = '#spandate-'+ rowid;
+      $(spandescField).html(data.serviceDateTime);
+     
+      data = dataMapperFunction(data);
+      updateStatus(data);
     } else {
       data.status = "Cancelled";
+      data = dataMapperFunction(data);
+      updateStatus(data);
     }
+    
+  }
 
+  function updateStatus(data){
     // update the records 
-    // $.ajax({
-    //   url: "/service/update",
-    //   type: "POST",
-    //   data: JSON.stringify(data),
-    //   crossDomain: true,
-    //   contentType: "application/json;",
-    //   dataType: "json",
-    //   cache: false,
-    //   processData: false
-    // }).done((response) =>{
-    //   if(response) {
-    //     $("#Pending"+response.service_id).html(response.status);
-    //     $("#action"+response.service_id).html("");
-    //   }   
-    // });
+    $.ajax({
+      url: "/service/update",
+      type: "POST",
+      data: JSON.stringify(data),
+      crossDomain: true,
+      contentType: "application/json;",
+      dataType: "json",
+      cache: false,
+      processData: false
+    }).done((response) =>{
+      if(response) {
+        $('tr[id='+ response.service_id +']').find('.edit').show();
+        $('tr[id='+ response.service_id +']').find('.unedit').hide();
+        $("#Pending"+response.service_id).html(response.status);
+        $("#action"+response.service_id).html("");
+
+      }   
+    });
   }
