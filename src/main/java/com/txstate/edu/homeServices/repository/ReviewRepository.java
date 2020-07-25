@@ -11,11 +11,12 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<CustomerFeedback, Long> {
 
 //Search contractor
-//@Query("SELECT new com.txstate.edu.homeServices.model.CustomerRating(count(cu.name),cu.name,cu.review_catg,avg(cu.rating)) FROM CustomerFeedback AS cu GROUP BY cu.name,cu.review_catg")
-//List<CustomerRating> display_Contractor_List();
+@Query("SELECT new com.txstate.edu.homeServices.model.CustomerRating(count(cu.name),cu.contractor_name,cu.review_catg,avg(cu.rating)) FROM CustomerFeedback AS cu GROUP BY cu.contractor_name,cu.review_catg")
+List<CustomerRating> display_Contractor_List();
 
 //Contractor name
     @Query("SELECT auth.name FROM CustomerRegistration auth WHERE auth.business_category = :business_category")
     List<String> getContractors(String business_category);
+
 
 }

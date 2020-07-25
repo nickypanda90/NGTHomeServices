@@ -65,18 +65,19 @@ public class ReviewController {
     }
 
     /* comment this one before commit- Service for getting list of contractor */
-//    @GetMapping("/getcontractorlist")
-//    public List<CustomerRating> displaycontractorlist(HttpServletRequest request)
-//    {
-//        return reviewRepository.display_Contractor_List();
-//
-//    }
+    @GetMapping("/getcontractorlist")
+    public List<CustomerRating> displaycontractorlist(HttpServletRequest request)
+    {
+        return reviewRepository.display_Contractor_List();
+
+    }
 
 
     /* service for displaying contractor name on the basis of category */
     @PostMapping("/getcontractorname")
     public List<String> getContractorName(@Valid @RequestBody CustomerRegistration customerRegistration, HttpServletRequest request) {
 
-        return reviewRepository.getContractors(customerRegistration.getBusiness_category());
+       return reviewRepository.getContractors(customerRegistration.getBusiness_category());
+
     }
 }
