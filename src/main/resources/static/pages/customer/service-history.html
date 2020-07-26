@@ -36,60 +36,6 @@
   <link href="../../assets/css/material-kit.css?v=2.0.6" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
-  <style>
-    /****** Style Star Rating Widget *****/
-    .rating-margin {
-      margin-top: 25px;
-    }
-
-    .rating {
-      border: none;
-      float: left;
-    }
-
-    .rating>input {
-      display: none;
-    }
-
-    .rating>label:before {
-      margin: 5px;
-      font-size: 1.25em;
-      font-family: FontAwesome;
-      display: inline-block;
-      content: "\f005";
-    }
-
-    .rating>.half:before {
-      content: "\f089";
-      position: absolute;
-    }
-
-    .rating>label {
-      color: #ddd;
-      float: right;
-    }
-
-    /***** CSS Magic to Highlight Stars on Hover *****/
-
-    .rating>input:checked~label,
-    /* show gold star when clicked */
-    .rating:not(:checked)>label:hover,
-    /* hover current star */
-    .rating:not(:checked)>label:hover~label {
-      color: #FFD700;
-    }
-
-    /* hover previous stars in list */
-
-    .rating>input:checked+label:hover,
-    /* hover current star when changing rating */
-    .rating>input:checked~label:hover,
-    .rating>label:hover~input:checked~label,
-    /* lighten current selection */
-    .rating>input:checked~label:hover~label {
-      color: #FFED85;
-    }
-  </style>
 </head>
 
 <body class="profile-page sidebar-collapse">
@@ -147,7 +93,7 @@
                 <i class="flaticon-roof"></i>Roofing
                 <div class="ripple-container"></div>
               </a>
-              <a href="./service-page.html?serviceType=windows" class="dropdown-item">
+              <a href="./service-page.html?serviceType=windowCleaning" class="dropdown-item">
                 <i class="flaticon-window"></i>Window Cleaning
                 <div class="ripple-container"></div>
               </a>
@@ -189,6 +135,11 @@
 
               <a href="./service-history.html" class="dropdown-item customer">
                 <i class="fa fa-history" aria-hidden="true"></i> Order History
+                <div class="ripple-container"></div>
+              </a>
+
+              <a href="./Search-Contractor.html" class="dropdown-item customer">
+                <i class="fa fa-search" aria-hidden="true"></i> Search Contractor
                 <div class="ripple-container"></div>
               </a>
 
