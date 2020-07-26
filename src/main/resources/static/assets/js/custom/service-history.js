@@ -119,8 +119,9 @@ function scrollToDownload() {
       let descFieldId = '#description-' + rowid;
       let spandateField = '#spandesc-'+ rowid;
       data.serviceDescription = $(descFieldId).val();
-      $(spandateField).html(data.serviceDescription);
 
+      $(spandateField).html(data.serviceDescription);
+      data.status = $('#' + data.status + rowid).html();
       //input date
       let dateFieldId =  '#date-' + rowid;
       data.serviceDateTime = $(dateFieldId).val();
