@@ -6,26 +6,26 @@ $(document).ready(function () {
     var $user = $("#user");
     var isAuthenticated = localStorage.getItem('username');
     if (isAuthenticated) {
-      // update user name
-      $login.hide();
-      $user.show();
-      $user.find('span').text(isAuthenticated);
-      $user.find('a').attr("data-original-title", isAuthenticated);
+        // update user name
+        $login.hide();
+        $user.show();
+        $user.find('span').text(isAuthenticated);
+        $user.find('a').attr("data-original-title", isAuthenticated);
     } else {
-      // not authenticated
-      $login.show();
-      $user.hide();
+        // not authenticated
+        $login.show();
+        $user.hide();
     }
 
     if ($('.datetimepicker').length != 0) {
-      //init DateTimePickers
-      materialKit.initFormExtendedDatetimepickers();
+        //init DateTimePickers
+        materialKit.initFormExtendedDatetimepickers();
     }
 
     $('#serviceAmt').val(getAmountValueFromService());
 
     let customerURL = "/business/api/category/" + getUrlVars()["serviceType"];
-    
+
     $.ajax({
         url : customerURL,
         type: "GET",
@@ -34,17 +34,30 @@ $(document).ready(function () {
         dataType: "json",
         cache: false,
         processData:false
-        }).done(function(response){ 
-          if(response){
+    }).done(function(response){
+        if(response){
             response.forEach((val, index) => {
                 $('#contractor').append(`<option value="${val.customer_Id}"> 
                 ${val.name} 
-                </option>`); 
-            })
-            
-          } 
-      });
-  });
+                </option>`);
+            });
+
+
+            // Auto select contractor from query param
+
+            var url = new URL(document.location);
+            var params = url.searchParams;
+            var selectedContractor = params.get("selectedContractor");
+
+            $("#contractor option").filter(function() {
+                return $(this).text().trim() == selectedContractor;
+            }).prop('selected', true);
+
+        }
+    });
+
+
+});
 
 function getAmountValueFromService() {
     let serviceType = getUrlVars()["serviceType"];
@@ -92,22 +105,22 @@ function validatePromo(){
             dataType: "json",
             cache: false,
             processData:false
-            }).done((response) => { 
-                if(!response){
-                    displayConfirmationMsg("Promo Code successfully applied!!");
-                    $('#serviceAmt').val(newAmount);
-                } else {
-                    displayErrorMsg("Promo Code cannot be applied for first use");
-                }
-                promo.val('');
+        }).done((response) => {
+            if(!response){
+                displayConfirmationMsg("Promo Code successfully applied!!");
+                $('#serviceAmt').val(newAmount);
+            } else {
+                displayErrorMsg("Promo Code cannot be applied for first use");
+            }
+            promo.val('');
         });
-        
+
     } else if( promo.val() != ""){
         //promo code not valid error
         displayErrorMsg("Promo Code is not valid");
         promo.val('');
     }
-}  
+}
 
 function getUrlVars() {
     var vars = {};
@@ -126,7 +139,7 @@ function process(input){
 function validateCreditCard(){
     let credit_card = $("#credit_card").val();
     let confirm_credit_card = $("#confirm_credit_card").val();
-    
+
     if(credit_card == "" || confirm_credit_card == "") {
         return false;
     } else {
@@ -167,17 +180,17 @@ function confirmBooking(){
         var data = getFormDataBilling($form);
         let post_url = $form.attr("action"); //get form action url
         let request_method = $form.attr("method"); //get form GET/POST method
-  
+
         $.ajax({
-          url : post_url,
-          type: request_method,
-          data : JSON.stringify(data),
-          crossDomain: true,
-          contentType: "application/json;",
-          dataType: "json",
-          cache: false,
-          processData:false
-          }).done(function(response){ 
+            url : post_url,
+            type: request_method,
+            data : JSON.stringify(data),
+            crossDomain: true,
+            contentType: "application/json;",
+            dataType: "json",
+            cache: false,
+            processData:false
+        }).done(function(response){
             console.log(response);
             if(response){
                 $("#billing_form")[0].reset();
@@ -247,7 +260,7 @@ function getFormData($form){
     if (getSelectedCategory() != "") {
         indexed_array["customer_id"] = getSelectedCategory();
     }
-    
+
     return indexed_array;
 }
 
@@ -265,19 +278,19 @@ function submitRequest(){
     let request_method = $form.attr("method"); //get form GET/POST method
 
     $.ajax({
-      url : post_url,
-      type: request_method,
-      data : JSON.stringify(data),
-      crossDomain: true,
-      contentType: "application/json;",
-      dataType: "json",
-      cache: false,
-      processData:false
-      }).done(function(response){ 
+        url : post_url,
+        type: request_method,
+        data : JSON.stringify(data),
+        crossDomain: true,
+        contentType: "application/json;",
+        dataType: "json",
+        cache: false,
+        processData:false
+    }).done(function(response){
         if(response){
-          // open my modal on success
-          $("#serviceId").val(response.service_id);
-          $("#booking").modal();
+            // open my modal on success
+            $("#serviceId").val(response.service_id);
+            $("#booking").modal();
         } else {
             displayErrorMsg('Some error occured while billing');
         }
@@ -294,5 +307,5 @@ function displayConfirmationMsg(msg){
     $form.find('#success_msg').html(msg);
     $form.find('.alert-success').show();
 }
-  
+
 
