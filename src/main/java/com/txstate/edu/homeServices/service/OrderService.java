@@ -93,9 +93,10 @@ public class OrderService {
             return order;
         }).collect(Collectors.toList());
     }
+
 //Changed for service order page
     @Transactional
-    public ServiceOrder updateServiceStatus(ServiceOrder serviceOrder) {
+    public ServiceOrder updateServiceStatusorder(ServiceOrder serviceOrder) {
         ServiceOrderEntity entity = serviceRepo.findById(serviceOrder.getServiceId()).get();
         entity.setStatus(serviceOrder.getStatus());
         entity.setServiceDescription(serviceOrder.getServiceDescription());
@@ -113,22 +114,23 @@ public class OrderService {
         return serviceOrder;
     }
 
-    //Previous code
-//    @Transactional
-//    public ServiceOrder updateServiceStatus(ServiceOrder serviceOrder) {
-//        ServiceOrderEntity entity = serviceRepo.findById(serviceOrder.getServiceId()).get();
-//        entity.setStatus(serviceOrder.getStatus());
-//        serviceRepo.save(entity);
-//
-//        serviceOrder.setCustomerId(entity.getCustomerId());
-//        serviceOrder.setBusinessId(entity.getBusinessId());
-//        serviceOrder.setStatus(entity.getStatus());
-//        serviceOrder.setServiceCategory(entity.getServiceCategory());
-//        serviceOrder.setServiceDescription(entity.getServiceDescription());
-//        sendServiceAcceptance(entity);
-//        log.debug("Updated service status and send acceptance email.");
-//        return serviceOrder;
-//    }
+
+    //Work Order at Contractor
+    @Transactional
+    public ServiceOrder updateServiceStatus(ServiceOrder serviceOrder) {
+        ServiceOrderEntity entity = serviceRepo.findById(serviceOrder.getServiceId()).get();
+        entity.setStatus(serviceOrder.getStatus());
+        serviceRepo.save(entity);
+
+        serviceOrder.setCustomerId(entity.getCustomerId());
+        serviceOrder.setBusinessId(entity.getBusinessId());
+        serviceOrder.setStatus(entity.getStatus());
+        serviceOrder.setServiceCategory(entity.getServiceCategory());
+        serviceOrder.setServiceDescription(entity.getServiceDescription());
+        sendServiceAcceptance(entity);
+        log.debug("Updated service status and send acceptance email.");
+        return serviceOrder;
+    }
 
     private void sendServiceAcceptance(ServiceOrderEntity entity) {
         log.debug("Sending service acceptance email for service {}", entity.getServiceId());

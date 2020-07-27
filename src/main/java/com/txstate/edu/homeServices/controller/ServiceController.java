@@ -52,6 +52,16 @@ public class ServiceController {
         return orderService.createServiceOrder(serviceOrder);
     }
 
+
+    //API for service-history at customer end
+    @PostMapping(value = "/updateOrder", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ServiceOrder updateServiceStatusorder(@RequestBody ServiceOrder serviceOrder) {
+        log.debug("Updating service status for {}", serviceOrder);
+        orderService.updateServiceStatusorder(serviceOrder);
+        return serviceOrder;
+    }
+
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ServiceOrder updateServiceStatus(@RequestBody ServiceOrder serviceOrder) {
@@ -59,6 +69,9 @@ public class ServiceController {
         orderService.updateServiceStatus(serviceOrder);
         return serviceOrder;
     }
+
+
+
 
     @PostMapping(value = "/payment", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -82,4 +95,3 @@ public class ServiceController {
         return orderConfirm;
     }
 }
-
