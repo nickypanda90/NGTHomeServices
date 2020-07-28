@@ -59,8 +59,8 @@ function getOrderHistory(id){
           + (val.serviceDescription ? val.serviceDescription : "") + " </span></td><td>"
           + "<input type='text' id='date-"+ val.serviceId  + "' value ='" + moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  + "' name='service_date_time' class='form-control datetimepicker unedit'> <span class='edit' id='spandate-"+ val.serviceId  + "'>"
           + (val.serviceDateTime ? moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  : "" ) +
-          "</span></td><td>" + val.serviceCategory + "</td><td id= "+statusId+">"+ (val.status ? val.status : "") +
-          "</td><td id="+actionID+" >" + ( val.status == "Pending" || val.status == "Approved" ? "<a href class='unedit' onclick='action(this)' title='Approve' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-check success' aria-hidden='true'></i></a> <a href class='edit' onclick='action(this)' title='Edit Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-pencil pencil' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Cancel Service'><i class='fa fa-times danger' aria-hidden='true'></i></a>" :  "" )  + "</td>");
+          "</span></td><td>" + val.serviceCategory + "</td><td class='status' id= "+statusId+">"+ (val.status ? val.status : "") +
+          "</td><td class='action' id="+actionID+" >" + ( val.status == "Pending" || val.status == "Approved" ? "<a href class='unedit' onclick='action(this)' title='Approve' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-check success' aria-hidden='true'></i></a> <a href class='edit' onclick='action(this)' title='Edit Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-pencil pencil' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Cancel Service'><i class='fa fa-times danger' aria-hidden='true'></i></a>" :  "" )  + "</td>");
       tbody.append(row);
 
       $('.unedit').hide();
@@ -155,9 +155,11 @@ function updateStatus(data){
     if(response) {
       $('tr[id='+ response.service_id +']').find('.edit').show();
       $('tr[id='+ response.service_id +']').find('.unedit').hide();
-      $("#" + response.status +response.service_id).html(response.status);
-      //$("#action"+response.service_id).html("");
-
+      $('tr[id='+ response.service_id +']').find('.status').html(response.status);
+      if(response.status === 'Completed' || response.status === 'Cancelled' || response.status === 'Denied')
+      { 
+        $('tr[id='+ response.service_id +']').find('.action').html('');
+      }
     }
   });
 }
