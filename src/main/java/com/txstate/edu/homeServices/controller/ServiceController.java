@@ -70,9 +70,6 @@ public class ServiceController {
         return serviceOrder;
     }
 
-
-
-
     @PostMapping(value = "/payment", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ServicePayment savePaymentInfo(@RequestBody ServicePayment paymentInfo, HttpServletRequest request) {

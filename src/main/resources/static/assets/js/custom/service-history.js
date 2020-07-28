@@ -124,7 +124,7 @@ function action(self){
     data.status = $('#' + data.status + rowid).html();
     //input date
     let dateFieldId =  '#date-' + rowid;
-    data.serviceDateTime = $(dateFieldId).val();
+    data.serviceDateTime = moment($(dateFieldId).val()).format("MM-DD-YYYY HH:mm:ss");
     let spandescField = '#spandate-'+ rowid;
     $(spandescField).html(data.serviceDateTime);
 
