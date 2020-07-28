@@ -57,7 +57,7 @@ function getOrderHistory(id){
       let row = $('<tr>').attr('id', val.serviceId).html(
           "<td>" + val.serviceId + "</td><td><input type='text' name='service_description' class='form-control unedit' rows='1'  id='description-"+ val.serviceId  + "' value ='" + val.serviceDescription + " '/> <span class='edit' id='spandesc-"+ val.serviceId  + "'>"
           + (val.serviceDescription ? val.serviceDescription : "") + " </span></td><td>"
-          + "<input type='text' id='date-"+ val.serviceId  + "' value ='" + moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  + "' name='service_date_time' class='form-control datetimepicker unedit'> <span class='edit' id='spandate-"+ val.serviceId  + "'>"
+          + "<input type='text' id='date-"+ val.serviceId  + "' value ='" + moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  + "' name='service_date_time' class='form-control datetimepicker unedit'> <span class='edit date' id='spandate-"+ val.serviceId  + "'>"
           + (val.serviceDateTime ? moment(val.serviceDateTime).format("MM-DD-YYYY HH:mm:ss")  : "" ) +
           "</span></td><td>" + val.serviceCategory + "</td><td class='status' id= "+statusId+">"+ (val.status ? val.status : "") +
           "</td><td class='action' id="+actionID+" >" + ( val.status == "Pending" || val.status == "Approved" ? "<a href class='unedit' onclick='action(this)' title='Approve' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-check success' aria-hidden='true'></i></a> <a href class='edit' onclick='action(this)' title='Edit Service' data-val='"+ JSON.stringify(val)+ "' ><i class='fa fa-pencil pencil' aria-hidden='true'></i></a> <a href'' data-val='"+ JSON.stringify(val)+ "' onclick='action(this)' title='Cancel Service'><i class='fa fa-times danger' aria-hidden='true'></i></a>" :  "" )  + "</td>");
@@ -156,7 +156,7 @@ function updateStatus(data){
       $('tr[id='+ response.service_id +']').find('.edit').show();
       $('tr[id='+ response.service_id +']').find('.unedit').hide();
       $('tr[id='+ response.service_id +']').find('.status').html(response.status);
-      $('tr[id='+ response.service_id +']').find('.status').html(moment(response.serviceDateTime).format("MM-DD-YYYY HH:mm:ss"))
+      $('tr[id='+ response.service_id +']').find('.date').html(moment(response.service_date_time).format("MM-DD-YYYY HH:mm:ss"));
       
       if(response.status === 'Completed' || response.status === 'Cancelled' || response.status === 'Denied')
       { 
