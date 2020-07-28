@@ -30,9 +30,6 @@ public class BusinessEntity {
     private String category;
 
 
-//    @Column(name = "description")
-//    private String description;
-
 
     public Integer getBusinessId() {
         return businessId;
@@ -81,11 +78,5 @@ public class BusinessEntity {
     public void setCategory(String category) {
         this.category = category;
     }
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
+
 }
