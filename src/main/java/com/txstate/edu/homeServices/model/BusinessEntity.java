@@ -29,6 +29,8 @@ public class BusinessEntity {
     @Column(name = "category")
     private String category;
 
+
+
     public Integer getBusinessId() {
         return businessId;
     }
@@ -76,4 +78,5 @@ public class BusinessEntity {
     public void setCategory(String category) {
         this.category = category;
     }
+
 }

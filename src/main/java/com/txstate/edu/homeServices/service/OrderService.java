@@ -55,12 +55,17 @@ public class OrderService {
         try {
             return LocalDateTime.parse(serviceDateTime, DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a"));
         } catch (Exception exe) {
-            return LocalDateTime.parse(serviceDateTime, DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm a"));
+            try {
+                return LocalDateTime.parse(serviceDateTime, DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm a"));
+            } catch (Exception exe1) {
+                return LocalDateTime.parse(serviceDateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+            }
         }
     }
-    public boolean isFirstTimeUser(int customerId){
-        int count= serviceRepo.countByCustomerId(customerId);
-        if (count==0){
+
+    public boolean isFirstTimeUser(int customerId) {
+        int count = serviceRepo.countByCustomerId(customerId);
+        if (count == 0) {
             return true;
         }
         return false;
@@ -94,7 +99,7 @@ public class OrderService {
         }).collect(Collectors.toList());
     }
 
-//Changed for service order page
+    //Changed for service order page
     @Transactional
     public ServiceOrder updateServiceStatusorder(ServiceOrder serviceOrder) {
         ServiceOrderEntity entity = serviceRepo.findById(serviceOrder.getServiceId()).get();
@@ -109,8 +114,8 @@ public class OrderService {
         serviceOrder.setStatus(entity.getStatus());
         serviceOrder.setServiceCategory(entity.getServiceCategory());
         serviceOrder.setServiceDescription(entity.getServiceDescription());
-        sendServiceAcceptance(entity);
-        log.debug("Updated service status and send acceptance email.");
+       // sendServiceAcceptance(entity); //not sending mail after edit/cancel
+        log.debug("Updated service status.");
         return serviceOrder;
     }
 
@@ -151,4 +156,6 @@ public class OrderService {
             log.error("Exception while sending registration email", exe);
         }
     }
+
+
 }
