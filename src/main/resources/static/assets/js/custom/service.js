@@ -74,7 +74,7 @@ function amountMapFunc(){
         gutterCleaning: "$300",
         masonry: "$3000",
         roofing: "$2500",
-        windows: "$525",
+        windowCleaning: "$525",
         fencing: "$900",
         handymen: "$150",
         landscaping: "$425",
