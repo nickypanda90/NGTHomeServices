@@ -173,7 +173,6 @@ function validateMonthYear(){
 }
 
 function confirmBooking(){
-    event.preventDefault();
     if(validateCreditCard() && validateCVV() && validateMonthYear()){
         $('.alert-danger').hide();
         $('.alert-success').hide();
@@ -271,7 +270,6 @@ function getSelectedCategory() {
 
 // Service Request
 function submitRequest(){
-    event.preventDefault();
     $('.alert-danger').hide();
     $('.alert-success').hide();
     var $form = $("#service_form");
