@@ -124,7 +124,7 @@ function action(self){
     data.status = $('#' + data.status + rowid).html();
     //input date
     let dateFieldId =  '#date-' + rowid;
-    data.serviceDateTime = moment($(dateFieldId).val()).format("MM-DD-YYYY HH:mm:ss");
+    data.serviceDateTime = $(dateFieldId).val();
     let spandescField = '#spandate-'+ rowid;
     $(spandescField).html(data.serviceDateTime);
 
@@ -156,6 +156,8 @@ function updateStatus(data){
       $('tr[id='+ response.service_id +']').find('.edit').show();
       $('tr[id='+ response.service_id +']').find('.unedit').hide();
       $('tr[id='+ response.service_id +']').find('.status').html(response.status);
+      $('tr[id='+ response.service_id +']').find('.status').html(moment(response.serviceDateTime).format("MM-DD-YYYY HH:mm:ss"))
+      
       if(response.status === 'Completed' || response.status === 'Cancelled' || response.status === 'Denied')
       { 
         $('tr[id='+ response.service_id +']').find('.action').html('');
