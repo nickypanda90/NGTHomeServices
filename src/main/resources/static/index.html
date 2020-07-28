@@ -1,0 +1,506 @@
+<!--
+ =========================================================
+ * Material Kit - v2.0.6
+ =========================================================
+ * Product Page: https://www.creative-tim.com/product/material-kit
+ * Copyright 2019 Creative Tim (http://www.creative-tim.com)
+   Licensed under MIT (https://github.com/creativetimofficial/material-kit/blob/master/LICENSE.md)
+ =========================================================
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Home Service Provider
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport' />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/fonts/font/flaticon.css">
+  <!-- CSS Files -->
+
+  <link href="./assets/css/material-kit.css?v=2.0.6" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="./assets/demo/demo.css" rel="stylesheet" />
+
+  <style>
+    .article-entry-wrapper {
+      /* padding: 35px 40px 40px 45px; */
+      margin: 0 25px;
+    }
+
+    .input-group .input-group-text-special {
+      margin-left: 554%;
+    }
+
+    .typeahead, .tt-query, .tt-hint {
+      border: 1px solid #009688;
+      border-radius: px;
+      font-size: 14px;
+      height: 30px;
+      line-height: 30px;
+      outline: medium none;
+      padding: 8px 12px;
+      width: 300%;  
+    } 
+    .typeahead {
+      background-color: #FFFFFF;
+    }
+    .typeahead:focus {
+      border: 1px solid #009688;
+    }
+    .tt-query {
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    }
+    .tt-hint {
+      color: #FFFFFF;
+    }
+    .tt-menu {
+      background-color: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      margin-top: 12px;
+      padding: 8px 0;
+      width: 300%;
+      color: #000;
+      z-index: 1000;
+    }
+    .tt-suggestion {
+      font-size: 14px;  /* Set suggestion dropdown font size */
+      padding: 3px 20px;
+    }
+    .tt-suggestion:hover {
+      cursor: pointer;
+      background-color: #0097CF;
+      color: #FFFFFF;
+    }
+    .tt-suggestion p {
+      margin: 0;
+    }
+
+    @media screen and (min-width: 610px) and (max-width: 990px){
+      .input-group .input-group-text-special {
+        margin-left: 300%;
+      }
+      .typeahead, .tt-query, .tt-hint {
+        width: 208%;  
+      }
+    }
+    @media screen and (max-width: 610px){
+      .input-group .input-group-text-special {
+        margin-left: 140%;
+      }
+      .typeahead, .tt-query, .tt-hint {
+        width: 150%;  
+      }
+    }
+  </style>
+</head>
+
+<body class="index-page sidebar-collapse">
+  <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100"
+    id="sectionsNav">
+    <div class="container">
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="./index.html">HSP</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="dropdown nav-item customer">
+            <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+              <i class="flaticon-paint-roller"></i> Interior
+            </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="pages/customer/service-page.html?serviceType=carpetCleaning" class="dropdown-item">
+                <i class="flaticon-carpet"></i> Carpet Cleaning
+                <div class="ripple-container"></div></a>
+              <a href="pages/customer/service-page.html?serviceType=homeCleaning" class="dropdown-item">
+                <i class="flaticon-mop"></i>Home Cleaning
+                <div class="ripple-container"></div>
+              </a>
+              <a href="pages/customer/service-page.html?serviceType=painting" class="dropdown-item">
+                <i class="flaticon-paint-roller"></i> Painting
+                <div class="ripple-container"></div>
+              </a>
+              <a href="pages/customer/service-page.html?serviceType=plumbing" class="dropdown-item">
+                <i class="flaticon-pipeline"></i>Plumbing
+                <div class="ripple-container"></div>
+              </a>
+            </div>
+          </li>
+          <li class="dropdown nav-item customer">
+            <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-wrench"></i> Exterior
+            </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="pages/customer/service-page.html?serviceType=gutterCleaning" class="dropdown-item">
+                <i class="flaticon-pipeline-1"></i>Gutter Cleaning
+                <div class="ripple-container"></div>
+              </a>
+              <a href="pages/customer/service-page.html?serviceType=masonry" class="dropdown-item">
+                <i class="flaticon-brickwork"></i>
+                Masonry
+              </a>
+              <a href="pages/customer/service-page.html?serviceType=roofing" class="dropdown-item">
+                <i class="flaticon-roof"></i>Roofing
+                <div class="ripple-container"></div>
+              </a>
+              <a href="pages/customer/service-page.html?serviceType=windowCleaning" class="dropdown-item">
+                <i class="flaticon-window"></i>Window Cleaning
+                <div class="ripple-container"></div>
+              </a>
+            </div>
+          </li>
+          <li class="dropdown nav-item customer">
+            <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+              <i class="material-icons">more_horiz</i> More
+            </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="pages/customer/service-page.html?serviceType=fencing" class="dropdown-item">
+                <i class="flaticon-fence-1"></i>Fencing
+                <div class="ripple-container"></div>
+              </a>
+              <a href="pages/customer/service-page.html?serviceType=handymen" class="dropdown-item">
+                <i class="flaticon-construction-and-tools"></i>Handymen
+                <div class="ripple-container"></div>
+              </a>
+              <a href="pages/customer/service-page.html?serviceType=landscaping" class="dropdown-item">
+                <i class="flaticon-lawn-mower"></i>Landscaping
+                <div class="ripple-container"></div>
+              </a>
+              <a href="pages/customer/service-page.html?serviceType=pestControl" class="dropdown-item">
+                <i class="flaticon-pest-observation"></i>Pest Control
+                <div class="ripple-container"></div>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item customer">
+            <a class="nav-link" href="pages/customer/reviews.html">
+              <i class="material-icons">rate_review</i> Reviews
+            </a>
+          </li>
+          <li class="nav-item contractor">
+            <a class="nav-link" href="pages/contractor/work-order.html">
+              <i class="material-icons">camera</i> Work Order
+            </a>
+          </li>
+          <li class="dropdown nav-item" id="user">
+            <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="javascript:;">
+              <i class="fa fa-user-circle"></i> <span> User</span>
+            </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="pages/customer/service-history.html" class="dropdown-item customer">
+                <i class="fa fa-history" aria-hidden="true"></i> Order History
+                <div class="ripple-container"></div>
+              </a>
+
+              <a href="pages/customer/Search-Contractor.html" class="dropdown-item customer">
+                <i class="fa fa-search" aria-hidden="true"></i> Search Contractor
+                <div class="ripple-container"></div>
+              </a>
+
+              <a href="#" onclick="logout()" class="dropdown-item">
+                <i class="fa fa-sign-out"></i> Logout
+                <div class="ripple-container"></div>
+              </a>
+
+            </div>
+          </li>
+          <li class="nav-item" id="login">
+            <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="pages/registration/login-page.html"
+              target="_self" data-original-title="Login Or Register">
+              <i class="fa fa-user-circle"></i> Login / Register
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="page-header header-filter clear-filter" data-parallax="true"
+    style="background-image: url('./assets/img/bg-1.jpg');">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 ml-auto mr-auto">
+          <div class="brand">
+            <h1>Home Service Providers</h1>
+            <h3>Smallest things make the biggest differences.</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main main-raised">
+    <div class="section section-basic customer">
+      <div class="container">
+        <div class="search-panel">
+          <div class="input-group mb-3">
+            <input type="text" class=" form-control-special typeahead tt-query" placeholder="Eg Plumbing or Roofing" aria-label="Search"
+              aria-describedby="find-addon" autocomplete="off" spellcheck="false">
+            <div class="input-group-append">
+              <span class="input-group-text-special" onclick="submitService()" id="find-addon">Find</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container customer">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <span class="headline-text">Popular Services</span>
+        </div>
+      </div>
+    </div>
+    <div class="section-2 section-signup customer">
+      <div class="container">
+        <div class="row justify-content-center">
+          <ul class="nav nav-pills nav-pills-icons" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link" href="pages/customer/service-page.html?serviceType=carpetCleaning" role="tab">
+                <i class="flaticon-carpet"></i>
+                Carpet Cleaning
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pages/customer/service-page.html?serviceType=homeCleaning" role="tab">
+                <i class="flaticon-mop"></i>
+                Home Cleaning
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pages/customer/service-page.html?serviceType=roofing" role="tab">
+                <i class="flaticon-roof"></i>
+                Roofing
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="pages/customer/service-page.html?serviceType=masonry" role="tab">
+                <i class="flaticon-brickwork"></i>
+                Masonry
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="pages/customer/service-page.html?serviceType=lanscaping" role="tab">
+                <i class="flaticon-lawn-mower"></i>
+                Landscaping
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pages/customer/service-page.html?serviceType=pestControl" role="tab">
+                <i class="flaticon-pest-observation"></i>
+                Pest Control
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="section section-basic">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <span class="headline-text">Related Articles</span>
+          </div>
+        </div>
+        <div class="row article-gap-top">
+          <div class="col-6 cleaning-article"
+            style="background-image: url('./assets/img/cleaning-article.jpg'); background-size: contain; background-origin: content-box; background-repeat:no-repeat;">
+          </div>
+          <div class="col-6">
+            <div class="article-entry-wrapper">
+              <span class="article-cat">
+                <a href="#" data-toggle="modal" data-target="#coronaArticle">House Cleaning Tips</a>
+              </span>
+              <h3 class="article-title">
+                <a href="#" data-toggle="modal" data-target="#coronaArticle">House Cleaning & Sanitizing Checklist</a>
+              </h3>
+              <div class="article-details">
+                by
+                <a href="#" data-toggle="modal" data-target="#coronaArticle">Jaclyn Crawford</a>
+                &nbsp;•&nbsp;
+                March 20, 2020
+              </div>
+              <div class="entry">
+                Now more than ever, people are paying attention to their home hygiene. From a family member that has a
+                common
+                cold to the concern of spreading the Coronavirus, sanitizing your home can be extremely important to
+                keep
+                everyone, even those in your community, healthy.
+              </div>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#coronaArticle">Read More</button>
+            </div>
+          </div>
+        </div>
+        <div class="row article-gap-top">
+          <div class="col-6">
+            <div class="article-entry-wrapper">
+              <span class="article-cat">
+                <a href="#" data-toggle="modal" data-target="#lawnsArticle">Lawn Mowing Tips</a>
+              </span>
+              <h3 class="article-title">
+                <a href="#" data-toggle="modal" data-target="#lawnsArticle">The American Obsession with
+                  Lawns</a>
+              </h3>
+              <div class="article-details">
+                by
+                <a href="#" data-toggle="modal" data-target="#lawnsArticle">Krystal D'Costa</a>
+                &nbsp;•&nbsp;
+                May 3, 2017
+              </div>
+              <div class="entry">
+                Lawns are the most grown crop in the U.S.—and they're not one that anyone can eat; their primary purpose
+                is
+                to
+                make us look and feel good about ourselves.
+              </div>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#lawnsArticle">Read More</button>
+            </div>
+          </div>
+          <div class="col-6"
+            style="background-image: url('./assets/img/lawn-article.jpg'); background-position: center center;background-origin: content-box; background-repeat: no-repeat;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer" data-background-color="black">
+      <div class="container">
+        <div class="copyright float-right">
+          &copy;
+          <script>
+            document.write(new Date().getFullYear())
+          </script>, reserved with TX State students.
+        </div>
+      </div>
+    </footer>
+
+    <!-- Classic Modal -->
+    <div class="modal fade" id="coronaArticle" tabindex="-1" role="dialog" data-backdrop="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">House Cleaning & Sanitizing Checklist</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <i class="material-icons">clear</i>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <p>Now more than ever, people are paying attention to their home hygiene. From a family member that has a
+              common cold to the concern of spreading the Coronavirus, sanitizing your home can be extremely important
+              to
+              keep everyone, even those in your community, healthy.</p>
+
+            <p>In March 2020, USA Today reported, “Depending on the type of surface, the [Coronavirus] can stay on
+              surfaces for a few hours or up to several days, according to the WHO. A recent study by scientists in the
+              U.S. found that viable virus could be detected up to three hours later in the air, up to four hours on
+              copper, up to 24 hours on cardboard and up to two to three days on plastic and stainless steel.” It is
+              more
+              likely that the virus spreads through droplets person-to-person, but it is important to be cautious and
+              that
+              can start in your home.</p>
+
+            <p>While regular cleaning and maintenance are important, sanitizing takes things a step further. It’s
+              getting
+              rid of germs and disinfecting areas that are high-touch. It can be hard to determine what needs to be
+              cleaned and sanitized, so to help, we’ve created this checklist you can download, print out and mark off
+              what needs to be done so you can feel safe and healthy in your home.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="lawnsArticle" tabindex="-1" role="dialog" data-backdrop="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">The American Obsession with Lawns</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <i class="material-icons">clear</i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Warmer weather in the northern states means more time outside, and more time to garden. While urban
+              gardeners may be planning their container gardens, in the suburbs, homeowners are thinking about their
+              lawns. It’s the time of year when the buzz of landscaping equipment begins to fill the air, and people
+              begin
+              to scrutinize their curb appeal. </p>
+
+            <p>The goal—as confirmed by the efforts of Abraham Levitt in his sweeping exercise in conformity (although
+              it
+              had been established well before that)—is to attain a patch of green grass of a singular type with no
+              weeds
+              that is attached to your home. It should be no more than an inch and a half tall, and neatly edged. This
+              means you must be willing to care for it. It must be watered, mowed, repaired, and cultivated. Lawns are
+              expensive—and some regard them as boring in their uniformity—but they are a hallmark of homeownership. Why
+              do Americans place so much importance on lawn maintenance?</p>
+
+            <p>In The Great Gatsby when Nick Carraway rents his house on the West Egg, he apparently spends little time
+              on
+              lawn care. The disparity between his patch of greenery and the immaculately manicured grounds of Jay
+              Gatsby's mansion is clear: “We both looked at the grass—there was a sharp line where my ragged lawn ended
+              and the darker, well-kept expanse of his began,” reports Carraway. In preparation for Gatsby’s luncheon
+              with
+              Daisy, Gatsby is so troubled by this difference that he sends his own gardeners to take care of the
+              offensive strip of grass.</p>
+
+            <p>This concern is not limited to fiction. The state of a homeowner’s lawn is important in relation to their
+              status within the community and to the status of the community at large. Lawns connect neighbors and
+              neighborhoods; they’re viewed as an indicator of socio-economic character, which translates into property-
+              and resale values. Lawns are indicative of success; they are a physical manifestation of the American
+              Dream
+              of home ownership. To have a well maintained lawn is a sign to others that you have the time and/or the
+              money to support this attraction. It signifies that you care about belonging and want others to see that
+              you
+              are like them.
+            </p>
+            
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-link">Nice Button</button> -->
+            <button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="./assets/js/core/jquery.min.js" type="text/javascript"></script>
+    <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="./assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+    <script src="./assets/js/plugins/moment.min.js"></script>
+    <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <script src="./assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+    <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+    <script src="./assets/js/material-kit.js?v=2.0.6" type="text/javascript"></script>
+    <script src="./assets/js/plugins/typeahead.jquery.js" type="text/javascript"></script>
+
+    <script src="../assets/js/custom/logout.js" type="text/javascript"></script>
+    <script src="assets/js/custom/home.js"></script>
+
+</body>
+
+</html>

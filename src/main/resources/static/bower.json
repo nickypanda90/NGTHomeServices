@@ -1,0 +1,26 @@
+{
+  "name": "material-kit",
+  "homepage": "https://github.com/tjain16/HomeServiceProvider",
+  "authors": [
+    "Tripti Jain"
+  ],
+  "description": "Home Service Provider website to find help when doing some day to day jobs.",
+  "main": "index.html",
+  "keywords": [
+    "material",
+    "design",
+    "bootstrap",
+    "material",
+    "design",
+    "google",
+    "twitter"
+  ],
+  "license": "Creative TIM License",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
