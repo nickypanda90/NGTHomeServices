@@ -21,6 +21,7 @@ $(document).ready(function () {
         "sAjaxDataProp": "",
         "order": [[ 0, "asc" ]],
         "columns": [
+            { "data": "rank" },
             {
                 "data": 'name',
                 render: function(data, type,row, meta) {
@@ -30,16 +31,22 @@ $(document).ready(function () {
                 }}
             ,
             { "data": "review_catg" },
-            { "data": "rating" },
+            {"data": "rating",
+                render: function(data, type,row, meta) {
+                return data.toFixed(2);
+                }
+            },
 
             {
                 "data": 'count',
                 render: function(data, type,row, meta) {
                     return type === 'display' ?
-                        '<progress value="' + data + '" max="20"></progress>' :
+                        '<progress value="' + data + '" max="'+row.max+'"></progress>&nbsp;&nbsp ('+data+')' :
                         data;
+
                 }
             },
+            { "data": "score" }
 
         ]
     })
