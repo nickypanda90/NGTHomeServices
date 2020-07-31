@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+
 @RestController
 @RequestMapping("/business/api")
 public class BusinessController {
@@ -27,7 +28,7 @@ public class BusinessController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public CustomerRegistration registerBusiness(@Valid @RequestBody CustomerRegistration contractor, HttpServletRequest request) {
         log.debug("Registering business for {}", contractor);
