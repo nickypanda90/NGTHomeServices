@@ -39,6 +39,9 @@ public class CustomerController {
     @PostMapping("/signup")
     public CustomerRegistration signupCustomer(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
         log.debug("Registering customer {}", customerregistration);
+        customerregistration.setRole_id("customer");
+        customerRepository.save(customerregistration);
+
         String token = UUID.randomUUID().toString();
         String appUrl = request.getScheme() + "://" + request.getServerName() + ":8080";
         SimpleMailMessage registrationmsg = new SimpleMailMessage();
@@ -49,15 +52,14 @@ public class CustomerController {
                 + "/pages/registration/login-page.html?myToken=" + token);
         emailService.sendEmail(registrationmsg);
 
-        customerregistration.setRole_id("customer");
-        return customerRepository.save(customerregistration);
+        return customerregistration;
     }
+
     @PostMapping("/login")
     public LoginDetail login(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
 
         LoginDetail user = new LoginDetail();
         request.getSession().setAttribute("USER_INFO", user);
-
 
         LoginDetail name = customerRepository.findByEmail_idaAndPassword(customerregistration.getEmail_id(), customerregistration.getPassword());
 

@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customer/api")//After deployment on web take the IP port(e.g Amazon)
+@RequestMapping("/customer/api")//After deploymesnt on web take the IP port(e.g Amazon)
 public class ServiceDisplay {
     @Autowired
     ServiceListRepository serviceListrepository;
