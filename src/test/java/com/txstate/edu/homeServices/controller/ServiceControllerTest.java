@@ -8,18 +8,18 @@ import com.txstate.edu.homeServices.service.OrderService;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mail.SimpleMailMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 class ServiceControllerTest {
@@ -56,12 +56,11 @@ class ServiceControllerTest {
         when(request.getSession()).thenReturn(httpSession);
         when(httpSession.getAttribute("USER_DETAILS_EXPANDED")).thenReturn(customerRegistration);
 
-
-//        controller.savePaymentInfo(servicePayment, request);
-
         assertEquals(controller.savePaymentInfo(servicePayment,request), orderConfirm);
+
         // Verify if the methods/mocks were called with correct arguments and how many number of times
-        // Verify that the email service.sendemail was called with correct registrationmsg
-        // Verify that registrationmsg has the correct fields set
+        verify(orderService, times(1)).savePaymentInfo(servicePayment);
+        verify(emailService, times(1)).sendEmail(any(SimpleMailMessage.class));
+
     }
 }
