@@ -29,7 +29,6 @@ public class ReviewController {
     ReviewRepository reviewRepository;
     @Autowired
     ServiceOrderRepository serviceOrderRepository;
-
     @Autowired
     RankingService rankingService;
 
@@ -42,7 +41,7 @@ public class ReviewController {
      * this will show the ratings given by customer
      * @param customerFeedback
      * @param request
-     * @return
+     * @return customer ratings
      */
     @PostMapping("/feedback")
     public CustomerFeedback feedback(@Valid @RequestBody CustomerFeedback customerFeedback, HttpServletRequest request) {
@@ -56,7 +55,7 @@ public class ReviewController {
      * this will
      * @param customer_id
      * @param request
-     * @return
+     * @return service work order list details for the that customer
      */
 
     @GetMapping  ("/servicehistory/{customer_id}")
@@ -73,7 +72,7 @@ public class ReviewController {
     /**
      * this will show userdetails
      * @param request
-     * @return
+     * @return user details
      */
     @GetMapping("/getuserdetails")
     public CustomerRegistration getUser(HttpServletRequest request) {
@@ -87,9 +86,9 @@ public class ReviewController {
     }
 
     /**
-     * this will show the list of contractor
+     * this will show the list of contractor along with their ranking
      * @param request
-     * @return
+     * @return contractor ranking
      */
     @GetMapping("/getcontractorlist")
     public List<CustomerRating> displaycontractorlist(HttpServletRequest request)
@@ -101,7 +100,7 @@ public class ReviewController {
      * this will dispaly contractor name on the basis of category
      * @param customerRegistration
      * @param request
-     * @return
+     * @return contractor name on the basis of service category selected
      */
     @PostMapping("/getcontractorname")
     public List<String> getContractorName(@Valid @RequestBody CustomerRegistration customerRegistration, HttpServletRequest request) {

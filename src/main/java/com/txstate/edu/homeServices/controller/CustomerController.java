@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -35,7 +36,11 @@ public class CustomerController {
     @Autowired
     private EmailService emailService;
 
-
+    /** this will save customer registration data
+     * @param customerregistration
+     * @param request
+     * @return registration details
+     */
     @PostMapping("/signup")
     public CustomerRegistration signupCustomer(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
         log.debug("Registering customer {}", customerregistration);
@@ -55,6 +60,11 @@ public class CustomerController {
         return customerregistration;
     }
 
+    /**this will allow user to login into system
+     * @param customerregistration
+     * @param request
+     * @return user
+     */
     @PostMapping("/login")
     public LoginDetail login(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
 
@@ -63,7 +73,7 @@ public class CustomerController {
 
         LoginDetail name = customerRepository.findByEmail_idaAndPassword(customerregistration.getEmail_id(), customerregistration.getPassword());
 
-        if (name!=null &&  !name.getName().isEmpty()) {
+        if (name != null && !name.getName().isEmpty()) {
             user.setRole_id(name.getRole_id());
             user.setName(name.getName());
             user.setAuthenticated(true);
@@ -79,6 +89,11 @@ public class CustomerController {
 
     }
 
+    /** this will authenticate user if user exists in system
+     * @param customerregistration
+     * @param request
+     * @return email authentication (boolean)
+     */
     @PostMapping("/authenticateemailid")
     public boolean authenticEmailid(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
         boolean isValid = false;
@@ -105,19 +120,20 @@ public class CustomerController {
 
     }
 
-
+    /** this will allow user to reset password
+     * @param customerregistration
+     * @param request
+     * @return new password
+     */
     @Transactional
     @PostMapping("/forgotpass")
     public CustomerRegistration forgotpass(@Valid @RequestBody CustomerRegistration customerregistration, HttpServletRequest request) {
-
-        //please change the port number as per your localhost
         CustomerRegistration existingCustomer = authenticRepository.getUserByToken(customerregistration.getReset_token());
         if (existingCustomer != null && checkExpiry(existingCustomer.getToken_ts())) {
             existingCustomer.setPassword(customerregistration.getPassword());
             customerRepository.save(existingCustomer);
-        }
-        else
-            existingCustomer= new CustomerRegistration();
+        } else
+            existingCustomer = new CustomerRegistration();
         return existingCustomer;
     }
 

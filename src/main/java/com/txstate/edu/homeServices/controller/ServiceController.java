@@ -33,15 +33,21 @@ public class ServiceController {
     }
 
     /**
-     * Checking customer using the service is first time(True- first time)
+     * this will Check customer using the service is first time(True- first time)
      * @param customerId
-     * @return
+     * @return boolean value
      */
     @GetMapping(value = "/customer/{customer_id}/firsttimeuser", produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean isFirstTimeUser(@PathVariable("customer_id") Integer customerId) {
         return orderService.isFirstTimeUser(customerId);
     }
 
+    /**
+     * this will create new service order
+     * @param serviceOrder
+     * @param request
+     * @return new service request order
+     */
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ServiceOrder createService(@RequestBody ServiceOrder serviceOrder, HttpServletRequest request) {
@@ -52,8 +58,12 @@ public class ServiceController {
         return orderService.createServiceOrder(serviceOrder);
     }
 
+    /**
+     * this will update service-history status request by customer
+     * @param serviceOrder
+     * @return updated service order status
+     */
 
-    //API for service-history at customer end
     @PostMapping(value = "/updateOrder", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ServiceOrder updateServiceStatusorder(@RequestBody ServiceOrder serviceOrder) {
@@ -62,6 +72,11 @@ public class ServiceController {
         return serviceOrder;
     }
 
+    /**
+     * this will update service work order by contractor
+     * @param serviceOrder
+     * @return updated work order status
+     */
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ServiceOrder updateServiceStatus(@RequestBody ServiceOrder serviceOrder) {
@@ -70,6 +85,12 @@ public class ServiceController {
         return serviceOrder;
     }
 
+    /**
+     * this will enable payment and save payment details
+     * @param paymentInfo
+     * @param request
+     * @return order confirmation details
+     */
     @PostMapping(value = "/payment", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ServicePayment savePaymentInfo(@RequestBody ServicePayment paymentInfo, HttpServletRequest request) {

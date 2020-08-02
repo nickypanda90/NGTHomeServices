@@ -16,20 +16,22 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customer/api")//After deploymesnt on web take the IP port(e.g Amazon)
+@RequestMapping("/customer/api")
 public class ServiceDisplay {
     @Autowired
     ServiceListRepository serviceListrepository;
 
 
-
+    /**
+     * this will display all service category
+     * @param requestServices
+     * @return service category list
+     */
     @PostMapping("/displayServices")
     public List<ServiceCategory> displayServices(@Valid @RequestBody DisplayUIServices requestServices) {
 
         List<ServiceCategory> category = serviceListrepository.display(requestServices.getService_Type());
 
-      //  String category = serviceListrepository.display(requestServices.getService_Type());
-        
         return category;
     }
 
