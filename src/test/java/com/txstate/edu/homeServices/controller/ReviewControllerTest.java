@@ -3,6 +3,8 @@ package com.txstate.edu.homeServices.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.txstate.edu.homeServices.model.CustomerRating;
 import com.txstate.edu.homeServices.model.CustomerRegistration;
+import com.txstate.edu.homeServices.model.CustomerFeedback;
+import com.txstate.edu.homeServices.model.ServiceOrderEntity;
 import com.txstate.edu.homeServices.repository.ReviewRepository;
 import com.txstate.edu.homeServices.repository.ServiceOrderRepository;
 import com.txstate.edu.homeServices.service.RankingService;
@@ -25,6 +27,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,15 +62,27 @@ class ReviewControllerTest {
     @Mock
     List<String> mockList;
 
-//    @Test
-//    void feedback() {
-//    }
+    @Test
+    void testCustomerFeedback() throws Exception {
+        CustomerFeedback CustomerFeedback1 = new CustomerFeedback();
+        CustomerFeedback1.setContractor_name("test masonry");
+        when(reviewrepo.save(CustomerFeedback1)).thenReturn(CustomerFeedback1);
+        this.mockMvc.perform(post("/customer/api//feedback")
+                .content(asJsonString(CustomerFeedback1))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
+    }
 
-
-//    @Test
-//    void servicehistory() {
-//    }
-//
+    @Test
+    public void servicehistory() throws Exception {
+        List<ServiceOrderEntity> serviceOrderEntitys= 	Arrays.asList( new ServiceOrderEntity());
+        serviceOrderEntitys = serviceOrderRepository.findWorkOrder_History(137);
+        when(serviceOrderEntitys).thenReturn(serviceOrderEntitys);
+        mockMvc.perform(get("/customer/api//servicehistory/137")
+                .content(asJsonString(serviceOrderEntitys))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
+    }
 
     @Test
     void testgetUser() throws Exception {
