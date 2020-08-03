@@ -10,7 +10,7 @@ function toCamelCase(str){
 }
 
 $(document).ready(function () {
-
+    $('.alert-danger').hide();
     var $login = $('#login');
     var $user = $("#user");
     var isAuthenticated = localStorage.getItem('username');
@@ -79,6 +79,43 @@ $(document).ready(function () {
     }
 });
 
+
+function weightageChange(){
+    const currentVal = parseFloat($("#weightage").val());
+    if(currentVal < 0 || currentVal > 1) {
+        displayErrorMsg("Enter value between 0 and 1");
+    } else {
+        const diffVal = 1.0 - currentVal;
+        if(Number.isNaN(diffVal)){
+           $("#rating").val();
+        }else {
+            $("#rating").val(diffVal.toFixed(1));
+        }
+    }
+}
+
+function ratingChange() {
+    const currentVal = parseFloat($("#rating").val());
+    if(currentVal < 0 || currentVal > 1) {
+        displayErrorMsg("Enter value between 0 and 1");
+    }else {
+        const diffVal = 1.0 - currentVal;
+        if(Number.isNaN(diffVal)){
+            $("#weightage").val();
+        }else {
+            $("#weightage").val(diffVal.toFixed(1));
+        }
+    }
+}
+
+function submitValues(){
+    // Submit action should update data 
+}
+
+function displayErrorMsg(msg){
+    $("#error_msg").html(msg);
+    $("#error_rating").show();
+}
 
 //     function getWorkOrder(id){
 //         $.ajax({

@@ -90,7 +90,7 @@ class CustomerControllerTest {
 
         System.out.println(asJsonString(name));
         this.mockMvc.perform(post("/customer/api/login")
-                .content(String.valueOf((customer)))
+                .content(asJsonString((customer)))
                 .contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 
     }
