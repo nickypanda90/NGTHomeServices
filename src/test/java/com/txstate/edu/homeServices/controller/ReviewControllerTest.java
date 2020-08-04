@@ -1,10 +1,7 @@
 package com.txstate.edu.homeServices.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.txstate.edu.homeServices.model.CustomerRating;
-import com.txstate.edu.homeServices.model.CustomerRegistration;
-import com.txstate.edu.homeServices.model.CustomerFeedback;
-import com.txstate.edu.homeServices.model.ServiceOrderEntity;
+import com.txstate.edu.homeServices.model.*;
 import com.txstate.edu.homeServices.repository.ReviewRepository;
 import com.txstate.edu.homeServices.repository.ServiceOrderRepository;
 import com.txstate.edu.homeServices.service.RankingService;
@@ -25,6 +22,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -99,19 +98,6 @@ class ReviewControllerTest {
                         .isOk());
     }
 
-    @Test
-    public void testdisplaycontractorlist() throws Exception {
-
-        List<CustomerRating> customerRatings =
-                Arrays.asList(
-                        new CustomerRating(1, "Test1", "Cat1", 4.5));
-        when(rankingService.getContractorRanking()).thenReturn(customerRatings);
-        mockMvc.perform(get("/customer/api/getcontractorlist"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(containsString("Test1")));
-    }
-
 
     public static String asJsonString(final Object obj) {
         try {
@@ -119,6 +105,26 @@ class ReviewControllerTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    public void testdisplaycontractorlist() throws Exception {
+        RatingRequest rating =new RatingRequest();
+        rating.setCustomerReviewW((float) 0.7);
+        rating.setRatingW((float) 0.3);
+        List<CustomerRating> customerRatings =
+                Arrays.asList(
+                        new CustomerRating(1, "Test1", "Cat1", 4.5));
+
+
+        when(rankingService.getContractorRanking(rating)).thenReturn((customerRatings));
+
+        this.mockMvc.perform(post("/customer/api/getcontractorlist")
+                .content(asJsonString(rating))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test

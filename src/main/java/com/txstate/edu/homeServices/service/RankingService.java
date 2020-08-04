@@ -1,6 +1,7 @@
 package com.txstate.edu.homeServices.service;
 
 import com.txstate.edu.homeServices.model.CustomerRating;
+import com.txstate.edu.homeServices.model.RatingRequest;
 import com.txstate.edu.homeServices.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,15 @@ public class RankingService {
     ReviewRepository reviewRepository;
 
     final int BASE_SCORE = 100;
-    final double NO_CUSTOMER_REIVEW_WEIGHT = 0.60;
-    final double CUSTOMER_RATING_WEIGHT = 0.40;
+    double NO_CUSTOMER_REIVEW_WEIGHT = 0.60;
+    double CUSTOMER_RATING_WEIGHT = 0.40;
 
-    public List<CustomerRating> getContractorRanking()
+    public List<CustomerRating> getContractorRanking(RatingRequest ratingRequest)
     {
-
+        if(ratingRequest.getCustomerReviewW()!=null && ratingRequest.getRatingW()!=null){
+            NO_CUSTOMER_REIVEW_WEIGHT=ratingRequest.getCustomerReviewW();
+            CUSTOMER_RATING_WEIGHT = ratingRequest.getRatingW();
+        }
         List<CustomerRating>  customerRatingsBase = reviewRepository.display_Contractor_List();
         List<CustomerRating>  customerRatingsProcessed = new ArrayList<>();
 
