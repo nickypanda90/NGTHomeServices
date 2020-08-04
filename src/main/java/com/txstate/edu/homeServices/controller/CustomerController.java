@@ -121,7 +121,7 @@ public class CustomerController {
     }
 
     /** this will allow user to reset password
-     * @param customerregistration
+     * @param customer registration
      * @param request
      * @return new password
      */
