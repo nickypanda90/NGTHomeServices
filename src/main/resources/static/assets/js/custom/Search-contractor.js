@@ -9,17 +9,23 @@ function toCamelCase(str){
     }).join('');
 }
 
-$(document).ready(function () {
-    $('.alert-danger').hide();
-    var $login = $('#login');
-    var $user = $("#user");
-    var isAuthenticated = localStorage.getItem('username');
-    var role = localStorage.getItem("role");
-    var id = localStorage.getItem("id");
-    var table = $('#serviceOrderTbl1').DataTable({
-        "sAjaxSource": "/customer/api/getcontractorlist",
-        "sAjaxDataProp": "",
-        "order": [[ 0, "asc" ]],
+function renderDataTable(){
+
+
+    var ratingObject = {"ratingW": $("#weightage").val(), "customerReviewW":$("#rating").val()};
+
+    $('#serviceOrderTbl1').dataTable({
+        destroy: true,
+        "ajax": {
+            "url": "/customer/api/getcontractorlist",
+            "type": "POST",
+            "contentType": "application/json",
+            data:function(d){
+                return JSON.stringify(ratingObject);
+            },
+            "dataSrc": ""
+        }
+        ,
         "columns": [
             { "data": "rank" },
             {
@@ -27,29 +33,116 @@ $(document).ready(function () {
                 render: function(data, type,row, meta) {
                     return type === 'display' ?
                         '<a href="./service-page.html?serviceType='+ toCamelCase(row.review_catg) +'&selectedContractor='+data+'">' + data + '</a>' :
-                        data;
-                }}
-            ,
+                        data;}
+            },
             { "data": "review_catg" },
             {"data": "rating",
                 render: function(data, type,row, meta) {
-                return data.toFixed(2);
+                    return data.toFixed(2);
                 }
             },
-
             {
                 "data": 'count',
-                render: function(data, type,row, meta) {
+                render: function (data, type, row, meta) {
                     return type === 'display' ?
-                        '<progress value="' + data + '" max="'+row.max+'"></progress>&nbsp;&nbsp ('+data+')' :
+                        '<progress value="' + data + '" max="' + row.max + '"></progress>&nbsp;&nbsp (' + data + ')' :
                         data;
 
                 }
-            },
-            { "data": "score" }
-
+            }
+            // },
+            // { "data": "score" }
         ]
-    })
+    });
+
+}
+$(document).ready(function () {
+   // var ratingObject = {"ratingW": $("#weightage").val(), "customerReviewW":$("#rating").val()};
+    var ratingObject = {'ratingW': 0.5, 'customerReviewW':0.5};
+//    console.log(jsonObj);
+    $('#serviceOrderTbl1').dataTable({
+        "destroy" : true,
+        "ajax": {
+            "url": "/customer/api/getcontractorlist",
+            "type": "POST",
+            "contentType": "application/json",
+            data:function(d){
+                return JSON.stringify(ratingObject);
+            },
+            "dataSrc": ""
+         }
+    ,
+        "columns": [
+            { "data": "rank" },
+            {
+                "data": 'name',
+                render: function(data, type,row, meta) {
+                    return type === 'display' ?
+                        '<a href="./service-page.html?serviceType='+ toCamelCase(row.review_catg) +'&selectedContractor='+data+'">' + data + '</a>' :
+                        data;}
+            },
+            { "data": "review_catg" },
+            {"data": "rating",
+                render: function(data, type,row, meta) {
+                    return data.toFixed(2);
+                }
+            },
+            {
+                "data": 'count',
+                render: function (data, type, row, meta) {
+                    return type === 'display' ?
+                        '<progress value="' + data + '" max="' + row.max + '"></progress>&nbsp;&nbsp (' + data + ')' :
+                        data;
+
+                }
+            }
+            // },
+            // { "data": "score" }
+       ]
+    });
+    $('.alert-danger').hide();
+    var $login = $('#login');
+    var $user = $("#user");
+    var isAuthenticated = localStorage.getItem('username');
+    var role = localStorage.getItem("role");
+    var id = localStorage.getItem("id");
+    // var table = $('#serviceOrderTbl1').DataTable({
+    //     "sAjaxSource": "/customer/api/getcontractorlist",
+    //     "sAjaxDataProp": "",
+    //     "order": [[ 0, "asc" ]],
+    //     "type": "POST",
+    //     "contentType": "application/json",
+    //     "data":  JSON.stringify( ratingObject ),
+    //     "columns": [
+    //         { "data": "rank" },
+    //         {
+    //             "data": 'name',
+    //             render: function(data, type,row, meta) {
+    //                 return type === 'display' ?
+    //                     '<a href="./service-page.html?serviceType='+ toCamelCase(row.review_catg) +'&selectedContractor='+data+'">' + data + '</a>' :
+    //                     data;
+    //             }}
+    //         ,
+    //         { "data": "review_catg" },
+    //         {"data": "rating",
+    //             render: function(data, type,row, meta) {
+    //             return data.toFixed(2);
+    //             }
+    //         },
+    //
+    //         {
+    //             "data": 'count',
+    //             render: function(data, type,row, meta) {
+    //                 return type === 'display' ?
+    //                     '<progress value="' + data + '" max="'+row.max+'"></progress>&nbsp;&nbsp ('+data+')' :
+    //                     data;
+    //
+    //             }
+    //         },
+    //         { "data": "score" }
+    //
+    //     ]
+    // })
 
 
     if (isAuthenticated && role && id) {
@@ -92,6 +185,7 @@ function weightageChange(){
             $("#rating").val(diffVal.toFixed(1));
         }
     }
+    // renderDataTable();
 }
 
 function ratingChange() {
@@ -106,10 +200,12 @@ function ratingChange() {
             $("#weightage").val(diffVal.toFixed(1));
         }
     }
+    // renderDataTable();
+
 }
 
 function submitValues(){
-    // Submit action should update data 
+    renderDataTable();
 }
 
 function displayErrorMsg(msg){
