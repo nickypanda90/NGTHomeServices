@@ -90,11 +90,23 @@ public class ReviewController {
      * @param request
      * @return contractor ranking
      */
-    @GetMapping("/getcontractorlist")
-    public List<CustomerRating> displaycontractorlist(HttpServletRequest request)
+//    @GetMapping("/getcontractorlist")
+//    public List<CustomerRating> displaycontractorlist(HttpServletRequest request)
+//    {
+//        return rankingService.getContractorRanking();
+//    }
+
+    /**
+     * this will show the list of contractor along with their ranking
+     * @param request
+     * @return contractor ranking
+     */
+    @PostMapping("/getcontractorlist")
+    public List<CustomerRating> displaycontractorlist(@RequestBody RatingRequest ratingRequest,HttpServletRequest request)
     {
-        return rankingService.getContractorRanking();
+        return rankingService.getContractorRanking(ratingRequest);
     }
+
 
     /**
      * this will dispaly contractor name on the basis of category
