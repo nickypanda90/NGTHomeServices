@@ -28,7 +28,7 @@ function submitLoginForm() {
               window.location.replace(redirectUrl);  
             }else {
               localStorage.clear();
-              displayErrorMsg('Some error occured while login');
+              displayErrorMsg("Incorrect Username/Password!!!");
             }
       });
 }
