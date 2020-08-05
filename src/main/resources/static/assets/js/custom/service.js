@@ -61,6 +61,9 @@ $(document).ready(function () {
 
 function getAmountValueFromService() {
     let serviceType = getUrlVars()["serviceType"];
+    if(serviceType.split('#')){
+        serviceType = serviceType.split('#')[0];
+    }
     return amountMapFunc()[serviceType];
 }
 

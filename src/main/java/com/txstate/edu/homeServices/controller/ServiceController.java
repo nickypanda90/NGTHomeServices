@@ -46,7 +46,7 @@ public class ServiceController {
      * this will create new service order
      * @param serviceOrder
      * @param request
-     * @return new service request order
+     * @return new service request orderx`
      */
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -57,7 +57,6 @@ public class ServiceController {
         serviceOrder.setCustomerId(customer.getCustomer_Id());
         return orderService.createServiceOrder(serviceOrder);
     }
-
     /**
      * this will update service-history status request by customer
      * @param serviceOrder
