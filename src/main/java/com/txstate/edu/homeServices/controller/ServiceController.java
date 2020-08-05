@@ -34,9 +34,10 @@ public class ServiceController {
 
     /**
      * this will Check customer using the service is first time(True- first time)
-     * @param customerId
+     * @param customerId checking for first time user
      * @return boolean value
      */
+
     @GetMapping(value = "/customer/{customer_id}/firsttimeuser", produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean isFirstTimeUser(@PathVariable("customer_id") Integer customerId) {
         return orderService.isFirstTimeUser(customerId);
@@ -44,9 +45,9 @@ public class ServiceController {
 
     /**
      * this will create new service order
-     * @param serviceOrder
-     * @param request
-     * @return new service request orderx`
+     * @param serviceOrder for new service request
+     * @param request sending mail for confirmation
+     * @return new service request order
      */
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -57,9 +58,10 @@ public class ServiceController {
         serviceOrder.setCustomerId(customer.getCustomer_Id());
         return orderService.createServiceOrder(serviceOrder);
     }
+
     /**
      * this will update service-history status request by customer
-     * @param serviceOrder
+     * @param serviceOrder requested service will be updated
      * @return updated service order status
      */
 
@@ -73,7 +75,7 @@ public class ServiceController {
 
     /**
      * this will update service work order by contractor
-     * @param serviceOrder
+     * @param serviceOrder service request will be updated on work order page for contractor
      * @return updated work order status
      */
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -86,8 +88,8 @@ public class ServiceController {
 
     /**
      * this will enable payment and save payment details
-     * @param paymentInfo
-     * @param request
+     * @param paymentInfo to process payment
+     * @param request for retrieving request or parameters
      * @return order confirmation details
      */
     @PostMapping(value = "/payment", produces = MediaType.APPLICATION_JSON_VALUE)

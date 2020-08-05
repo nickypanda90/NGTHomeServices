@@ -24,7 +24,7 @@ public class ServiceDisplay {
 
     /**
      * this will display all service category
-     * @param requestServices
+     * @param requestServices requesting for service list to display
      * @return service category list
      */
     @PostMapping("/displayServices")
