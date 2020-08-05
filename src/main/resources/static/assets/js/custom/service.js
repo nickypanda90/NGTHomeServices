@@ -61,6 +61,9 @@ $(document).ready(function () {
 
 function getAmountValueFromService() {
     let serviceType = getUrlVars()["serviceType"];
+    if(serviceType.split('#')){
+        serviceType = serviceType.split('#')[0];
+    }
     return amountMapFunc()[serviceType];
 }
 
@@ -110,7 +113,7 @@ function validatePromo(){
                 displayConfirmationMsg("Promo Code successfully applied!!");
                 $('#serviceAmt').val(newAmount);
             } else {
-                displayErrorMsg("Promo Code cannot be applied for first use");
+                displayErrorMsg("Promo Code cannot be applied for firsttime user");
             }
             promo.val('');
         });

@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+
 @RestController
 @RequestMapping("/business/api")
 public class BusinessController {
@@ -27,7 +28,13 @@ public class BusinessController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * this will save contractor details while registering
+     * @param contractor
+     * @param request
+     * @return registration details
+     */
+    @PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public CustomerRegistration registerBusiness(@Valid @RequestBody CustomerRegistration contractor, HttpServletRequest request) {
         log.debug("Registering business for {}", contractor);
@@ -37,6 +44,11 @@ public class BusinessController {
         return contractor;
     }
 
+    /**
+     * this will send confirmation mail to contractor after registration
+     * @param contractor
+     * @param request
+     */
     private void sendRegistrationEmail(CustomerRegistration contractor, HttpServletRequest request) {
         log.debug("Sending registration email to {}", contractor.getEmail_id());
         try {
@@ -54,6 +66,12 @@ public class BusinessController {
         }
     }
 
+    /**
+     * 2
+     * this will provide list of service category
+     * @param category
+     * @return category list
+     */
     @GetMapping(value = "/category/{category}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CustomerRegistration> getServices(@PathVariable("category") String category) {
         return repository.findByBusiness_category(category);
