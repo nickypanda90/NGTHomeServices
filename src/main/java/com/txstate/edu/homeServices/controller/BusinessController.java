@@ -28,9 +28,12 @@ public class BusinessController {
     @Autowired
     private EmailService emailService;
 
+    /***
+     *
+     */
     /**
      * this will save contractor details while registering
-     * @param contractor
+     * @param contractor registering for contractor
      * @param request
      * @return registration details
      */
@@ -46,8 +49,8 @@ public class BusinessController {
 
     /**
      * this will send confirmation mail to contractor after registration
-     * @param contractor
-     * @param request
+     * @param contractor  registering contractor
+     * @param request sending for mail after registration
      */
     private void sendRegistrationEmail(CustomerRegistration contractor, HttpServletRequest request) {
         log.debug("Sending registration email to {}", contractor.getEmail_id());

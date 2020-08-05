@@ -4,9 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.txstate.edu.homeServices.model.CustomerRegistration;
 import com.txstate.edu.homeServices.repository.CustomerRepository;
 import com.txstate.edu.homeServices.service.EmailService;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -38,6 +41,13 @@ class BusinessControllerTest {
 
     @MockBean
     private EmailService emailService;
+
+
+    @BeforeEach
+    public void setUp() throws Exception {
+
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void testRegisterBusiness() throws Exception {
