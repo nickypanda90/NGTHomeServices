@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "title": "Exploring assumptions if a dependency starts responding slowly",
+  "description": "Uses the Spring Chaos Monkey to manipulate a service",
+  "tags": [
+    "service",
+    "spring"
+  ],
+  "steady-state-hypothesis": {
+    "probes": [
+      {
+        "name": "user-details-display-data-respond",
+        "provider": {
+          "type": "http",
+          "url": "http://localhost:8080/customer/api/getuserdetails"
+        },
+        "tolerance": 500,
+        "type": "probe"
+      }
+    ],
+    "title": "System is healthy"
+  },
+  "method": [
+    {
+      "name": "enable_chaosmonkey",
+      "provider": {
+        "arguments": {
+          "base_url": "http://localhost:8080/actuator"
+        },
+        "func": "enable_chaosmonkey",
+        "module": "chaosspring.actions",
+        "type": "python"
+      },
+      "type": "action"
+    },
+    {
+      "name": "configure_assaults",
+      "provider": {
+        "arguments": {
+          "base_url": "http://localhost:8080/actuator",
+          "assaults_configuration": {
+            "level": 1,
+            "latencyActive": false,
+            "exceptionsActive": true,
+            "killApplicationActive": false,
+            "restartApplicationActive": false
+          }
+        },
+        "func": "change_assaults_configuration",
+        "module": "chaosspring.actions",
+        "type": "python"
+      },
+      "type": "action"
+    }
+  ],
+  "rollbacks": []
+}

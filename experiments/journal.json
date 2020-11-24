@@ -1,0 +1,112 @@
+{
+  "chaoslib-version": "1.15.1",
+  "platform": "macOS-10.14.6-x86_64-i386-64bit",
+  "node": "Nicky-MBP",
+  "experiment": {
+    "version": "1.0.0",
+    "title": "Setting and triggering service dependency death",
+    "description": "Uses the Spring Chaos Monkey to manipulate a service",
+    "tags": [
+      "service",
+      "spring"
+    ],
+    "steady-state-hypothesis": {
+      "probes": [
+        {
+          "name": "user-details-must-still-respond",
+          "provider": {
+            "type": "http",
+            "url": "http://localhost:8080/customer/api/getuserdetails"
+          },
+          "tolerance": 500,
+          "type": "probe"
+        }
+      ],
+      "title": "System is healthy"
+    },
+    "method": [
+      {
+        "name": "enable_chaosmonkey",
+        "provider": {
+          "arguments": {
+            "base_url": "http://localhost:8080/actuator"
+          },
+          "func": "enable_chaosmonkey",
+          "module": "chaosspring.actions",
+          "type": "python"
+        },
+        "type": "action"
+      },
+      {
+        "name": "configure_assaults",
+        "provider": {
+          "arguments": {
+            "base_url": "http://localhost:8080/actuator",
+            "assaults_configuration": {
+              "level": 1,
+              "latencyActive": false,
+              "exceptionsActive": false,
+              "killApplicationActive": true,
+              "restartApplicationActive": false
+            }
+          },
+          "func": "change_assaults_configuration",
+          "module": "chaosspring.actions",
+          "type": "python"
+        },
+        "type": "action"
+      },
+      {
+        "name": "trigger-kill",
+        "provider": {
+          "type": "http",
+          "url": "http://localhost:8080/"
+        },
+        "type": "probe"
+      }
+    ],
+    "rollbacks": [],
+    "dry": false
+  },
+  "start": "2020-11-24T02:37:01.807194",
+  "status": "failed",
+  "deviated": false,
+  "steady_states": {
+    "before": {
+      "steady_state_met": false,
+      "probes": [
+        {
+          "activity": {
+            "name": "user-details-must-still-respond",
+            "provider": {
+              "type": "http",
+              "url": "http://localhost:8080/customer/api/getuserdetails"
+            },
+            "tolerance": 500,
+            "type": "probe"
+          },
+          "output": {
+            "status": 200,
+            "headers": {
+              "Set-Cookie": "JSESSIONID=202388D948FC1A569E6BE391B296D307; Path=/; HttpOnly",
+              "Content-Length": "0",
+              "Date": "Tue, 24 Nov 2020 02:37:01 GMT"
+            },
+            "body": ""
+          },
+          "status": "succeeded",
+          "start": "2020-11-24T02:37:01.811318",
+          "end": "2020-11-24T02:37:01.827554",
+          "duration": 0.016236,
+          "tolerance_met": false
+        }
+      ]
+    },
+    "after": null,
+    "during": []
+  },
+  "run": [],
+  "rollbacks": [],
+  "end": "2020-11-24T02:37:01.828562",
+  "duration": 0.05176663398742676
+}

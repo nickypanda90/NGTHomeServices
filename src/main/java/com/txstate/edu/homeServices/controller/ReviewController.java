@@ -60,7 +60,7 @@ public class ReviewController {
 
     @GetMapping  ("/servicehistory/{customer_id}")
 
-      public List<ServiceOrderEntity> servicehistory(@PathVariable("customer_id") Integer customer_id, HttpServletRequest request)
+    public List<ServiceOrderEntity> servicehistory(@PathVariable("customer_id") Integer customer_id, HttpServletRequest request)
     {
         List<ServiceOrderEntity> serviceOrderEntitys;
         serviceOrderEntitys = serviceOrderRepository.findWorkOrder_History(customer_id);
@@ -76,13 +76,16 @@ public class ReviewController {
      */
     @GetMapping("/getuserdetails")
     public CustomerRegistration getUser(HttpServletRequest request) {
+        try{
+            CustomerRegistration user = new CustomerRegistration();
 
-        CustomerRegistration user = new CustomerRegistration();
-
-        user= (CustomerRegistration) request.getSession().getAttribute("USER_DETAILS_EXPANDED");
+            user= (CustomerRegistration) request.getSession().getAttribute("USER_DETAILS_EXPANDED");
 
 
-        return user;
+            return user;}
+        catch (Exception e){
+            return null;
+        }
     }
 
     /**
@@ -117,7 +120,7 @@ public class ReviewController {
     @PostMapping("/getcontractorname")
     public List<String> getContractorName(@Valid @RequestBody CustomerRegistration customerRegistration, HttpServletRequest request) {
 
-       return reviewRepository.getContractors(customerRegistration.getBusiness_category());
+        return reviewRepository.getContractors(customerRegistration.getBusiness_category());
 
     }
 }
